@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+:root {
+  --bg-primary: #0C0D10;
+  --bg-surface: #17191F;
+  --bg-surface-elevated: #1E2129;
+  --accent-primary: #D4FF3F;
+  --accent-on-primary: #0C0D10;
+  --accent-lavender: #B8A7FF;
+  --ivory: #F5F2EA;
+  --text-primary: #F8F9FC;
+  --text-secondary: #9296A3;
+  --border-subtle: #2A2D35;
+  --success: #34D399;
+  --warning: #FBBF24;
+  --error: #FB7185;
+
+  --gradient-accent: linear-gradient(135deg, #D4FF3F 0%, #8EF0A7 100%);
+  --gradient-atmospheric: linear-gradient(135deg, #17191F 0%, #302747 50%, #0C0D10 100%);
+  --gradient-lavender: linear-gradient(135deg, #B8A7FF 0%, #E3C9FF 100%);
+
+  --font-display: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+}
+
+[data-theme="light"] {
+  --bg-primary: #F5F2EA;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #EFECE3;
+  --accent-primary: #527A00;
+  --accent-on-primary: #FFFFFF;
+  --accent-lavender: #E5DFFF;
+  --ivory: #F5F2EA;
+  --text-primary: #15171B;
+  --text-secondary: #626672;
+  --border-subtle: #E4E1D9;
+  --success: #059669;
+  --warning: #D97706;
+  --error: #E11D48;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono-tech {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Focus visibility for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* Custom subtle grain texture */
+.grain-overlay {
+  background-image: radial-gradient(rgba(248, 249, 252, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+[data-theme="light"] .grain-overlay {
+  background-image: radial-gradient(rgba(21, 23, 27, 0.035) 1px, transparent 0);
+}
+
+/* Perforated ticket notches */
+.ticket-notch-left {
+  background: radial-gradient(circle at 0 50%, var(--bg-primary) 12px, transparent 13px);
+}
+.ticket-notch-right {
+  background: radial-gradient(circle at 100% 50%, var(--bg-primary) 12px, transparent 13px);
+}
+
+/* Hide scrollbar for horizontal editorial tracks */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Reduced motion compliance */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #FFFFFF !important;
+    color: #0C0D10 !important;
+  }
+}
