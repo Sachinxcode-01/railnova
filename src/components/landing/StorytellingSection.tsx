@@ -71,6 +71,12 @@ export function StorytellingSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const prefersReduced = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [manualSelection, setManualSelection] = useState(false);
+
+  const selectChapter = (idx: number) => {
+    setManualSelection(true);
+    setActiveIndex(idx);
+  };
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -105,7 +111,18 @@ export function StorytellingSection() {
           <div className="w-full lg:w-72 space-y-2">
             <div className="flex items-center justify-between text-[11px] font-mono-tech text-(--text-secondary)">
               <span>STORY PROGRESS</span>
-              <span>0{activeIndex + 1} / 0{CHAPTERS.length}</span>
+              <div className="flex items-center gap-2">
+                {manualSelection && (
+                  <button
+                    type="button"
+                    onClick={() => setManualSelection(false)}
+                    className="text-(--accent-primary) underline-offset-2 hover:underline cursor-pointer"
+                  >
+                    Resume sync
+                  </button>
+                )}
+                <span>0{activeIndex + 1} / 0{CHAPTERS.length}</span>
+              </div>
             </div>
             <div className="h-1.5 w-full rounded-full bg-(--border-subtle) overflow-hidden">
               <motion.div
@@ -125,23 +142,24 @@ export function StorytellingSection() {
                 <motion.button
                   key={chapter.id}
                   type="button"
-                  onClick={() => setActiveIndex(idx)}
-                  onViewportEnter={() => setActiveIndex(idx)}
+                  aria-pressed={isSelected}
+                  onClick={() => selectChapter(idx)}
+                  onViewportEnter={() => {
+                    if (!manualSelection) setActiveIndex(idx);
+                  }}
                   viewport={{ amount: 0.6 }}
-                  className={`w-full text-left rounded-2xl border p-6 transition-all cursor-pointer ${
-                    isSelected
+                  className={`w-full text-left rounded-2xl border p-6 transition-all cursor-pointer ${isSelected
                       ? 'border-(--accent-primary) bg-(--bg-surface) shadow-lg'
                       : 'border-(--border-subtle) bg-(--bg-surface)/50 opacity-75 hover:opacity-100'
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center justify-between gap-3 mb-3">
                     <span className="font-mono-tech text-xs uppercase tracking-wider text-(--accent-primary)">
                       {chapter.step}
                     </span>
                     <span
-                      className={`h-2.5 w-2.5 rounded-full transition-colors ${
-                        isSelected ? 'bg-(--accent-primary)' : 'bg-(--border-subtle)'
-                      }`}
+                      className={`h-2.5 w-2.5 rounded-full transition-colors ${isSelected ? 'bg-(--accent-primary)' : 'bg-(--border-subtle)'
+                        }`}
                     />
                   </div>
 
@@ -180,105 +198,107 @@ export function StorytellingSection() {
 
           {/* Right: Sticky Solution Transformation Panel */}
           <div className="lg:col-span-6 lg:sticky lg:top-24">
-            <motion.div
-              key={active.id}
-              initial={prefersReduced ? false : { opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.32 }}
-              className="rounded-2xl border border-[#2A2D35] bg-[#0C0D10] text-[#F8F9FC] p-6 sm:p-8 space-y-6 shadow-2xl"
-            >
-              <div className="flex items-center justify-between gap-4 border-b border-[#2A2D35] pb-4">
-                <div className="flex items-center gap-2.5">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#D4FF3F] text-[#0C0D10]">
-                    {activeIndex === 0 ? (
-                      <Compass className="h-4 w-4" />
-                    ) : activeIndex === 1 ? (
-                      <Layers className="h-4 w-4" />
-                    ) : (
-                      <Radio className="h-4 w-4" />
-                    )}
-                  </span>
-                  <div>
-                    <div className="text-[11px] font-mono-tech uppercase tracking-wider text-[#9296A3]">
-                      Chapter {active.step}
+                      <div className="rounded-2xl border border-[#2A2D35] bg-[#0C0D10] text-[#F8F9FC] p-6 sm:p-8 space-y-6 shadow-2xl">
+                        <motion.div
+                          key={active.id}
+                          initial={prefersReduced ? false : { opacity: 0, y: 14 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.32 }}
+                          className="space-y-6"
+                        >
+                          <div className="flex items-center justify-between gap-4 border-b border-[#2A2D35] pb-4">
+                            <div className="flex items-center gap-2.5">
+                              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#D4FF3F] text-[#0C0D10]">
+                                {activeIndex === 0 ? (
+                                  <Compass className="h-4 w-4" />
+                                ) : activeIndex === 1 ? (
+                                  <Layers className="h-4 w-4" />
+                                ) : (
+                                  <Radio className="h-4 w-4" />
+                                )}
+                              </span>
+                              <div>
+                                <div className="text-[11px] font-mono-tech uppercase tracking-wider text-[#9296A3]">
+                                  Chapter {active.step}
+                                </div>
+                                <div className="font-display text-base font-bold text-[#F8F9FC]">
+                                  Friction → Clarity Shift
+                                </div>
+                              </div>
+                            </div>
+                            <span className="rounded-full border border-[#D4FF3F]/40 bg-[#D4FF3F]/10 px-3 py-1 font-mono-tech text-[11px] text-[#D4FF3F]">
+                              SOLVED
+                            </span>
+                          </div>
+
+                            {/* Before vs After Comparison */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                              <div className="rounded-xl border border-[#2A2D35] bg-[#17191F] p-4 space-y-1.5">
+                                <div className="text-[10px] font-mono-tech uppercase tracking-wider text-[#FB7185]">
+                                  Before · Legacy Flow
+                                </div>
+                                <div className="font-display text-base font-semibold text-[#F8F9FC]">
+                                  {active.legacyMetric}
+                                </div>
+                                <p className="text-xs text-[#A3A8B8]">
+                                  High cognitive load, unclear berth visibility, fragmented status checks.
+                                </p>
+                              </div>
+
+                                <div className="rounded-xl border border-[#D4FF3F]/40 bg-[#17191F] p-4 space-y-1.5">
+                                  <div className="text-[10px] font-mono-tech uppercase tracking-wider text-[#D4FF3F]">
+                                    After · RailNova
+                                  </div>
+                                  <div className="font-display text-base font-semibold text-[#F8F9FC]">
+                                    {active.railnovaMetric}
+                                  </div>
+                                  <p className="text-xs text-[#A3A8B8]">
+                                    Single-screen speed with live visual cues and instant boarding artifacts.
+                                  </p>
+                                </div>
+                              </div>
+
+                            <p className="text-sm text-[#D1D5E0] leading-relaxed">{active.solutionDetail}</p>
+
+                            <ul className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                              {active.highlights.map((item) => (
+                                <li
+                                  key={item}
+                                  className="rounded-lg border border-[#2A2D35] bg-[#17191F]/90 px-3 py-2.5 text-xs font-medium text-[#F8F9FC] flex items-center gap-2"
+                                >
+                                  <span className="h-1.5 w-1.5 rounded-full bg-[#D4FF3F] shrink-0" />
+                                  <span>{item}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </motion.div>
+
+                          <div className="pt-2 flex flex-wrap items-center justify-between gap-4">
+                              <div className="flex items-center gap-2" role="group" aria-label="Chapter selector">
+                                {CHAPTERS.map((c, idx) => (
+                                  <button
+                                    key={c.id}
+                                    type="button"
+                                    aria-pressed={idx === activeIndex}
+                                    onClick={() => selectChapter(idx)}
+                                    aria-label={`View chapter ${idx + 1}: ${c.step}`}
+                                    className={`h-2 rounded-full transition-all cursor-pointer ${idx === activeIndex ? 'w-7 bg-[#D4FF3F]' : 'w-2 bg-[#2A2D35] hover:bg-[#626672]'
+                                      }`}
+                                  />
+                                ))}
+                              </div>
+                              <Link
+                                href={active.ctaHref}
+                                className="inline-flex items-center gap-2 rounded-lg bg-[#D4FF3F] px-4 py-2.5 text-xs font-semibold text-[#0C0D10] hover:brightness-95 transition"
+                              >
+                                <span>{active.ctaLabel}</span>
+                                <ArrowUpRight className="h-3.5 w-3.5" />
+                              </Link>
+                            </div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="font-display text-base font-bold text-[#F8F9FC]">
-                      Friction → Clarity Shift
-                    </div>
                   </div>
-                </div>
-                <span className="rounded-full border border-[#D4FF3F]/40 bg-[#D4FF3F]/10 px-3 py-1 font-mono-tech text-[11px] text-[#D4FF3F]">
-                  SOLVED
-                </span>
-              </div>
-
-              {/* Before vs After Comparison */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="rounded-xl border border-[#2A2D35] bg-[#17191F] p-4 space-y-1.5">
-                  <div className="text-[10px] font-mono-tech uppercase tracking-wider text-[#FB7185]">
-                    Before · Legacy Flow
-                  </div>
-                  <div className="font-display text-base font-semibold text-[#F8F9FC]">
-                    {active.legacyMetric}
-                  </div>
-                  <p className="text-xs text-[#A3A8B8]">
-                    High cognitive load, unclear berth visibility, fragmented status checks.
-                  </p>
-                </div>
-
-                <div className="rounded-xl border border-[#D4FF3F]/40 bg-[#17191F] p-4 space-y-1.5">
-                  <div className="text-[10px] font-mono-tech uppercase tracking-wider text-[#D4FF3F]">
-                    After · RailNova
-                  </div>
-                  <div className="font-display text-base font-semibold text-[#F8F9FC]">
-                    {active.railnovaMetric}
-                  </div>
-                  <p className="text-xs text-[#A3A8B8]">
-                    Single-screen speed with live visual cues and instant boarding artifacts.
-                  </p>
-                </div>
-              </div>
-
-              <p className="text-sm text-[#D1D5E0] leading-relaxed">{active.solutionDetail}</p>
-
-              <ul className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                {active.highlights.map((item) => (
-                  <li
-                    key={item}
-                    className="rounded-lg border border-[#2A2D35] bg-[#17191F]/90 px-3 py-2.5 text-xs font-medium text-[#F8F9FC] flex items-center gap-2"
-                  >
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#D4FF3F] shrink-0" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="pt-2 flex flex-wrap items-center justify-between gap-4">
-                <div className="flex items-center gap-2">
-                  {CHAPTERS.map((c, idx) => (
-                    <button
-                      key={c.id}
-                      type="button"
-                      onClick={() => setActiveIndex(idx)}
-                      aria-label={`View chapter ${idx + 1}: ${c.step}`}
-                      className={`h-2 rounded-full transition-all cursor-pointer ${
-                        idx === activeIndex ? 'w-7 bg-[#D4FF3F]' : 'w-2 bg-[#2A2D35] hover:bg-[#626672]'
-                      }`}
-                    />
-                  ))}
-                </div>
-                <Link
-                  href={active.ctaHref}
-                  className="inline-flex items-center gap-2 rounded-lg bg-[#D4FF3F] px-4 py-2.5 text-xs font-semibold text-[#0C0D10] hover:brightness-95 transition"
-                >
-                  <span>{active.ctaLabel}</span>
-                  <ArrowUpRight className="h-3.5 w-3.5" />
-                </Link>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+                </section>
+                );
 }

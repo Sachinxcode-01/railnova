@@ -52,6 +52,7 @@ export function DestinationsSection() {
               <button
                 key={filter.id}
                 type="button"
+                aria-pressed={mood === filter.id}
                 onClick={() => setMood(filter.id)}
                 className={`rounded-lg px-3.5 py-2 text-xs font-semibold transition-colors cursor-pointer border ${
                   mood === filter.id

@@ -131,8 +131,9 @@ function TrainsContent() {
       </div>
 
       <SmartBookingPanel
-        initialFrom={from || 'SBC'}
-        initialTo={to || 'MAO'}
+        key={`${from}-${to}`}
+        initialFrom={from || (to ? '' : 'SBC')}
+        initialTo={to || (from ? '' : 'MAO')}
         initialDate={date}
         initialClass={classCodeParam}
         initialQuota={quotaParam}
@@ -198,11 +199,10 @@ function TrainsContent() {
                   key={w.id}
                   type="button"
                   onClick={() => setDepartureWindow(w.id)}
-                  className={`rounded-md border px-2.5 py-1.5 text-xs font-medium cursor-pointer transition-colors ${
-                    departureWindow === w.id
+                  className={`rounded-md border px-2.5 py-1.5 text-xs font-medium cursor-pointer transition-colors ${departureWindow === w.id
                       ? 'border-[var(--accent-primary)] bg-[var(--accent-primary)] text-[var(--accent-on-primary)]'
                       : 'border-[var(--border-subtle)] bg-[var(--bg-primary)] text-[var(--text-secondary)]'
-                  }`}
+                    }`}
                 >
                   {w.label}
                 </button>
@@ -325,11 +325,10 @@ function TrainsContent() {
                         {(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as const).map((d) => (
                           <span
                             key={d}
-                            className={`px-1.5 py-0.5 rounded ${
-                              train.runningDays.includes(d)
+                            className={`px-1.5 py-0.5 rounded ${train.runningDays.includes(d)
                                 ? 'text-[var(--text-primary)] bg-[var(--bg-primary)]'
                                 : 'opacity-30'
-                            }`}
+                              }`}
                           >
                             {d[0]}
                           </span>
@@ -372,8 +371,8 @@ function TrainsContent() {
                           c.status === 'AVAILABLE'
                             ? 'text-[var(--success)]'
                             : c.status === 'RAC'
-                            ? 'text-[var(--warning)]'
-                            : 'text-[var(--error)]';
+                              ? 'text-[var(--warning)]'
+                              : 'text-[var(--error)]';
 
                         return (
                           <button
@@ -385,11 +384,10 @@ function TrainsContent() {
                                 [train.number]: c.classCode,
                               }))
                             }
-                            className={`rounded-lg border px-3.5 py-2.5 text-left transition-all cursor-pointer min-w-[125px] ${
-                              isSelected
+                            className={`rounded-lg border px-3.5 py-2.5 text-left transition-all cursor-pointer min-w-[125px] ${isSelected
                                 ? 'border-[var(--accent-primary)] bg-[var(--accent-primary)]/10'
                                 : 'border-[var(--border-subtle)] bg-[var(--bg-primary)] hover:border-[var(--text-secondary)]'
-                            }`}
+                              }`}
                           >
                             <div className="flex items-center justify-between gap-3">
                               <span className="font-mono-tech text-xs font-bold">{c.classCode}</span>

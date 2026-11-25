@@ -95,33 +95,33 @@ export function FeaturesBentoSection() {
             </div>
 
             <div className="rounded-xl border border-(--border-subtle) bg-(--bg-surface) p-4 space-y-3">
-              <div className="flex flex-wrap gap-2">
-                {BERTH_DEMO.map((b, i) => (
-                  <button
-                    key={b.code}
-                    type="button"
-                    onClick={() => setSelectedBerth(i)}
-                    className={`rounded-lg px-3 py-1.5 text-xs font-mono-tech font-semibold transition-colors cursor-pointer border ${
-                      selectedBerth === i
-                        ? 'bg-(--accent-primary) text-(--accent-on-primary) border-(--accent-primary)'
-                        : 'bg-(--bg-primary) text-(--text-primary) border-(--border-subtle) hover:border-(--accent-primary)'
-                    }`}
+                <div className="flex flex-wrap gap-2" role="group" aria-label="Berth preview selector">
+                  {BERTH_DEMO.map((b, i) => (
+                    <button
+                      key={b.code}
+                      type="button"
+                      aria-pressed={selectedBerth === i}
+                      onClick={() => setSelectedBerth(i)}
+                      className={`rounded-lg px-3 py-1.5 text-xs font-mono-tech font-semibold transition-colors cursor-pointer border ${selectedBerth === i
+                          ? 'bg-(--accent-primary) text-(--accent-on-primary) border-(--accent-primary)'
+                          : 'bg-(--bg-primary) text-(--text-primary) border-(--border-subtle) hover:border-(--accent-primary)'
+                        }`}
+                    >
+                      {b.code} · {b.label}
+                    </button>
+                  ))}
+                </div>
+                <div className="flex items-center justify-between gap-4 pt-2 border-t border-(--border-subtle) text-xs">
+                  <span className="text-(--text-secondary)">{BERTH_DEMO[selectedBerth].note}</span>
+                  <Link
+                    href="/trains"
+                    className="inline-flex items-center gap-1 font-semibold text-(--accent-primary) shrink-0"
                   >
-                    {b.code} · {b.label}
-                  </button>
-                ))}
+                    <span>Try Coach Map</span>
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
               </div>
-              <div className="flex items-center justify-between gap-4 pt-2 border-t border-(--border-subtle) text-xs">
-                <span className="text-(--text-secondary)">{BERTH_DEMO[selectedBerth].note}</span>
-                <Link
-                  href="/trains"
-                  className="inline-flex items-center gap-1 font-semibold text-(--accent-primary) shrink-0"
-                >
-                  <span>Try Coach Map</span>
-                  <ArrowUpRight className="h-3.5 w-3.5" />
-                </Link>
-              </div>
-            </div>
           </motion.div>
 
           {/* Tile 2: Quota & Fare Switcher (5 cols) */}
@@ -141,30 +141,30 @@ export function FeaturesBentoSection() {
             </div>
 
             <div className="space-y-3">
-              <div className="flex flex-wrap gap-1.5">
-                {(['GN', 'TQ', 'PT', 'LD', 'SS'] as BookingQuotaCode[]).map((q) => (
-                  <button
-                    key={q}
-                    type="button"
-                    onClick={() => setSelectedQuota(q)}
-                    className={`rounded-md px-2.5 py-1.5 font-mono-tech text-xs font-semibold border transition-colors cursor-pointer ${
-                      selectedQuota === q
-                        ? 'bg-(--accent-primary) text-(--accent-on-primary) border-(--accent-primary)'
-                        : 'bg-(--bg-surface) text-(--text-secondary) border-(--border-subtle) hover:text-(--text-primary)'
-                    }`}
-                  >
-                    {q}
-                  </button>
-                ))}
-              </div>
-              <div className="rounded-xl border border-(--border-subtle) bg-(--bg-surface) p-3.5 space-y-1">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="font-semibold text-(--text-primary)">{QUOTA_LABELS[selectedQuota].name}</span>
-                  <span className="font-mono-tech text-(--accent-primary)">{QUOTA_MULTIPLIERS[selectedQuota]}</span>
+                <div className="flex flex-wrap gap-1.5" role="group" aria-label="Booking quota selector">
+                  {(['GN', 'TQ', 'PT', 'LD', 'SS'] as BookingQuotaCode[]).map((q) => (
+                    <button
+                      key={q}
+                      type="button"
+                      aria-pressed={selectedQuota === q}
+                      onClick={() => setSelectedQuota(q)}
+                      className={`rounded-md px-2.5 py-1.5 font-mono-tech text-xs font-semibold border transition-colors cursor-pointer ${selectedQuota === q
+                          ? 'bg-(--accent-primary) text-(--accent-on-primary) border-(--accent-primary)'
+                          : 'bg-(--bg-surface) text-(--text-secondary) border-(--border-subtle) hover:text-(--text-primary)'
+                        }`}
+                    >
+                      {q}
+                    </button>
+                  ))}
                 </div>
-                <p className="text-xs text-(--text-secondary)">{QUOTA_LABELS[selectedQuota].description}</p>
+                <div className="rounded-xl border border-(--border-subtle) bg-(--bg-surface) p-3.5 space-y-1">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-semibold text-(--text-primary)">{QUOTA_LABELS[selectedQuota].name}</span>
+                    <span className="font-mono-tech text-(--accent-primary)">{QUOTA_MULTIPLIERS[selectedQuota]}</span>
+                  </div>
+                  <p className="text-xs text-(--text-secondary)">{QUOTA_LABELS[selectedQuota].description}</p>
+                </div>
               </div>
-            </div>
           </motion.div>
 
           {/* Tile 3: Live Telemetry (4 cols) */}
@@ -205,34 +205,34 @@ export function FeaturesBentoSection() {
             <div className="space-y-2">
               <div className="flex items-center justify-between gap-2">
                 <Globe2 className="h-5 w-5 text-(--accent-primary)" />
-                <div className="flex gap-1">
-                  {(['en', 'hi', 'kn'] as const).map((lang) => (
-                    <button
-                      key={lang}
-                      type="button"
-                      onClick={() => setAiLang(lang)}
-                      className={`rounded px-2 py-0.5 font-mono-tech text-[11px] uppercase border cursor-pointer ${
-                        aiLang === lang
-                          ? 'bg-(--accent-primary) text-(--accent-on-primary) border-(--accent-primary)'
-                          : 'border-(--border-subtle) text-(--text-secondary)'
-                      }`}
-                    >
-                      {lang}
-                    </button>
-                  ))}
+                  <div className="flex gap-1" role="group" aria-label="Nova AI preview language">
+                    {(['en', 'hi', 'kn'] as const).map((lang) => (
+                      <button
+                        key={lang}
+                        type="button"
+                        aria-pressed={aiLang === lang}
+                        onClick={() => setAiLang(lang)}
+                        className={`rounded px-2 py-0.5 font-mono-tech text-[11px] uppercase border cursor-pointer ${aiLang === lang
+                            ? 'bg-(--accent-primary) text-(--accent-on-primary) border-(--accent-primary)'
+                            : 'border-(--border-subtle) text-(--text-secondary)'
+                          }`}
+                      >
+                        {lang}
+                      </button>
+                    ))}
+                  </div>
                 </div>
+                <h3 className="font-display text-xl font-bold">Trilingual Nova AI</h3>
+                <p className="text-sm text-(--text-secondary)">
+                  Query trains, RAC rules, and class trade-offs in English, Hindi, or Kannada.
+                </p>
               </div>
-              <h3 className="font-display text-xl font-bold">Trilingual Nova AI</h3>
-              <p className="text-sm text-(--text-secondary)">
-                Query trains, RAC rules, and class trade-offs in English, Hindi, or Kannada.
-              </p>
-            </div>
-            <div className="rounded-xl border border-(--border-subtle) bg-(--bg-surface) p-3.5 text-xs text-(--text-primary) leading-relaxed">
-              <span className="font-mono-tech text-[10px] uppercase text-(--accent-primary) block mb-1">
-                {AI_LANG_PREVIEWS[aiLang].label} Sample
-              </span>
-              {AI_LANG_PREVIEWS[aiLang].sample}
-            </div>
+              <div className="rounded-xl border border-(--border-subtle) bg-(--bg-surface) p-3.5 text-xs text-(--text-primary) leading-relaxed">
+                <span className="font-mono-tech text-[10px] uppercase text-(--accent-primary) block mb-1">
+                  {AI_LANG_PREVIEWS[aiLang].label} Sample
+                </span>
+                {AI_LANG_PREVIEWS[aiLang].sample}
+              </div>
           </motion.div>
 
           {/* Tile 5: Champagne Boarding Pass & PNR (4 cols) */}

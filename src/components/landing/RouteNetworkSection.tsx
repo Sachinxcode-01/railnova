@@ -18,13 +18,13 @@ interface NetworkCorridor {
 
 const CORRIDORS: NetworkCorridor[] = [
   {
-    id: 'delhi-mumbai',
+    id: 'mumbai-delhi',
     trainNumber: '12951',
     label: 'Western Rajdhani Spine',
-    from: 'NDLS',
-    to: 'CSMT',
+    from: 'MMCT',
+    to: 'NDLS',
     color: '#D4FF3F',
-    highlight: '1,384 km · Overnight High-Speed',
+    highlight: '1,386 km · Overnight High-Speed',
   },
   {
     id: 'delhi-varanasi',
@@ -36,11 +36,11 @@ const CORRIDORS: NetworkCorridor[] = [
     highlight: '759 km · 8h 00m Semi-High-Speed',
   },
   {
-    id: 'delhi-kolkata',
+    id: 'kolkata-delhi',
     trainNumber: '12301',
     label: 'Eastern Rajdhani Corridor',
-    from: 'NDLS',
-    to: 'HWH',
+    from: 'HWH',
+    to: 'NDLS',
     color: '#34D399',
     highlight: '1,451 km · Howrah Flagship',
   },
@@ -64,7 +64,7 @@ const CORRIDORS: NetworkCorridor[] = [
   },
 ];
 
-const MAP_HUBS = ['NDLS', 'JP', 'ADI', 'BSB', 'HWH', 'CSMT', 'SC', 'MAO', 'SBC', 'MAS', 'MYS'];
+const MAP_HUBS = ['NDLS', 'JP', 'ADI', 'BSB', 'HWH', 'MMCT', 'SC', 'MAO', 'SBC', 'MAS', 'MYS'];
 
 function projectToSvg(lat: number, lng: number): { x: number; y: number } {
   // Bounds covering Indian rail network stations: lng 68..96, lat 7.5..34
@@ -119,7 +119,7 @@ export function RouteNetworkSection() {
 
             <svg
               viewBox="0 0 640 560"
-              className="w-full h-auto max-h-[460px]"
+              className="w-full h-auto max-h-115"
               role="img"
               aria-label="Animated Indian railway corridor map connecting major hubs"
             >
@@ -235,12 +235,12 @@ export function RouteNetworkSection() {
                   <button
                     key={corridor.id}
                     type="button"
+                    aria-pressed={isActive}
                     onClick={() => setActiveId(corridor.id)}
-                    className={`w-full text-left rounded-xl border p-4 transition-all cursor-pointer ${
-                      isActive
-                        ? 'border-[#D4FF3F] bg-[#17191F]'
-                        : 'border-[#2A2D35] bg-[#17191F]/50 hover:border-[#626672]'
-                    }`}
+                    className={`w-full text-left rounded-xl border p-4 transition-all cursor-pointer ${isActive
+                      ? 'border-[#D4FF3F] bg-[#17191F]'
+                      : 'border-[#2A2D35] bg-[#17191F]/50 hover:border-[#626672]'
+                      }`}
                   >
                     <div className="flex items-center justify-between gap-2">
                       <span className="font-display font-bold text-base text-[#F8F9FC]">
