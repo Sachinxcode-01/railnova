@@ -194,102 +194,117 @@ export function NovaAIDemoSection() {
                 </div>
               </div>
 
-                <div className="flex items-center gap-1.5" role="group" aria-label="Nova AI language">
-                  {(['en', 'hi', 'kn'] as const).map((lang) => (
-                    <button
-                      key={lang}
-                      type="button"
-                      aria-pressed={language === lang}
-                      onClick={() => setLanguage(lang)}
-                      className={`rounded px-2 py-1 text-[11px] font-mono-tech uppercase border cursor-pointer ${language === lang
-                        ? 'bg-[#D4FF3F] text-[#0C0D10] border-[#D4FF3F] font-bold'
-                        : 'border-[#2A2D35] text-[#9296A3] hover:text-[#F8F9FC]'
-                        }`}
-                    >
-                      {lang}
-                    </button>
-                  ))}
-                </div>
+              <div className="flex items-center gap-1.5" role="group" aria-label="Nova AI language">
+                {(['en', 'hi', 'kn'] as const).map((lang) => (
+                  <button
+                    key={lang}
+                    type="button"
+                    aria-pressed={language === lang}
+                    onClick={() => setLanguage(lang)}
+                    className={`rounded px-2 py-1 text-[11px] font-mono-tech uppercase border cursor-pointer ${language === lang
+                      ? 'bg-[#D4FF3F] text-[#0C0D10] border-[#D4FF3F] font-bold'
+                      : 'border-[#2A2D35] text-[#9296A3] hover:text-[#F8F9FC]'
+                      }`}
+                  >
+                    {lang}
+                  </button>
+                ))}
               </div>
+            </div>
 
-              {/* Transcript */}
-                <div
-                  ref={transcriptRef}
-                  onScroll={handleTranscriptScroll}
-                  role="log"
-                  aria-live="polite"
-                  aria-relevant="additions text"
-                  aria-label="Nova AI conversation transcript"
-                  className="p-5 space-y-4 min-h-72.5 max-h-90 overflow-y-auto"
+            {/* Transcript */}
+            <div
+              ref={transcriptRef}
+              onScroll={handleTranscriptScroll}
+              role="log"
+              aria-live="polite"
+              aria-relevant="additions text"
+              aria-label="Nova AI conversation transcript"
+              className="p-5 space-y-4 min-h-72.5 max-h-90 overflow-y-auto"
+            >
+              {messages.map((m) => (
+                <motion.div
+                  key={m.id}
+                  initial={prefersReduced ? false : { opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.22 }}
+                  className={`flex flex-col ${m.role === 'user' ? 'items-end' : 'items-start'}`}
                 >
-                  {messages.map((m) => (
-                    <motion.div
-                      key={m.id}
-                      initial={prefersReduced ? false : { opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.22 }}
-                      className={`flex flex-col ${m.role === 'user' ? 'items-end' : 'items-start'}`}
-                    >
-                      <div
-                        className={`max-w-[88%] rounded-xl px-4 py-3 text-sm leading-relaxed ${m.role === 'user'
-                          ? 'bg-[#D4FF3F] text-[#0C0D10] font-medium'
-                          : 'bg-[#17191F] border border-[#2A2D35] text-[#F8F9FC]'
-                          }`}
-                      >
-                        {m.text}
-                      </div>
-                      {m.suggestions && m.suggestions.length > 0 && (
-                        <div className="mt-2 flex flex-wrap gap-2">
-                          {m.suggestions.map((s) => (
-                            <Link
-                              key={s.label}
-                              href={s.href}
-                              className="inline-flex items-center gap-1 rounded-md border border-[#D4FF3F]/40 bg-[#D4FF3F]/10 px-2.5 py-1 text-xs font-mono-tech text-[#D4FF3F] hover:bg-[#D4FF3F] hover:text-[#0C0D10] transition-colors"
-                            >
-                              <span>{s.label}</span>
-                              <ArrowUpRight className="h-3 w-3" />
-                            </Link>
-                          ))}
-                        </div>
-                      )}
-                    </motion.div>
-                  ))}
-                  {loading && (
-                    <div className="text-xs font-mono-tech text-[#9296A3] animate-pulse">
-                      Nova AI is checking RailNova corridors...
+                  <div
+                    className={`max-w-[88%] rounded-xl px-4 py-3 text-sm leading-relaxed ${m.role === 'user'
+                      ? 'bg-[#D4FF3F] text-[#0C0D10] font-medium'
+                      : 'bg-[#17191F] border border-[#2A2D35] text-[#F8F9FC]'
+                      }`}
+                  >
+                    {m.text}
+                  </div>
+                  {m.suggestions && m.suggestions.length > 0 && (
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {m.suggestions.map((s) => (
+                        <Link
+                          key={s.label}
+                          href={s.href}
+                          className="inline-flex items-center gap-1 rounded-md border border-[#D4FF3F]/40 bg-[#D4FF3F]/10 px-2.5 py-1 text-xs font-mono-tech text-[#D4FF3F] hover:bg-[#D4FF3F] hover:text-[#0C0D10] transition-colors"
+                        >
+                          <span>{s.label}</span>
+                          <ArrowUpRight className="h-3 w-3" />
+                        </Link>
+                      ))}
                     </div>
+                  )}
+                </motion.div>
+              ))}
+              {loading && (
+                  <div className="inline-flex items-center gap-2 rounded-xl border border-[#2A2D35] bg-[#17191F] px-4 py-2.5 text-xs font-mono-tech text-[#9296A3]">
+                    <span className="flex items-center gap-1" aria-hidden="true">
+                      {[0, 1, 2].map((dot) => (
+                        <motion.span
+                          key={dot}
+                          className="h-1.5 w-1.5 rounded-full bg-[#D4FF3F]"
+                          animate={prefersReduced ? undefined : { y: [0, -4, 0], opacity: [0.4, 1, 0.4] }}
+                          transition={{
+                            repeat: Infinity,
+                            duration: 0.9,
+                            delay: dot * 0.15,
+                            ease: 'easeInOut',
+                          }}
+                        />
+                      ))}
+                    </span>
+                    <span>Nova AI is checking RailNova corridors...</span>
+                  </div>
                   )}
                 </div>
 
                 {/* Input Bar */}
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    runPrompt(input);
-                  }}
-                  className="border-t border-[#2A2D35] bg-[#17191F] p-3 flex items-center gap-2"
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  runPrompt(input);
+                }}
+                className="border-t border-[#2A2D35] bg-[#17191F] p-3 flex items-center gap-2"
+              >
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Ask Nova AI about trains, fares, or quotas..."
+                  aria-label="Ask Nova AI"
+                  style={{ color: '#F8F9FC' }}
+                  className="flex-1 rounded-lg border border-[#2A2D35] bg-[#0C0D10] px-3.5 py-2.5 text-sm placeholder:text-[#626672] focus:outline-none focus:ring-1 focus:ring-[#D4FF3F]"
+                />
+                <button
+                  type="submit"
+                  disabled={loading || !input.trim()}
+                  aria-label="Send message to Nova AI"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#D4FF3F] text-[#0C0D10] disabled:opacity-40 cursor-pointer"
                 >
-                  <input
-                    type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    placeholder="Ask Nova AI about trains, fares, or quotas..."
-                    aria-label="Ask Nova AI"
-                    style={{ color: '#F8F9FC' }}
-                    className="flex-1 rounded-lg border border-[#2A2D35] bg-[#0C0D10] px-3.5 py-2.5 text-sm placeholder:text-[#626672] focus:outline-none focus:ring-1 focus:ring-[#D4FF3F]"
-                  />
-                  <button
-                    type="submit"
-                    disabled={loading || !input.trim()}
-                    aria-label="Send message to Nova AI"
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#D4FF3F] text-[#0C0D10] disabled:opacity-40 cursor-pointer"
-                  >
-                    <Send className="h-4 w-4" />
-                  </button>
-                </form>
-              </div>
+                  <Send className="h-4 w-4" />
+                </button>
+              </form>
             </div>
           </div>
-        </section>
-        );
+        </div>
+    </section>
+  );
 }

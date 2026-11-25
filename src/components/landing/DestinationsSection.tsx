@@ -3,6 +3,7 @@
 import React, { useMemo, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, Compass } from 'lucide-react';
 import { DESTINATIONS } from '@/lib/railway-data';
 
@@ -15,6 +16,7 @@ const MOOD_SLUGS: Record<Exclude<MoodFilter, 'all'>, string[]> = {
 };
 
 export function DestinationsSection() {
+  const prefersReduced = useReducedMotion();
   const [mood, setMood] = useState<MoodFilter>('all');
 
   const items = useMemo(() => {
@@ -54,11 +56,10 @@ export function DestinationsSection() {
                 type="button"
                 aria-pressed={mood === filter.id}
                 onClick={() => setMood(filter.id)}
-                className={`rounded-lg px-3.5 py-2 text-xs font-semibold transition-colors cursor-pointer border ${
-                  mood === filter.id
+                className={`rounded-lg px-3.5 py-2 text-xs font-semibold transition-colors cursor-pointer border ${mood === filter.id
                     ? 'bg-[#15171B] text-[#F5F2EA] border-[#15171B]'
                     : 'bg-white text-[#4F5360] border-[#E4E1D9] hover:border-[#466800]'
-                }`}
+                  }`}
               >
                 {filter.label}
               </button>
@@ -74,73 +75,85 @@ export function DestinationsSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
-          {items.map((dest, idx) => {
-            const spanClass =
-              mood === 'all'
-                ? idx === 0
-                  ? 'md:col-span-7 md:row-span-2 min-h-[430px]'
-                  : idx === 1 || idx === 2
-                    ? 'md:col-span-5 min-h-[205px]'
-                    : 'md:col-span-6 min-h-[270px]'
-                : idx === 0 || idx === 3
-                  ? 'md:col-span-7 min-h-[300px]'
-                  : 'md:col-span-5 min-h-[300px]';
+            <motion.div layout className="grid grid-cols-1 md:grid-cols-12 gap-5">
+              <AnimatePresence mode="popLayout">
+                {items.map((dest, idx) => {
+                  const spanClass =
+                    mood === 'all'
+                      ? idx === 0
+                        ? 'md:col-span-7 md:row-span-2 min-h-[430px]'
+                        : idx === 1 || idx === 2
+                          ? 'md:col-span-5 min-h-[205px]'
+                          : 'md:col-span-6 min-h-[270px]'
+                      : idx === 0 || idx === 3
+                        ? 'md:col-span-7 min-h-75'
+                        : 'md:col-span-5 min-h-75';
 
-            const lowestFare = dest.fromHubs[0]?.startingFare;
+                  const lowestFare = dest.fromHubs[0]?.startingFare;
 
-            return (
-              <Link
-                key={dest.slug}
-                href={`/trains?to=${dest.stationCode}`}
-                data-cursor-label="EXPLORE"
-                className={`group relative overflow-hidden rounded-2xl border border-[#E4E1D9] bg-[#15171B] ${spanClass}`}
-              >
-                <Image
-                  src={dest.imageUrl}
-                  alt={`${dest.city}, ${dest.state} — ${dest.tagline}`}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 45vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background:
-                      'linear-gradient(180deg, rgba(12,13,16,0.18) 0%, rgba(12,13,16,0.45) 45%, rgba(12,13,16,0.92) 100%)',
-                  }}
-                />
-                <div className="relative z-10 h-full p-6 flex flex-col justify-between text-[#F8F9FC]">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="rounded-md bg-[#0C0D10]/75 backdrop-blur-xs px-2.5 py-1 text-xs font-mono-tech font-semibold text-[#D4FF3F]">
-                      {dest.stationCode} · {dest.state}
-                    </span>
-                    <span className="rounded-md bg-[#0C0D10]/65 backdrop-blur-xs px-2.5 py-1 text-[11px] font-mono-tech text-[#F8F9FC]/90">
-                      Best {dest.bestTime}
-                    </span>
-                  </div>
+                        return (
+                        <motion.div
+                          key={dest.slug}
+                          layout={!prefersReduced}
+                          initial={prefersReduced ? false : { opacity: 0, scale: 0.96, y: 18 }}
+                          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                          exit={prefersReduced ? undefined : { opacity: 0, scale: 0.96 }}
+                          viewport={{ once: true, amount: 0.15 }}
+                          transition={{ duration: 0.4, delay: idx * 0.06 }}
+                          className={spanClass}
+                        >
+                          <Link
+                            href={`/trains?to=${dest.stationCode}`}
+                            data-cursor-label="EXPLORE"
+                            className="group relative block h-full w-full overflow-hidden rounded-2xl border border-[#E4E1D9] bg-[#15171B]"
+                          >
+                            <Image
+                              src={dest.imageUrl}
+                              alt={`${dest.city}, ${dest.state} — ${dest.tagline}`}
+                              fill
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 45vw"
+                              className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div
+                              className="absolute inset-0"
+                              style={{
+                                background:
+                                  'linear-gradient(180deg, rgba(12,13,16,0.18) 0%, rgba(12,13,16,0.45) 45%, rgba(12,13,16,0.92) 100%)',
+                              }}
+                            />
+                            <div className="relative z-10 h-full p-6 flex flex-col justify-between text-[#F8F9FC]">
+                              <div className="flex items-center justify-between gap-2">
+                                <span className="rounded-md bg-[#0C0D10]/75 backdrop-blur-xs px-2.5 py-1 text-xs font-mono-tech font-semibold text-[#D4FF3F]">
+                                  {dest.stationCode} · {dest.state}
+                                </span>
+                                <span className="rounded-md bg-[#0C0D10]/65 backdrop-blur-xs px-2.5 py-1 text-[11px] font-mono-tech text-[#F8F9FC]/90">
+                                  Best {dest.bestTime}
+                                </span>
+                              </div>
 
-                  <div className="space-y-2">
-                    <div className="flex items-end justify-between gap-4">
-                      <div>
-                        <h3 className="font-display text-2xl sm:text-3xl font-bold">{dest.city}</h3>
-                        <p className="mt-1 text-sm text-[#F8F9FC]/85 line-clamp-2">{dest.tagline}</p>
-                      </div>
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#D4FF3F] text-[#0C0D10] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                        <ArrowUpRight className="h-4 w-4" />
-                      </span>
-                    </div>
-                    <div className="pt-2 border-t border-white/15 flex items-center justify-between text-[11px] font-mono-tech text-[#D1D5E0]">
-                      <span>{dest.signatureTrain}</span>
-                      {lowestFare && <span className="text-[#D4FF3F]">From ₹{lowestFare}</span>}
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-    </section>
+                                    <div className="space-y-2">
+                                      <div className="flex items-end justify-between gap-4">
+                                        <div>
+                                          <h3 className="font-display text-2xl sm:text-3xl font-bold">{dest.city}</h3>
+                                          <p className="mt-1 text-sm text-[#F8F9FC]/85 line-clamp-2">{dest.tagline}</p>
+                                        </div>
+                                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#D4FF3F] text-[#0C0D10] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                                          <ArrowUpRight className="h-4 w-4" />
+                                        </span>
+                                      </div>
+                                      <div className="pt-2 border-t border-white/15 flex items-center justify-between text-[11px] font-mono-tech text-[#D1D5E0]">
+                                        <span>{dest.signatureTrain}</span>
+                                        {lowestFare && <span className="text-[#D4FF3F]">From ₹{lowestFare}</span>}
+                                      </div>
+                                    </div>
+                                  </div>
+                    </Link>
+                </motion.div>
+              );
+            })}
+        </AnimatePresence>
+      </motion.div>
+    </div>
+    </section >
   );
 }

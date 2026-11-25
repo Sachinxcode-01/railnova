@@ -31,6 +31,12 @@ export default function HomePage() {
         stagger: 0.09,
         ease: 'power3.out',
       });
+      gsap.to('.hero-rail-pulse', {
+        strokeDashoffset: -120,
+        duration: 3.5,
+        repeat: -1,
+        ease: 'none',
+      });
     }, heroRef);
 
     return () => ctx.revert();
@@ -62,11 +68,31 @@ export default function HomePage() {
           <svg
             aria-hidden="true"
             viewBox="0 0 1440 400"
-            className="pointer-events-none absolute bottom-0 left-0 right-0 w-full opacity-20"
+            className="pointer-events-none absolute bottom-0 left-0 right-0 w-full opacity-25"
             preserveAspectRatio="none"
           >
             <line x1="620" y1="0" x2="120" y2="400" stroke="#D4FF3F" strokeWidth="1.2" />
             <line x1="820" y1="0" x2="1320" y2="400" stroke="#D4FF3F" strokeWidth="1.2" />
+            <line
+              x1="620"
+              y1="0"
+              x2="120"
+              y2="400"
+              stroke="#D4FF3F"
+              strokeWidth="2.5"
+              strokeDasharray="24 96"
+              className="hero-rail-pulse"
+            />
+            <line
+              x1="820"
+              y1="0"
+              x2="1320"
+              y2="400"
+              stroke="#D4FF3F"
+              strokeWidth="2.5"
+              strokeDasharray="24 96"
+              className="hero-rail-pulse"
+            />
             <line x1="720" y1="0" x2="720" y2="400" stroke="#9296A3" strokeWidth="0.6" strokeDasharray="8 12" />
           </svg>
         </div>
@@ -74,7 +100,10 @@ export default function HomePage() {
         <div className="relative z-10 mx-auto w-full max-w-340 px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-10">
           <div className="max-w-4xl space-y-4 sm:space-y-5">
             <div className="hero-stagger inline-flex items-center gap-2.5 rounded-full border border-[#2A2D35] bg-[#17191F]/80 px-3.5 py-1.5 text-xs font-mono-tech uppercase tracking-widest text-[#9296A3]">
-              <span className="h-2 w-2 rounded-full bg-[#D4FF3F]" />
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#D4FF3F] opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#D4FF3F]" />
+              </span>
               <span>RailNova · Next-Gen Indian Rail</span>
             </div>
 
@@ -111,26 +140,26 @@ export default function HomePage() {
         </div>
       </section>
 
-          {/* 1. Problem and solution — Scroll-driven storytelling */}
-          <StorytellingSection />
+      {/* 1. Problem and solution — Scroll-driven storytelling */}
+      <StorytellingSection />
 
       {/* 2. Platform features — Interactive bento grid */}
       <FeaturesBentoSection />
 
-          {/* 3. How it works — Animated railway timeline */}
-          <RailwayTimelineSection />
+      {/* 3. How it works — Animated railway timeline */}
+      <RailwayTimelineSection />
 
       {/* 4. Product showcase — Interactive application previews */}
       <ProductShowcaseSection />
 
-          {/* 5. Railway map — Animated route network */}
-          <RouteNetworkSection />
+      {/* 5. Railway map — Animated route network */}
+      <RouteNetworkSection />
 
-            {/* 6. Destinations — Luxury travel photography */}
-            <DestinationsSection />
+      {/* 6. Destinations — Luxury travel photography */}
+      <DestinationsSection />
 
-            {/* 7. Nova AI — Interactive chat demonstration */}
-            <NovaAIDemoSection />
+      {/* 7. Nova AI — Interactive chat demonstration */}
+      <NovaAIDemoSection />
 
       {/* 8. Digital tickets — Ticket-printing animation */}
       <DigitalTicketSection />

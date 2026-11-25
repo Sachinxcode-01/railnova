@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { motion, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import {
   Armchair,
   ArrowUpRight,
@@ -78,7 +78,11 @@ export function FeaturesBentoSection() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
           {/* Tile 1: Coach & Berth Engine (7 cols) */}
           <motion.div
-            whileHover={prefersReduced ? undefined : { y: -2 }}
+            initial={prefersReduced ? false : { opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.45, delay: 0.04 }}
+            whileHover={prefersReduced ? undefined : { y: -3 }}
             className="md:col-span-7 rounded-2xl border border-(--border-subtle) bg-(--bg-primary) p-6 sm:p-7 flex flex-col justify-between gap-6"
           >
             <div className="flex items-start justify-between gap-4">
@@ -95,7 +99,7 @@ export function FeaturesBentoSection() {
             </div>
 
             <div className="rounded-xl border border-(--border-subtle) bg-(--bg-surface) p-4 space-y-3">
-                <div className="flex flex-wrap gap-2" role="group" aria-label="Berth preview selector">
+              <div className="flex flex-wrap gap-2" role="group" aria-label="Berth preview selector">
                   {BERTH_DEMO.map((b, i) => (
                     <button
                       key={b.code}
@@ -107,71 +111,100 @@ export function FeaturesBentoSection() {
                           : 'bg-(--bg-primary) text-(--text-primary) border-(--border-subtle) hover:border-(--accent-primary)'
                         }`}
                     >
-                      {b.code} · {b.label}
-                    </button>
-                  ))}
-                </div>
-                <div className="flex items-center justify-between gap-4 pt-2 border-t border-(--border-subtle) text-xs">
-                  <span className="text-(--text-secondary)">{BERTH_DEMO[selectedBerth].note}</span>
-                  <Link
-                    href="/trains"
-                    className="inline-flex items-center gap-1 font-semibold text-(--accent-primary) shrink-0"
-                  >
-                    <span>Try Coach Map</span>
-                    <ArrowUpRight className="h-3.5 w-3.5" />
-                  </Link>
-                </div>
-              </div>
-          </motion.div>
-
-          {/* Tile 2: Quota & Fare Switcher (5 cols) */}
-          <motion.div
-            whileHover={prefersReduced ? undefined : { y: -2 }}
-            className="md:col-span-5 rounded-2xl border border-(--border-subtle) bg-(--bg-primary) p-6 sm:p-7 flex flex-col justify-between gap-5"
-          >
-            <div className="space-y-2">
-              <span className="inline-flex items-center gap-1.5 rounded-md bg-(--bg-surface) border border-(--border-subtle) px-2.5 py-1 text-[11px] font-mono-tech text-(--accent-primary)">
-                <SlidersHorizontal className="h-3.5 w-3.5" />
-                <span>QUOTA INTELLIGENCE</span>
-              </span>
-              <h3 className="font-display text-2xl font-bold">All 5 Official Quotas</h3>
-              <p className="text-sm text-(--text-secondary)">
-                Switch quotas dynamically before picking your train.
-              </p>
+                {b.code} · {b.label}
+              </button>
+                ))}
             </div>
+            <div className="flex items-center justify-between gap-4 pt-2 border-t border-(--border-subtle) text-xs overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={BERTH_DEMO[selectedBerth].code}
+                  initial={prefersReduced ? false : { opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={prefersReduced ? undefined : { opacity: 0, y: -6 }}
+                  transition={{ duration: 0.18 }}
+                  className="text-(--text-secondary)"
+                >
+                  {BERTH_DEMO[selectedBerth].note}
+                </motion.span>
+              </AnimatePresence>
+              <Link
+                href="/trains"
+                className="inline-flex items-center gap-1 font-semibold text-(--accent-primary) shrink-0"
+              >
+                <span>Try Coach Map</span>
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+        </div>
+      </motion.div>
 
-            <div className="space-y-3">
-                <div className="flex flex-wrap gap-1.5" role="group" aria-label="Booking quota selector">
-                  {(['GN', 'TQ', 'PT', 'LD', 'SS'] as BookingQuotaCode[]).map((q) => (
-                    <button
-                      key={q}
-                      type="button"
-                      aria-pressed={selectedQuota === q}
-                      onClick={() => setSelectedQuota(q)}
-                      className={`rounded-md px-2.5 py-1.5 font-mono-tech text-xs font-semibold border transition-colors cursor-pointer ${selectedQuota === q
-                          ? 'bg-(--accent-primary) text-(--accent-on-primary) border-(--accent-primary)'
-                          : 'bg-(--bg-surface) text-(--text-secondary) border-(--border-subtle) hover:text-(--text-primary)'
-                        }`}
-                    >
-                      {q}
-                    </button>
-                  ))}
-                </div>
-                <div className="rounded-xl border border-(--border-subtle) bg-(--bg-surface) p-3.5 space-y-1">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="font-semibold text-(--text-primary)">{QUOTA_LABELS[selectedQuota].name}</span>
-                    <span className="font-mono-tech text-(--accent-primary)">{QUOTA_MULTIPLIERS[selectedQuota]}</span>
-                  </div>
-                  <p className="text-xs text-(--text-secondary)">{QUOTA_LABELS[selectedQuota].description}</p>
-                </div>
-              </div>
-          </motion.div>
+      {/* Tile 2: Quota & Fare Switcher (5 cols) */}
+      <motion.div
+        initial={prefersReduced ? false : { opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.45, delay: 0.1 }}
+        whileHover={prefersReduced ? undefined : { y: -3 }}
+        className="md:col-span-5 rounded-2xl border border-(--border-subtle) bg-(--bg-primary) p-6 sm:p-7 flex flex-col justify-between gap-5"
+      >
+        <div className="space-y-2">
+          <span className="inline-flex items-center gap-1.5 rounded-md bg-(--bg-surface) border border-(--border-subtle) px-2.5 py-1 text-[11px] font-mono-tech text-(--accent-primary)">
+            <SlidersHorizontal className="h-3.5 w-3.5" />
+            <span>QUOTA INTELLIGENCE</span>
+          </span>
+          <h3 className="font-display text-2xl font-bold">All 5 Official Quotas</h3>
+          <p className="text-sm text-(--text-secondary)">
+            Switch quotas dynamically before picking your train.
+          </p>
+        </div>
 
-          {/* Tile 3: Live Telemetry (4 cols) */}
-          <motion.div
-            whileHover={prefersReduced ? undefined : { y: -2 }}
-            className="md:col-span-4 rounded-2xl border border-[#2A2D35] bg-[#0C0D10] text-[#F8F9FC] p-6 flex flex-col justify-between gap-5"
-          >
+        <div className="space-y-3">
+            <div className="flex flex-wrap gap-1.5" role="group" aria-label="Booking quota selector">
+              {(['GN', 'TQ', 'PT', 'LD', 'SS'] as BookingQuotaCode[]).map((q) => (
+                <button
+                  key={q}
+                  type="button"
+                  aria-pressed={selectedQuota === q}
+                  onClick={() => setSelectedQuota(q)}
+                  className={`rounded-md px-2.5 py-1.5 font-mono-tech text-xs font-semibold border transition-colors cursor-pointer ${selectedQuota === q
+                      ? 'bg-(--accent-primary) text-(--accent-on-primary) border-(--accent-primary)'
+                      : 'bg-(--bg-surface) text-(--text-secondary) border-(--border-subtle) hover:text-(--text-primary)'
+                    }`}
+                >
+                  {q}
+                </button>
+              ))}
+            </div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={selectedQuota}
+                initial={prefersReduced ? false : { opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={prefersReduced ? undefined : { opacity: 0, y: -6 }}
+                transition={{ duration: 0.18 }}
+                className="rounded-xl border border-(--border-subtle) bg-(--bg-surface) p-3.5 space-y-1"
+              >
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-semibold text-(--text-primary)">{QUOTA_LABELS[selectedQuota].name}</span>
+                  <span className="font-mono-tech text-(--accent-primary)">{QUOTA_MULTIPLIERS[selectedQuota]}</span>
+                </div>
+                <p className="text-xs text-(--text-secondary)">{QUOTA_LABELS[selectedQuota].description}</p>
+      </motion.div>
+    </AnimatePresence>
+            </div >
+          </motion.div >
+
+    {/* Tile 3: Live Telemetry (4 cols) */ }
+    < motion.div
+  initial = { prefersReduced? false: { opacity: 0, y: 20 } }
+  whileInView = {{ opacity: 1, y: 0 }
+}
+viewport = {{ once: true, amount: 0.2 }}
+transition = {{ duration: 0.45, delay: 0.14 }}
+whileHover = { prefersReduced? undefined: { y: -3 } }
+className = "md:col-span-4 rounded-2xl border border-[#2A2D35] bg-[#0C0D10] text-[#F8F9FC] p-6 flex flex-col justify-between gap-5"
+  >
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Radio className="h-5 w-5 text-[#D4FF3F]" />
@@ -185,59 +218,86 @@ export function FeaturesBentoSection() {
                 Track simulated movement, intermediate halts, platform numbers, and average speeds across active trains.
               </p>
             </div>
-            <div className="rounded-xl border border-[#2A2D35] bg-[#17191F] p-3.5 flex items-center justify-between font-mono-tech text-xs">
-              <div>
-                <div className="text-[#9296A3] text-[10px]">20607 VANDE BHARAT</div>
-                <div className="text-[#F8F9FC] font-semibold">SBC → MYS · 76 km/h</div>
+            <div className="rounded-xl border border-[#2A2D35] bg-[#17191F] p-3.5 space-y-2.5 font-mono-tech text-xs">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-[#9296A3] text-[10px]">20607 VANDE BHARAT</div>
+                  <div className="text-[#F8F9FC] font-semibold">SBC → MYS · 76 km/h</div>
+                </div>
+                <Link href="/live-tracking" className="text-[#D4FF3F] inline-flex items-center gap-1 font-semibold">
+                  <span>Track</span>
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </Link>
               </div>
-              <Link href="/live-tracking" className="text-[#D4FF3F] inline-flex items-center gap-1 font-semibold">
-                <span>Track</span>
-                <ArrowUpRight className="h-3.5 w-3.5" />
-              </Link>
+              <div className="h-1 w-full rounded-full bg-[#2A2D35] overflow-hidden">
+                <motion.div
+                  className="h-full w-1/3 rounded-full bg-[#D4FF3F]"
+                  animate={prefersReduced ? undefined : { x: ['-100%', '300%'] }}
+                  transition={{ repeat: Infinity, duration: 2.2, ease: 'easeInOut' }}
+                />
+              </div>
             </div>
           </motion.div>
 
           {/* Tile 4: Trilingual Nova AI (4 cols) */}
           <motion.div
-            whileHover={prefersReduced ? undefined : { y: -2 }}
+            initial={prefersReduced ? false : { opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.45, delay: 0.18 }}
+            whileHover={prefersReduced ? undefined : { y: -3 }}
             className="md:col-span-4 rounded-2xl border border-(--border-subtle) bg-(--bg-primary) p-6 flex flex-col justify-between gap-5"
           >
             <div className="space-y-2">
               <div className="flex items-center justify-between gap-2">
                 <Globe2 className="h-5 w-5 text-(--accent-primary)" />
-                  <div className="flex gap-1" role="group" aria-label="Nova AI preview language">
-                    {(['en', 'hi', 'kn'] as const).map((lang) => (
-                      <button
-                        key={lang}
-                        type="button"
-                        aria-pressed={aiLang === lang}
-                        onClick={() => setAiLang(lang)}
-                        className={`rounded px-2 py-0.5 font-mono-tech text-[11px] uppercase border cursor-pointer ${aiLang === lang
-                            ? 'bg-(--accent-primary) text-(--accent-on-primary) border-(--accent-primary)'
-                            : 'border-(--border-subtle) text-(--text-secondary)'
-                          }`}
-                      >
-                        {lang}
-                      </button>
-                    ))}
-                  </div>
+                <div className="flex gap-1" role="group" aria-label="Nova AI preview language">
+                  {(['en', 'hi', 'kn'] as const).map((lang) => (
+                    <button
+                      key={lang}
+                      type="button"
+                      aria-pressed={aiLang === lang}
+                      onClick={() => setAiLang(lang)}
+                      className={`rounded px-2 py-0.5 font-mono-tech text-[11px] uppercase border cursor-pointer ${
+                        aiLang === lang
+                          ? 'bg-(--accent-primary) text-(--accent-on-primary) border-(--accent-primary)'
+                          : 'border-(--border-subtle) text-(--text-secondary)'
+                      }`}
+                    >
+                      {lang}
+                    </button>
+                  ))}
                 </div>
-                <h3 className="font-display text-xl font-bold">Trilingual Nova AI</h3>
-                <p className="text-sm text-(--text-secondary)">
-                  Query trains, RAC rules, and class trade-offs in English, Hindi, or Kannada.
-                </p>
               </div>
-              <div className="rounded-xl border border-(--border-subtle) bg-(--bg-surface) p-3.5 text-xs text-(--text-primary) leading-relaxed">
+              <h3 className="font-display text-xl font-bold">Trilingual Nova AI</h3>
+              <p className="text-sm text-(--text-secondary)">
+                Query trains, RAC rules, and class trade-offs in English, Hindi, or Kannada.
+              </p>
+            </div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={aiLang}
+                initial={prefersReduced ? false : { opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={prefersReduced ? undefined : { opacity: 0, y: -6 }}
+                transition={{ duration: 0.18 }}
+                className="rounded-xl border border-(--border-subtle) bg-(--bg-surface) p-3.5 text-xs text-(--text-primary) leading-relaxed"
+              >
                 <span className="font-mono-tech text-[10px] uppercase text-(--accent-primary) block mb-1">
                   {AI_LANG_PREVIEWS[aiLang].label} Sample
                 </span>
                 {AI_LANG_PREVIEWS[aiLang].sample}
-              </div>
+              </motion.div>
+            </AnimatePresence>
           </motion.div>
 
           {/* Tile 5: Champagne Boarding Pass & PNR (4 cols) */}
           <motion.div
-            whileHover={prefersReduced ? undefined : { y: -2 }}
+            initial={prefersReduced ? false : { opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.45, delay: 0.22 }}
+            whileHover={prefersReduced ? undefined : { y: -3 }}
             className="md:col-span-4 rounded-2xl border border-[#E4E1D9] bg-[#F5F2EA] text-[#15171B] p-6 flex flex-col justify-between gap-5"
           >
             <div className="space-y-2">
@@ -265,7 +325,7 @@ export function FeaturesBentoSection() {
             </div>
           </motion.div>
         </div>
-      </div>
-    </section>
+      </div >
+    </section >
   );
 }

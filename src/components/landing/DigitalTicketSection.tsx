@@ -9,7 +9,15 @@ import { ArrowUpRight, CheckCircle2, Printer, RotateCcw } from 'lucide-react';
 export function DigitalTicketSection() {
   const prefersReduced = useReducedMotion();
   const [printCycle, setPrintCycle] = useState(0);
+  const [isPrinting, setIsPrinting] = useState(false);
   const [qrUrl, setQrUrl] = useState('');
+
+  useEffect(() => {
+    if (prefersReduced) return;
+    setIsPrinting(true);
+    const t = setTimeout(() => setIsPrinting(false), 950);
+    return () => clearTimeout(t);
+  }, [printCycle, prefersReduced]);
 
   useEffect(() => {
     QRCode.toDataURL(
@@ -82,16 +90,30 @@ export function DigitalTicketSection() {
                 <Printer className="h-4 w-4 text-[#D4FF3F]" />
                 <span>RAILNOVA PASS PRINTER · THERMAL FEED</span>
               </div>
-              <div className="flex items-center gap-2 font-mono-tech text-[11px] text-[#34D399]">
-                <span className="h-2 w-2 rounded-full bg-[#34D399] animate-pulse" />
-                <span>READY</span>
+                <div className="flex items-center gap-2 font-mono-tech text-[11px]">
+                  <span
+                    className={`h-2 w-2 rounded-full ${isPrinting ? 'bg-[#FBBF24] animate-ping' : 'bg-[#34D399] animate-pulse'
+                      }`}
+                  />
+                  <span className={isPrinting ? 'text-[#FBBF24]' : 'text-[#34D399]'}>
+                    {isPrinting ? 'PRINTING...' : 'READY'}
+                  </span>
+                </div>
+              </div>
+              {/* Physical paper slot lip + thermal print-head beam */}
+              <div className="relative mt-3 h-2.5 rounded-full bg-[#17191F] border border-[#2A2D35] shadow-inner overflow-hidden">
+                {isPrinting && !prefersReduced && (
+                  <motion.div
+                    className="h-full w-24 rounded-full bg-linear-to-r from-transparent via-[#D4FF3F] to-transparent"
+                    initial={{ x: '-20%' }}
+                    animate={{ x: '420%' }}
+                    transition={{ duration: 0.85, ease: 'easeInOut' }}
+                  />
+                )}
               </div>
             </div>
-            {/* Physical paper slot lip */}
-            <div className="mt-3 h-2.5 rounded-full bg-[#17191F] border border-[#2A2D35] shadow-inner" />
-          </div>
 
-          {/* Emerging Animated Boarding Pass */}
+            {/* Emerging Animated Boarding Pass */}
             <div className="mx-auto max-w-135 -mt-1 px-2 sm:px-4 overflow-hidden">
               <motion.div
                 key={printCycle}
@@ -136,7 +158,15 @@ export function DigitalTicketSection() {
                     </div>
                     <div className="text-center font-mono-tech text-[11px] text-[#626672]">
                       <div>14h 40m</div>
-                      <div className="my-1 h-0.5 w-full bg-[#0C0D10]/20" />
+                      <div className="relative my-1.5 h-0.5 w-full bg-[#0C0D10]/20 overflow-hidden">
+                        {!prefersReduced && (
+                          <motion.span
+                            className="absolute top-0 bottom-0 w-6 rounded-full bg-[#466800]"
+                            animate={{ x: ['-20%', '480%'] }}
+                            transition={{ repeat: Infinity, duration: 2.6, ease: 'easeInOut' }}
+                          />
+                        )}
+                      </div>
                       <div>676 km</div>
                     </div>
                     <div className="text-right">
