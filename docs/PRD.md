@@ -12,7 +12,7 @@
 **RailNova** reimagines Indian railway ticket booking, coach exploration, and live corridor telemetry through an editorial, dark-first web experience. Traditional railway portals suffer from dense, dated UIs, opaque seat layouts, and fragmented post-booking tools. RailNova unifies train discovery, interactive coach berth selection, digital boarding passes, live map telemetry, PNR lookup, and AI-assisted travel guidance into a cohesive, high-craft Next.js application.
 
 ### Core Objectives
-- **Zero-Friction Setup:** Run out-of-the-box with local JSON persistence (`data/railnova-db.json`) and deterministic fallbacks—requiring zero external database or API keys for local evaluation, while supporting optional PostgreSQL/Supabase, Razorpay Test Mode, RapidAPI/IRCTC feeds, and OpenAI/Gemini enhancement.
+- **Zero-Friction Setup:** Run out-of-the-box with local JSON persistence (`data/railnova-db.json`) and deterministic fallbacks—requiring zero external database or API keys for local evaluation, while supporting optional PostgreSQL/Supabase, Razorpay Test Mode, RapidAPI/IRCTC feeds, and OpenRouter/Gemini enhancement.
 - **Spatial & Visual Clarity:** Replace guesswork with interactive coach layouts (`1A`, `2A`, `3A`, `3E`, `SL`, `CC`, `EC`, `2S`) and MapLibre GL corridor tracking.
 - **Instant Digital Ticketing:** Deliver perforated digital boarding passes with embedded QR codes (`qrcode`) and downloadable PDF e-tickets (`jspdf`).
 
@@ -35,7 +35,7 @@
 - Search trains by origin/destination station code or city, journey date, travel class, and quota (`GN`, `TQ`, `PT`, `LD`, `SS`).
 - Display train category (`Vande Bharat`, `Rajdhani`, `Shatabdi`, `Duronto`, `Superfast`, `Mail/Express`), departure/arrival times, duration, distance, running days, pantry/bio-vacuum indicators, and class-wise availability (`AVAILABLE`, `RAC`, `WL`, `NOT_AVAILABLE`).
 - Curated scenic corridors and route discovery on `/discover`.
-- Optional live provider integration via `src/lib/irctc-provider.ts` (`RAILWAY_API_KEY`, `RAILWAY_API_HOST`) with automatic fallback to `src/lib/railway-data.ts`.
+- Optional live provider integration via `src/lib/irctc-provider.ts` (`RAILKIT_API_KEY`) with automatic fallback to `src/lib/railway-data.ts`.
 
 ### 3.2 Interactive Coach Visualisation & Booking (`/book`, `/api/bookings`)
 - Interactive coach bay & berth selector (`src/components/CoachVisualisation.tsx`) supporting `AVAILABLE`, `OCCUPIED`, `PREFERRED`, and `RAC` states.
@@ -58,7 +58,7 @@
 
 ### 3.6 Nova AI Travel Assistant (`src/components/NovaAI.tsx`, `/api/assistant`)
 - Floating conversational assistant for route suggestions, fare insights, and railway FAQs.
-- Runs deterministically out-of-the-box; upgrades to LLM responses when `OPENAI_API_KEY` or `GEMINI_API_KEY` is configured.
+- Runs deterministically out-of-the-box; upgrades to LLM responses when `OPENROUTER_API_KEY` or `GEMINI_API_KEY` is configured.
 
 ### 3.7 Authentication & Admin Operations (`/auth/*`, `/admin`, `/api/auth/*`, `/api/admin`)
 - Cookie-based HMAC-SHA256 signed sessions (`railnova_session`, 7-day TTL) with `scrypt` password hashing (`src/lib/auth.ts`).

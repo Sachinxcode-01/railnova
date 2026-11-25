@@ -33,7 +33,7 @@ Answer these five questions explicitly in your plan:
    - What happens on invalid Zod input, expired/missing `railnova_session`, or rate-limit exhaustion?
    - What happens in both Dark (`#0C0D10`) and Light (`#F5F2EA`) themes?
    - What happens on mobile viewports and under `prefers-reduced-motion`?
-   - What happens if optional env vars (`RAILWAY_API_KEY`, `OPENAI_API_KEY`, `GEMINI_API_KEY`, `DATABASE_URL`) are unset?
+   - What happens if optional env vars (`RAILKIT_API_KEY`, `OPENROUTER_API_KEY`, `GEMINI_API_KEY`, `DATABASE_URL`) are unset?
 4. **Alternative Approaches:** Compare at least 2 implementation options (e.g., client-side state vs. server action/API route, extending an existing component vs. adding a new one) and justify the simplest, cleanest choice.
 5. **Security & Data Integrity:** Confirm no secrets are exposed to client bundles and `writeQueue` in `src/lib/db.ts` is preserved.
 

@@ -65,6 +65,6 @@ export async function GET(req: NextRequest) {
     notice:
       dataSource === 'live-api'
         ? 'Live schedule feed active via configured railway provider.'
-        : 'Demonstration railway schedule & fare data. Configure RAILWAY_API_KEY in .env.local for live feeds.',
+        : 'Demonstration railway schedule & fare data. Configure RAILKIT_API_KEY in .env.local for live feeds.',
   });
 }

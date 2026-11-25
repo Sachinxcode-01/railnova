@@ -38,7 +38,7 @@
 
 **RailNova** reimagines the Indian railway booking and journey discovery experience with an editorial, dark-first interface, fluid motion choreography, interactive coach seat layouts, real-time corridor tracking, and instant digital e-tickets with QR verification and PDF export.
 
-Built on **Next.js 15 App Router**, **React 19**, and **TypeScript**, the platform runs out-of-the-box with local JSON persistence (`data/railnova-db.json`) and zero external database setup required—while providing optional hooks for PostgreSQL/Supabase, Razorpay Test Mode, and OpenAI/Gemini-powered intelligence.
+Built on **Next.js 15 App Router**, **React 19**, and **TypeScript**, the platform runs out-of-the-box with local JSON persistence (`data/railnova-db.json`) and zero external database setup required—while providing optional hooks for PostgreSQL/Supabase, Razorpay Test Mode, and OpenRouter/Gemini-powered intelligence.
 
 ---
 
@@ -55,7 +55,7 @@ Built on **Next.js 15 App Router**, **React 19**, and **TypeScript**, the platfo
 - **PNR Status Lookup (`/pnr`)**
   Real-time PNR verification supporting Confirmed (`CNF`), Reservation Against Cancellation (`RAC`), and Waitlist (`WL`) status views.
 - **Nova AI Travel Assistant**
-  Built-in floating assistant (`NovaAI`) providing route guidance, fare insights, and railway intelligence—running deterministically out-of-the-box or enhanced via `OPENAI_API_KEY` / `GEMINI_API_KEY`.
+  Built-in floating assistant (`NovaAI`) providing route guidance, fare insights, and railway intelligence—running deterministically out-of-the-box or enhanced via `OPENROUTER_API_KEY` / `GEMINI_API_KEY`.
 - **Traveller Dashboard & Admin Console (`/dashboard`, `/admin`)**
   Manage upcoming bookings, cancellations, and profile sessions as a traveller, or oversee fleet telemetry and platform operations from the admin view.
 - **Dual Theme & Motion Craft**
@@ -167,6 +167,7 @@ Railway-Ticket-Bookings/
 | Variable | Required | Description |
 | :--- | :--- | :--- |
 | `RAILNOVA_SESSION_SECRET` | Yes | 32+ character secret used to sign session tokens |
+| `RAILKIT_API_KEY` | No | Optional RailKit key for live Indian Railways feeds |
 | `NEXT_PUBLIC_APP_URL` | No | Public base URL (defaults to `http://localhost:3000`) |
 | `DATABASE_URL` | No | Optional PostgreSQL connection string |
 | `NEXT_PUBLIC_SUPABASE_URL` | No | Optional Supabase project URL |
@@ -174,7 +175,7 @@ Railway-Ticket-Bookings/
 | `SUPABASE_SERVICE_ROLE_KEY` | No | Optional Supabase service role key |
 | `NEXT_PUBLIC_RAZORPAY_KEY_ID` | No | Optional Razorpay test mode key ID |
 | `RAZORPAY_KEY_SECRET` | No | Optional Razorpay test mode secret |
-| `OPENAI_API_KEY` | No | Optional OpenAI key for Nova AI |
+| `OPENROUTER_API_KEY` | No | Optional OpenRouter key for Nova AI |
 | `GEMINI_API_KEY` | No | Optional Gemini key for Nova AI |
 
 ---
