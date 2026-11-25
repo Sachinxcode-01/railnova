@@ -35,6 +35,7 @@ export function CookieBanner() {
   const [showDetails, setShowDetails] = useState(false);
   const [analytics, setAnalytics] = useState(false);
   const [marketing, setMarketing] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
 
   useEffect(() => {
     let saved: string | null = null;
@@ -85,6 +86,7 @@ export function CookieBanner() {
       }
 
       const onOpenSettings = () => {
+        setSaveError(null);
         setShowDetails(true);
         setVisible(true);
       };
@@ -93,6 +95,7 @@ export function CookieBanner() {
     }, []);
 
   const persistPreferences = (nextAnalytics: boolean, nextMarketing: boolean) => {
+    setSaveError(null);
     const prefs: CookiePreferences = {
       essential: true,
       analytics: nextAnalytics,
@@ -108,14 +111,11 @@ export function CookieBanner() {
             ? 'marketing'
             : 'essential';
     try {
+      localStorage.setItem(COOKIE_PREFERENCES_KEY, JSON.stringify(prefs));
       localStorage.setItem(COOKIE_CONSENT_KEY, consentValue);
     } catch {
-      // Ignore storage errors
-    }
-    try {
-      localStorage.setItem(COOKIE_PREFERENCES_KEY, JSON.stringify(prefs));
-    } catch {
-      // Ignore storage errors
+      setSaveError('Unable to save cookie preferences. Please enable browser storage and try again.');
+      return;
     }
     try {
       document.cookie = `${COOKIE_CONSENT_KEY}=${consentValue}; path=/; max-age=31536000; SameSite=Lax`;
@@ -197,6 +197,12 @@ export function CookieBanner() {
                 />
               </label>
             </div>
+          )}
+
+          {saveError && (
+            <p role="alert" className="text-[11px] text-(--error)">
+              {saveError}
+            </p>
           )}
 
           <div className="flex flex-wrap items-center gap-2">

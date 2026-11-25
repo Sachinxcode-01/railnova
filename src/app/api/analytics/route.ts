@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { checkRateLimit } from '@/lib/rate-limit';
 
+const COOKIE_CONSENT_KEY = 'railnova_cookie_consent';
+
 const pageviewSchema = z.object({
   path: z.string().min(1).max(200),
   event: z.string().min(1).max(80).optional(),
@@ -15,6 +17,11 @@ export async function POST(req: NextRequest) {
   const rl = checkRateLimit(`analytics:${ip}`, 120, 60_000);
   if (!rl.allowed) {
     return NextResponse.json({ ok: false }, { status: 429 });
+  }
+
+  const consent = req.cookies.get(COOKIE_CONSENT_KEY)?.value;
+  if (consent !== 'all' && consent !== 'analytics') {
+    return NextResponse.json({ ok: false, error: 'Analytics consent required.' }, { status: 403 });
   }
 
   try {

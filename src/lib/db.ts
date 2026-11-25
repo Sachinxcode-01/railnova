@@ -20,7 +20,10 @@ export interface RailNovaDatabase {
   auditLogs: AuditLog[];
 }
 
-const DATA_DIR = path.join(process.cwd(), 'data');
+const SEED_DB_PATH = path.join(process.cwd(), 'data', 'railnova-db.json');
+const DATA_DIR = process.env.VERCEL
+  ? path.join('/tmp', 'railnova-data')
+  : path.join(process.cwd(), 'data');
 const DB_PATH = path.join(DATA_DIR, 'railnova-db.json');
 
 let memoryCache: RailNovaDatabase | null = null;
@@ -225,14 +228,81 @@ function buildSeedDatabase(): RailNovaDatabase {
   };
 }
 
+function parseTwelveMonthExpiry(dateStr: string): number | null {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateStr.trim());
+  if (m) {
+    const year = Number(m[1]);
+    const month = Number(m[2]) - 1;
+    const day = Number(m[3]);
+    const lastDayOfMonth = new Date(Date.UTC(year + 1, month + 1, 0)).getUTCDate();
+    const clampedDay = Math.min(day, lastDayOfMonth);
+    return Date.UTC(year + 1, month, clampedDay, 23, 59, 59, 999);
+  }
+  const parsed = new Date(dateStr);
+  if (Number.isNaN(parsed.getTime())) return null;
+  const expiry = new Date(parsed);
+  expiry.setUTCFullYear(expiry.getUTCFullYear() + 1);
+  return expiry.getTime();
+}
+
+export function purgeExpiredRecords(db: RailNovaDatabase, now = new Date()): boolean {
+  const nowMs = now.getTime();
+  const expiredBookingIds = new Set<string>();
+  const expiredPnrs = new Set<string>();
+  const activeBookingIds = new Set<string>();
+
+  const nextBookings = db.bookings.filter((b) => {
+    const expiryMs = parseTwelveMonthExpiry(b.journeyDate);
+    if (expiryMs !== null && nowMs > expiryMs) {
+      expiredBookingIds.add(b.id);
+      expiredPnrs.add(b.pnr);
+      return false;
+    }
+    activeBookingIds.add(b.id);
+    return true;
+  });
+
+  const nextCancellations = db.cancellations.filter((c) => {
+    if (expiredBookingIds.has(c.bookingId) || expiredPnrs.has(c.pnr)) {
+      return false;
+    }
+    if (!activeBookingIds.has(c.bookingId)) {
+      const expiryMs = parseTwelveMonthExpiry(c.processedAt || c.createdAt);
+      if (expiryMs !== null && nowMs > expiryMs) {
+        return false;
+      }
+    }
+    return true;
+  });
+
+  const changed =
+    nextBookings.length !== db.bookings.length ||
+    nextCancellations.length !== db.cancellations.length;
+  if (changed) {
+    db.bookings = nextBookings;
+    db.cancellations = nextCancellations;
+  }
+  return changed;
+}
+
 export async function getDb(): Promise<RailNovaDatabase> {
-  if (memoryCache) return memoryCache;
+  if (memoryCache) {
+    if (purgeExpiredRecords(memoryCache)) {
+      await persistDb(memoryCache);
+    }
+    return memoryCache;
+  }
 
   try {
-    const raw = await fs.readFile(DB_PATH, 'utf8');
+    let raw: string;
+    try {
+      raw = await fs.readFile(DB_PATH, 'utf8');
+    } catch {
+      raw = await fs.readFile(SEED_DB_PATH, 'utf8');
+    }
     const parsed = JSON.parse(raw) as RailNovaDatabase;
     // Merge any newly added stations or trains into existing local DB without overwriting bookings
-    let dirty = false;
+    let dirty = purgeExpiredRecords(parsed);
     const existingStationCodes = new Set(parsed.stations.map((s) => s.code));
     for (const st of STATIONS) {
       if (!existingStationCodes.has(st.code)) {

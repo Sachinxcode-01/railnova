@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
@@ -46,6 +46,8 @@ export default function DashboardPage() {
   const [addingPax, setAddingPax] = useState(false);
   const [statusMsg, setStatusMsg] = useState<string | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
+  const [updatingMarketing, setUpdatingMarketing] = useState(false);
+  const updatingMarketingRef = useRef(false);
 
   const loadData = async () => {
     setLoading(true);
@@ -148,7 +150,9 @@ export default function DashboardPage() {
   };
 
   const handleToggleMarketing = async () => {
-    if (!user) return;
+    if (!user || updatingMarketingRef.current) return;
+    updatingMarketingRef.current = true;
+    setUpdatingMarketing(true);
     const nextVal = !user.marketingConsent;
     setActionError(null);
     setStatusMsg(null);
@@ -171,6 +175,9 @@ export default function DashboardPage() {
       );
     } catch {
       setActionError('Network error while updating marketing consent.');
+    } finally {
+      updatingMarketingRef.current = false;
+      setUpdatingMarketing(false);
     }
   };
 
@@ -435,8 +442,9 @@ export default function DashboardPage() {
                                                 <input
                                                   type="checkbox"
                                                   checked={Boolean(user.marketingConsent)}
+                                                  disabled={updatingMarketing}
                                                   onChange={handleToggleMarketing}
-                                                  className="mt-0.5 h-4 w-4 accent-(--accent-primary)"
+                                                  className="mt-0.5 h-4 w-4 accent-(--accent-primary) disabled:opacity-50 disabled:cursor-not-allowed"
                                                 />
                                               </label>
 

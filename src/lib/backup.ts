@@ -1,7 +1,10 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-const DATA_DIR = path.join(process.cwd(), 'data');
+const SEED_DB_PATH = path.join(process.cwd(), 'data', 'railnova-db.json');
+const DATA_DIR = process.env.VERCEL
+  ? path.join('/tmp', 'railnova-data')
+  : path.join(process.cwd(), 'data');
 const DB_PATH = path.join(DATA_DIR, 'railnova-db.json');
 const BACKUP_DIR = path.join(DATA_DIR, 'backups');
 const MAX_BACKUPS = 10;
@@ -14,7 +17,12 @@ export interface BackupEntry {
 
 export async function createDatabaseBackup(): Promise<BackupEntry> {
   await fs.mkdir(BACKUP_DIR, { recursive: true });
-  const raw = await fs.readFile(DB_PATH, 'utf8');
+  let raw: string;
+  try {
+    raw = await fs.readFile(DB_PATH, 'utf8');
+  } catch {
+    raw = await fs.readFile(SEED_DB_PATH, 'utf8');
+  }
   const stamp = new Date().toISOString().replace(/[:.]/g, '-');
   const fileName = `railnova-db-${stamp}.json`;
   const dest = path.join(BACKUP_DIR, fileName);
@@ -27,7 +35,7 @@ export async function createDatabaseBackup(): Promise<BackupEntry> {
   while (entries.length > MAX_BACKUPS) {
     const oldest = entries.shift();
     if (oldest) {
-      await fs.unlink(path.join(BACKUP_DIR, oldest)).catch(() => {});
+      await fs.unlink(path.join(BACKUP_DIR, oldest)).catch(() => { });
     }
   }
 
