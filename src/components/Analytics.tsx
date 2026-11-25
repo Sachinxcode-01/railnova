@@ -3,20 +3,29 @@
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Script from 'next/script';
-import { COOKIE_CONSENT_KEY } from './CookieBanner';
+import { COOKIE_CONSENT_KEY, readConsentCookie, type CookiePreferences } from './CookieBanner';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+
+function readAnalyticsConsent(): boolean {
+  if (typeof window === 'undefined') return false;
+  let consent: string | null = null;
+  try {
+    consent = localStorage.getItem(COOKIE_CONSENT_KEY);
+  } catch {
+    // Ignore storage errors
+  }
+  if (!consent) {
+    consent = readConsentCookie();
+  }
+  return consent === 'all' || consent === 'analytics';
+}
 
 export function trackAnalyticsEvent(
   eventName: string,
   params?: Record<string, string | number>
 ) {
-  if (typeof window === 'undefined') return;
-  try {
-    if (localStorage.getItem(COOKIE_CONSENT_KEY) !== 'all') return;
-  } catch {
-    return;
-  }
+  if (!readAnalyticsConsent()) return;
 
   const gtagFn = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
   if (typeof gtagFn === 'function') {
@@ -28,7 +37,7 @@ export function trackAnalyticsEvent(
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ path: window.location.pathname, event: eventName }),
     keepalive: true,
-  }).catch(() => {});
+  }).catch(() => { });
 }
 
 export function Analytics() {
@@ -36,18 +45,19 @@ export function Analytics() {
   const [consented, setConsented] = useState(false);
 
   useEffect(() => {
-    const check = () => {
-      try {
-        setConsented(localStorage.getItem(COOKIE_CONSENT_KEY) === 'all');
-      } catch {
-        setConsented(false);
-      }
-    };
-    check();
-    const onChange = () => check();
-    window.addEventListener('railnova-consent-changed', onChange);
-    return () => window.removeEventListener('railnova-consent-changed', onChange);
-  }, []);
+        const check = () => setConsented(readAnalyticsConsent());
+        check();
+        const onChange = (e: Event) => {
+          const detail = (e as CustomEvent<Partial<CookiePreferences>>).detail;
+          if (detail && typeof detail.analytics === 'boolean') {
+            setConsented(detail.analytics);
+          } else {
+            check();
+          }
+        };
+        window.addEventListener('railnova-consent-changed', onChange);
+        return () => window.removeEventListener('railnova-consent-changed', onChange);
+      }, []);
 
   useEffect(() => {
     if (!consented || !pathname) return;
@@ -56,7 +66,7 @@ export function Analytics() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ path: pathname, event: 'page_view' }),
       keepalive: true,
-    }).catch(() => {});
+    }).catch(() => { });
   }, [consented, pathname]);
 
   if (!consented || !GA_ID) return null;
