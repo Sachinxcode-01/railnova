@@ -12,6 +12,7 @@ export default function RegisterPage() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
+  const [marketingConsent, setMarketingConsent] = useState(false);
   const [honeypot, setHoneypot] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -40,7 +41,7 @@ export default function RegisterPage() {
       const res = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone, password, website: honeypot }),
+        body: JSON.stringify({ name, email, phone, password, marketingConsent, website: honeypot }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -126,8 +127,8 @@ export default function RegisterPage() {
                 }}
                 placeholder="ananya@domain.com"
                 className={`w-full h-11 rounded-lg border bg-(--bg-surface) px-3.5 text-sm ${error && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
-                    ? 'border-(--error)'
-                    : 'border-(--border-subtle)'
+                  ? 'border-(--error)'
+                  : 'border-(--border-subtle)'
                   }`}
               />
             </div>
@@ -164,6 +165,29 @@ export default function RegisterPage() {
                   }`}
               />
             </div>
+
+            <label className="flex items-start gap-2.5 text-xs text-(--text-secondary) cursor-pointer">
+              <input
+                type="checkbox"
+                checked={marketingConsent}
+                onChange={(e) => setMarketingConsent(e.target.checked)}
+                className="mt-0.5 h-4 w-4 shrink-0 rounded accent-(--accent-primary)"
+              />
+              <span>
+                Optional: Send me RailNova route updates, fare alerts, and service announcements. You can withdraw consent anytime in your account settings.
+              </span>
+            </label>
+
+            <p className="text-[11px] text-(--text-secondary) leading-relaxed">
+              By creating an account, you agree to our{' '}
+              <Link href="/terms" className="text-(--accent-primary) underline underline-offset-2">
+                Terms &amp; Conditions
+              </Link>{' '}
+              and acknowledge our{' '}
+              <Link href="/privacy" className="text-(--accent-primary) underline underline-offset-2">
+                Privacy Policy
+              </Link>.
+            </p>
 
             <button
               type="submit"

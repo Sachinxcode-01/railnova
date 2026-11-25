@@ -14,6 +14,7 @@ const registerSchema = z.object({
     .optional()
     .or(z.literal('')),
   password: z.string().min(8, 'Password must be at least 8 characters.').max(100),
+  marketingConsent: z.boolean().optional(),
   website: z.string().optional(),
 });
 
@@ -61,6 +62,8 @@ export async function POST(req: NextRequest) {
           createdAt: new Date().toISOString(),
         },
       ],
+      marketingConsent: Boolean(parsed.data.marketingConsent),
+      marketingConsentUpdatedAt: new Date().toISOString(),
       createdAt: new Date().toISOString(),
     };
 

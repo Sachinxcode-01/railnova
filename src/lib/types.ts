@@ -159,6 +159,8 @@ export interface UserProfile {
     read: boolean;
     createdAt: string;
   }[];
+  marketingConsent?: boolean;
+  marketingConsentUpdatedAt?: string;
   createdAt: string;
 }
 

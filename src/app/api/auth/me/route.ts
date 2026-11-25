@@ -15,6 +15,8 @@ function sanitizeUser(user: NonNullable<Awaited<ReturnType<typeof getDb>>['users
     favouriteDestinations: user.favouriteDestinations,
     recentSearches: user.recentSearches,
     notifications: user.notifications,
+    marketingConsent: Boolean(user.marketingConsent),
+    marketingConsentUpdatedAt: user.marketingConsentUpdatedAt,
     createdAt: user.createdAt,
   };
 }
@@ -48,6 +50,7 @@ const patchSchema = z.object({
   removePassengerId: z.string().optional(),
   toggleFavouriteDestination: z.string().optional(),
   markNotificationsRead: z.boolean().optional(),
+  marketingConsent: z.boolean().optional(),
 });
 
 export async function PATCH(req: NextRequest) {
@@ -87,6 +90,10 @@ export async function PATCH(req: NextRequest) {
   if (parsed.data.markNotificationsRead) {
     user.notifications = user.notifications.map((n) => ({ ...n, read: true }));
   }
+  if (parsed.data.marketingConsent !== undefined) {
+    user.marketingConsent = parsed.data.marketingConsent;
+    user.marketingConsentUpdatedAt = new Date().toISOString();
+  }
 
   await persistDb(db);
   return NextResponse.json({ user: sanitizeUser(user) });
@@ -99,13 +106,16 @@ export async function DELETE() {
   }
   const db = await getDb();
   db.users = db.users.filter((u) => u.id !== session.userId);
+  // Erase associated personal bookings and cancellation records per GDPR Art. 17
+  db.bookings = db.bookings.filter((b) => b.userId !== session.userId);
+  db.cancellations = db.cancellations.filter((c) => c.userId !== session.userId);
   db.auditLogs.unshift({
     id: `aud_${Date.now()}`,
-    actorId: session.userId,
-    actorEmail: session.email,
+    actorId: 'erased_user',
+    actorEmail: 'redacted@erased.local',
     action: 'ACCOUNT_DELETED',
     target: session.userId,
-    details: 'User deleted their account',
+    details: 'User exercised right to erasure (account and bookings deleted)',
     timestamp: new Date().toISOString(),
   });
   await persistDb(db);

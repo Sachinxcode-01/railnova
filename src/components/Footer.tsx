@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { RailNovaLogo } from './Navbar';
 import { RAILNOVA_CONTACT } from '@/lib/contact';
+import { CookieSettingsButton } from './CookieSettingsButton';
 
 export function Footer() {
   return (
@@ -84,6 +85,10 @@ export function Footer() {
             <Link href="/terms" className="hover:text-(--accent-primary) transition-colors">
               Terms of Service
             </Link>
+            <Link href="/licenses" className="hover:text-(--accent-primary) transition-colors">
+              Open-Source Licences
+            </Link>
+            <CookieSettingsButton />
             <span>Photography via Unsplash (licensed editorial stand-ins).</span>
           </div>
         </div>

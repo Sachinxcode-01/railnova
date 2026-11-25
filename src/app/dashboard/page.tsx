@@ -13,6 +13,8 @@ import {
   Plus,
   ArrowUpRight,
   XCircle,
+  Download,
+  Mail,
 } from 'lucide-react';
 import { BookingRecord, PassengerInput } from '@/lib/types';
 import { DigitalTicket } from '@/components/DigitalTicket';
@@ -28,6 +30,7 @@ interface DashboardUser {
   favouriteDestinations: string[];
   recentSearches: { fromCode: string; toCode: string; date: string }[];
   notifications: { id: string; title: string; message: string; read: boolean; createdAt: string }[];
+  marketingConsent?: boolean;
 }
 
 export default function DashboardPage() {
@@ -138,10 +141,28 @@ export default function DashboardPage() {
   };
 
   const handleDeleteAccount = async () => {
-    if (!window.confirm('Delete your demonstration RailNova account?')) return;
+    if (!window.confirm('Permanently delete your RailNova account and erase your bookings?')) return;
     await fetch('/api/auth/me', { method: 'DELETE' });
     router.push('/');
     router.refresh();
+  };
+
+  const handleToggleMarketing = async () => {
+    if (!user) return;
+    const nextVal = !user.marketingConsent;
+    const res = await fetch('/api/auth/me', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ marketingConsent: nextVal }),
+    });
+    if (res.ok) {
+      setUser({ ...user, marketingConsent: nextVal });
+      setStatusMsg(
+        nextVal
+          ? 'Marketing communications consent enabled.'
+          : 'Marketing communications consent withdrawn.'
+      );
+    }
   };
 
   if (loading) {
@@ -271,11 +292,10 @@ export default function DashboardPage() {
                       </div>
                     </div>
                     <span
-                      className={`rounded-full px-3 py-1 text-xs font-mono-tech font-semibold ${
-                        b.bookingStatus === 'CANCELLED'
+                      className={`rounded-full px-3 py-1 text-xs font-mono-tech font-semibold ${b.bookingStatus === 'CANCELLED'
                           ? 'bg-[var(--error)]/15 text-[var(--error)]'
                           : 'bg-[var(--success)]/15 text-[var(--success)]'
-                      }`}
+                        }`}
                     >
                       {b.bookingStatus}
                     </span>
@@ -342,9 +362,8 @@ export default function DashboardPage() {
                     if (paxError) setPaxError(null);
                   }}
                   placeholder="Add passenger name"
-                  className={`flex-1 h-9 rounded-lg border bg-[var(--bg-primary)] px-2.5 text-xs ${
-                    paxError ? 'border-[var(--error)]' : 'border-[var(--border-subtle)]'
-                  }`}
+                  className={`flex-1 h-9 rounded-lg border bg-[var(--bg-primary)] px-2.5 text-xs ${paxError ? 'border-[var(--error)]' : 'border-[var(--border-subtle)]'
+                    }`}
                 />
                 <input
                   type="number"
@@ -389,23 +408,50 @@ export default function DashboardPage() {
             ))}
           </div>
 
-          {/* Account Settings */}
-          <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-5 space-y-3">
-            <h2 className="font-display text-lg font-bold flex items-center gap-2">
-              <Settings className="h-4 w-4 text-[var(--text-secondary)]" />
-              <span>Account</span>
-            </h2>
-            <button
-              type="button"
-              onClick={handleDeleteAccount}
-              className="inline-flex items-center gap-1.5 text-xs text-[var(--error)] hover:underline cursor-pointer"
-            >
-              <Trash2 className="h-3.5 w-3.5" />
-              <span>Delete Account</span>
-            </button>
+            {/* Account & GDPR Privacy Controls */}
+            <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-5 space-y-4">
+              <h2 className="font-display text-lg font-bold flex items-center gap-2">
+                <Settings className="h-4 w-4 text-[var(--text-secondary)]" />
+                <span>Account &amp; GDPR Privacy</span>
+              </h2>
+
+              <label className="flex items-start justify-between gap-3 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-primary)] p-3 text-xs cursor-pointer">
+                <span className="flex items-start gap-2">
+                  <Mail className="h-3.5 w-3.5 text-[var(--accent-primary)] mt-0.5 shrink-0" />
+                  <span>
+                    <strong className="block text-[var(--text-primary)]">Marketing Updates</strong>
+                    <span className="text-[var(--text-secondary)]">Optional route &amp; fare alerts</span>
+                  </span>
+                </span>
+                <input
+                  type="checkbox"
+                  checked={Boolean(user.marketingConsent)}
+                  onChange={handleToggleMarketing}
+                  className="mt-0.5 h-4 w-4 accent-[var(--accent-primary)]"
+                />
+              </label>
+
+              <div className="flex flex-col gap-2 pt-1">
+                <a
+                  href="/api/auth/me/export"
+                  download="railnova-personal-data.json"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--accent-primary)] hover:underline"
+                >
+                  <Download className="h-3.5 w-3.5" />
+                  <span>Export My Personal Data (JSON)</span>
+                </a>
+                <button
+                  type="button"
+                  onClick={handleDeleteAccount}
+                  className="inline-flex items-center gap-1.5 text-xs text-[var(--error)] hover:underline cursor-pointer text-left"
+                >
+                  <Trash2 className="h-3.5 w-3.5" />
+                  <span>Delete Account &amp; Erase All Data</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+      );
 }
