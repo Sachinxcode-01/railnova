@@ -262,6 +262,393 @@
       "lat": 26.4539,
       "lng": 80.3511,
       "platforms": 10
+    },
+    {
+      "code": "YPR",
+      "name": "Yesvantpur Junction",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "lat": 13.0238,
+      "lng": 77.5504,
+      "platforms": 6
+    },
+    {
+      "code": "SMVB",
+      "name": "SMVT Bengaluru",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "lat": 13.0012,
+      "lng": 77.6382,
+      "platforms": 7
+    },
+    {
+      "code": "MS",
+      "name": "Chennai Egmore",
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "lat": 13.0732,
+      "lng": 80.2609,
+      "platforms": 11
+    },
+    {
+      "code": "CBE",
+      "name": "Coimbatore Junction",
+      "city": "Coimbatore",
+      "state": "Tamil Nadu",
+      "lat": 10.9965,
+      "lng": 76.9667,
+      "platforms": 6
+    },
+    {
+      "code": "MDU",
+      "name": "Madurai Junction",
+      "city": "Madurai",
+      "state": "Tamil Nadu",
+      "lat": 9.9195,
+      "lng": 78.1103,
+      "platforms": 6
+    },
+    {
+      "code": "TVC",
+      "name": "Thiruvananthapuram Central",
+      "city": "Thiruvananthapuram",
+      "state": "Kerala",
+      "lat": 8.4875,
+      "lng": 76.9525,
+      "platforms": 5
+    },
+    {
+      "code": "ERS",
+      "name": "Ernakulam Junction",
+      "city": "Kochi",
+      "state": "Kerala",
+      "lat": 9.9691,
+      "lng": 76.2913,
+      "platforms": 6
+    },
+    {
+      "code": "CLT",
+      "name": "Kozhikode Main",
+      "city": "Kozhikode",
+      "state": "Kerala",
+      "lat": 11.2471,
+      "lng": 75.7815,
+      "platforms": 4
+    },
+    {
+      "code": "HYB",
+      "name": "Hyderabad Deccan (Nampally)",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "lat": 17.3921,
+      "lng": 78.4673,
+      "platforms": 6
+    },
+    {
+      "code": "BZA",
+      "name": "Vijayawada Junction",
+      "city": "Vijayawada",
+      "state": "Andhra Pradesh",
+      "lat": 16.5186,
+      "lng": 80.6199,
+      "platforms": 10
+    },
+    {
+      "code": "VSKP",
+      "name": "Visakhapatnam Junction",
+      "city": "Visakhapatnam",
+      "state": "Andhra Pradesh",
+      "lat": 17.7219,
+      "lng": 83.2896,
+      "platforms": 8
+    },
+    {
+      "code": "TPTY",
+      "name": "Tirupati",
+      "city": "Tirupati",
+      "state": "Andhra Pradesh",
+      "lat": 13.6288,
+      "lng": 79.4192,
+      "platforms": 6
+    },
+    {
+      "code": "MMCT",
+      "name": "Mumbai Central",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "lat": 18.9696,
+      "lng": 72.8193,
+      "platforms": 5
+    },
+    {
+      "code": "LTT",
+      "name": "Lokmanya Tilak Terminus",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "lat": 19.0699,
+      "lng": 72.8916,
+      "platforms": 5
+    },
+    {
+      "code": "ST",
+      "name": "Surat",
+      "city": "Surat",
+      "state": "Gujarat",
+      "lat": 21.2049,
+      "lng": 72.8411,
+      "platforms": 4
+    },
+    {
+      "code": "BRC",
+      "name": "Vadodara Junction",
+      "city": "Vadodara",
+      "state": "Gujarat",
+      "lat": 22.3106,
+      "lng": 73.1809,
+      "platforms": 7
+    },
+    {
+      "code": "RJT",
+      "name": "Rajkot Junction",
+      "city": "Rajkot",
+      "state": "Gujarat",
+      "lat": 22.3125,
+      "lng": 70.8022,
+      "platforms": 5
+    },
+    {
+      "code": "RKMP",
+      "name": "Rani Kamalapati",
+      "city": "Bhopal",
+      "state": "Madhya Pradesh",
+      "lat": 23.2295,
+      "lng": 77.4385,
+      "platforms": 5
+    },
+    {
+      "code": "INDB",
+      "name": "Indore Junction",
+      "city": "Indore",
+      "state": "Madhya Pradesh",
+      "lat": 22.7177,
+      "lng": 75.8685,
+      "platforms": 6
+    },
+    {
+      "code": "JBP",
+      "name": "Jabalpur Junction",
+      "city": "Jabalpur",
+      "state": "Madhya Pradesh",
+      "lat": 23.1656,
+      "lng": 79.9504,
+      "platforms": 6
+    },
+    {
+      "code": "R",
+      "name": "Raipur Junction",
+      "city": "Raipur",
+      "state": "Chhattisgarh",
+      "lat": 21.2568,
+      "lng": 81.6296,
+      "platforms": 7
+    },
+    {
+      "code": "NZM",
+      "name": "Hazrat Nizamuddin",
+      "city": "Delhi",
+      "state": "Delhi",
+      "lat": 28.5889,
+      "lng": 77.2535,
+      "platforms": 9
+    },
+    {
+      "code": "DLI",
+      "name": "Old Delhi Junction",
+      "city": "Delhi",
+      "state": "Delhi",
+      "lat": 28.6619,
+      "lng": 77.228,
+      "platforms": 16
+    },
+    {
+      "code": "JU",
+      "name": "Jodhpur Junction",
+      "city": "Jodhpur",
+      "state": "Rajasthan",
+      "lat": 26.2838,
+      "lng": 73.0219,
+      "platforms": 5
+    },
+    {
+      "code": "UDZ",
+      "name": "Udaipur City",
+      "city": "Udaipur",
+      "state": "Rajasthan",
+      "lat": 24.5701,
+      "lng": 73.6993,
+      "platforms": 5
+    },
+    {
+      "code": "AGC",
+      "name": "Agra Cantt",
+      "city": "Agra",
+      "state": "Uttar Pradesh",
+      "lat": 27.1578,
+      "lng": 77.9896,
+      "platforms": 6
+    },
+    {
+      "code": "LKO",
+      "name": "Lucknow Charbagh NR",
+      "city": "Lucknow",
+      "state": "Uttar Pradesh",
+      "lat": 26.8317,
+      "lng": 80.9218,
+      "platforms": 9
+    },
+    {
+      "code": "PRYJ",
+      "name": "Prayagraj Junction",
+      "city": "Prayagraj",
+      "state": "Uttar Pradesh",
+      "lat": 25.4448,
+      "lng": 81.8295,
+      "platforms": 10
+    },
+    {
+      "code": "GKP",
+      "name": "Gorakhpur Junction",
+      "city": "Gorakhpur",
+      "state": "Uttar Pradesh",
+      "lat": 26.7588,
+      "lng": 83.3822,
+      "platforms": 10
+    },
+    {
+      "code": "ASR",
+      "name": "Amritsar Junction",
+      "city": "Amritsar",
+      "state": "Punjab",
+      "lat": 31.6331,
+      "lng": 74.8669,
+      "platforms": 7
+    },
+    {
+      "code": "CDG",
+      "name": "Chandigarh Junction",
+      "city": "Chandigarh",
+      "state": "Chandigarh",
+      "lat": 30.7016,
+      "lng": 76.8214,
+      "platforms": 6
+    },
+    {
+      "code": "DDN",
+      "name": "Dehradun",
+      "city": "Dehradun",
+      "state": "Uttarakhand",
+      "lat": 30.3137,
+      "lng": 78.0338,
+      "platforms": 4
+    },
+    {
+      "code": "JAT",
+      "name": "Jammu Tawi",
+      "city": "Jammu",
+      "state": "Jammu & Kashmir",
+      "lat": 32.7069,
+      "lng": 74.8794,
+      "platforms": 3
+    },
+    {
+      "code": "SVDK",
+      "name": "Shri Mata Vaishno Devi Katra",
+      "city": "Katra",
+      "state": "Jammu & Kashmir",
+      "lat": 32.9862,
+      "lng": 74.9482,
+      "platforms": 3
+    },
+    {
+      "code": "SDAH",
+      "name": "Sealdah",
+      "city": "Kolkata",
+      "state": "West Bengal",
+      "lat": 22.5673,
+      "lng": 88.3708,
+      "platforms": 21
+    },
+    {
+      "code": "NJP",
+      "name": "New Jalpaiguri",
+      "city": "Siliguri",
+      "state": "West Bengal",
+      "lat": 26.6828,
+      "lng": 88.4426,
+      "platforms": 6
+    },
+    {
+      "code": "PNBE",
+      "name": "Patna Junction",
+      "city": "Patna",
+      "state": "Bihar",
+      "lat": 25.6033,
+      "lng": 85.1376,
+      "platforms": 10
+    },
+    {
+      "code": "RNC",
+      "name": "Ranchi Junction",
+      "city": "Ranchi",
+      "state": "Jharkhand",
+      "lat": 23.3522,
+      "lng": 85.3441,
+      "platforms": 6
+    },
+    {
+      "code": "TATA",
+      "name": "Tatanagar Junction",
+      "city": "Jamshedpur",
+      "state": "Jharkhand",
+      "lat": 22.7689,
+      "lng": 86.2003,
+      "platforms": 5
+    },
+    {
+      "code": "BBS",
+      "name": "Bhubaneswar",
+      "city": "Bhubaneswar",
+      "state": "Odisha",
+      "lat": 20.2666,
+      "lng": 85.8436,
+      "platforms": 6
+    },
+    {
+      "code": "PURI",
+      "name": "Puri",
+      "city": "Puri",
+      "state": "Odisha",
+      "lat": 19.8077,
+      "lng": 85.8396,
+      "platforms": 8
+    },
+    {
+      "code": "GHY",
+      "name": "Guwahati",
+      "city": "Guwahati",
+      "state": "Assam",
+      "lat": 26.1822,
+      "lng": 91.7512,
+      "platforms": 7
+    },
+    {
+      "code": "DBRG",
+      "name": "Dibrugarh",
+      "city": "Dibrugarh",
+      "state": "Assam",
+      "lat": 27.4728,
+      "lng": 94.912,
+      "platforms": 4
     }
   ],
   "trains": [
@@ -1725,9 +2112,2114 @@
           "lng": 76.6932
         }
       ]
+    },
+    {
+      "number": "22221",
+      "name": "CSMT - Hazrat Nizamuddin Rajdhani",
+      "category": "Rajdhani",
+      "fromCode": "CSMT",
+      "toCode": "NZM",
+      "departureTime": "16:00",
+      "arrivalTime": "09:55",
+      "durationMinutes": 1075,
+      "durationLabel": "17h 55m",
+      "distanceKm": 1538,
+      "runningDays": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "applicableQuotas": [
+        "GN",
+        "TQ",
+        "PT",
+        "LD"
+      ],
+      "pantry": true,
+      "avgSpeedKmph": 86,
+      "hasBioVacuum": true,
+      "classes": [
+        {
+          "classCode": "1A",
+          "className": "First AC",
+          "fare": 5240,
+          "status": "AVAILABLE",
+          "count": 4,
+          "statusText": "AVL 4",
+          "coachPrefix": "H"
+        },
+        {
+          "classCode": "2A",
+          "className": "Second AC",
+          "fare": 3110,
+          "status": "AVAILABLE",
+          "count": 22,
+          "statusText": "AVL 22",
+          "coachPrefix": "A"
+        },
+        {
+          "classCode": "3A",
+          "className": "Third AC",
+          "fare": 2215,
+          "status": "AVAILABLE",
+          "count": 49,
+          "statusText": "AVL 49",
+          "coachPrefix": "B"
+        }
+      ],
+      "stops": [
+        {
+          "stationCode": "CSMT",
+          "stationName": "Chhatrapati Shivaji Maharaj Terminus",
+          "city": "Mumbai",
+          "arrival": "Origin",
+          "departure": "16:00",
+          "haltMinutes": 0,
+          "distanceKm": 0,
+          "day": 1,
+          "platform": "16",
+          "lat": 18.9398,
+          "lng": 72.8355
+        },
+        {
+          "stationCode": "BPL",
+          "stationName": "Bhopal Junction",
+          "city": "Bhopal",
+          "arrival": "02:05",
+          "departure": "02:15",
+          "haltMinutes": 10,
+          "distanceKm": 837,
+          "day": 2,
+          "platform": "1",
+          "lat": 23.2683,
+          "lng": 77.4136
+        },
+        {
+          "stationCode": "AGC",
+          "stationName": "Agra Cantt",
+          "city": "Agra",
+          "arrival": "07:20",
+          "departure": "07:22",
+          "haltMinutes": 2,
+          "distanceKm": 1344,
+          "day": 2,
+          "platform": "2",
+          "lat": 27.1578,
+          "lng": 77.9896
+        },
+        {
+          "stationCode": "NZM",
+          "stationName": "Hazrat Nizamuddin",
+          "city": "Delhi",
+          "arrival": "09:55",
+          "departure": "Destination",
+          "haltMinutes": 0,
+          "distanceKm": 1538,
+          "day": 2,
+          "platform": "4",
+          "lat": 28.5889,
+          "lng": 77.2535
+        }
+      ]
+    },
+    {
+      "number": "20901",
+      "name": "Mumbai Central - Gandhinagar Vande Bharat",
+      "category": "Vande Bharat",
+      "fromCode": "MMCT",
+      "toCode": "ADI",
+      "departureTime": "06:00",
+      "arrivalTime": "11:25",
+      "durationMinutes": 325,
+      "durationLabel": "5h 25m",
+      "distanceKm": 492,
+      "runningDays": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat"
+      ],
+      "applicableQuotas": [
+        "GN",
+        "TQ",
+        "LD"
+      ],
+      "pantry": true,
+      "avgSpeedKmph": 91,
+      "hasBioVacuum": true,
+      "classes": [
+        {
+          "classCode": "CC",
+          "className": "AC Chair Car",
+          "fare": 1420,
+          "status": "AVAILABLE",
+          "count": 78,
+          "statusText": "AVL 78",
+          "coachPrefix": "C"
+        },
+        {
+          "classCode": "EC",
+          "className": "Executive Chair Car",
+          "fare": 2630,
+          "status": "AVAILABLE",
+          "count": 16,
+          "statusText": "AVL 16",
+          "coachPrefix": "E"
+        }
+      ],
+      "stops": [
+        {
+          "stationCode": "MMCT",
+          "stationName": "Mumbai Central",
+          "city": "Mumbai",
+          "arrival": "Origin",
+          "departure": "06:00",
+          "haltMinutes": 0,
+          "distanceKm": 0,
+          "day": 1,
+          "platform": "1",
+          "lat": 18.9696,
+          "lng": 72.8193
+        },
+        {
+          "stationCode": "ST",
+          "stationName": "Surat",
+          "city": "Surat",
+          "arrival": "08:50",
+          "departure": "08:53",
+          "haltMinutes": 3,
+          "distanceKm": 263,
+          "day": 1,
+          "platform": "2",
+          "lat": 21.2049,
+          "lng": 72.8411
+        },
+        {
+          "stationCode": "BRC",
+          "stationName": "Vadodara Junction",
+          "city": "Vadodara",
+          "arrival": "10:08",
+          "departure": "10:12",
+          "haltMinutes": 4,
+          "distanceKm": 392,
+          "day": 1,
+          "platform": "1",
+          "lat": 22.3106,
+          "lng": 73.1809
+        },
+        {
+          "stationCode": "ADI",
+          "stationName": "Ahmedabad Junction",
+          "city": "Ahmedabad",
+          "arrival": "11:25",
+          "departure": "Destination",
+          "haltMinutes": 0,
+          "distanceKm": 492,
+          "day": 1,
+          "platform": "2",
+          "lat": 23.0265,
+          "lng": 72.6008
+        }
+      ]
+    },
+    {
+      "number": "22229",
+      "name": "CSMT - Madgaon Vande Bharat",
+      "category": "Vande Bharat",
+      "fromCode": "CSMT",
+      "toCode": "MAO",
+      "departureTime": "05:25",
+      "arrivalTime": "13:10",
+      "durationMinutes": 465,
+      "durationLabel": "7h 45m",
+      "distanceKm": 586,
+      "runningDays": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Sat",
+        "Sun"
+      ],
+      "applicableQuotas": [
+        "GN",
+        "TQ",
+        "LD"
+      ],
+      "pantry": true,
+      "avgSpeedKmph": 76,
+      "hasBioVacuum": true,
+      "classes": [
+        {
+          "classCode": "CC",
+          "className": "AC Chair Car",
+          "fare": 1595,
+          "status": "AVAILABLE",
+          "count": 54,
+          "statusText": "AVL 54",
+          "coachPrefix": "C"
+        },
+        {
+          "classCode": "EC",
+          "className": "Executive Chair Car",
+          "fare": 2915,
+          "status": "AVAILABLE",
+          "count": 12,
+          "statusText": "AVL 12",
+          "coachPrefix": "E"
+        }
+      ],
+      "stops": [
+        {
+          "stationCode": "CSMT",
+          "stationName": "Chhatrapati Shivaji Maharaj Terminus",
+          "city": "Mumbai",
+          "arrival": "Origin",
+          "departure": "05:25",
+          "haltMinutes": 0,
+          "distanceKm": 0,
+          "day": 1,
+          "platform": "14",
+          "lat": 18.9398,
+          "lng": 72.8355
+        },
+        {
+          "stationCode": "MAO",
+          "stationName": "Madgaon Junction",
+          "city": "Goa",
+          "arrival": "13:10",
+          "departure": "Destination",
+          "haltMinutes": 0,
+          "distanceKm": 586,
+          "day": 1,
+          "platform": "1",
+          "lat": 15.2683,
+          "lng": 73.9693
+        }
+      ]
+    },
+    {
+      "number": "22439",
+      "name": "New Delhi - Shri Mata Vaishno Devi Katra Vande Bharat",
+      "category": "Vande Bharat",
+      "fromCode": "NDLS",
+      "toCode": "SVDK",
+      "departureTime": "06:00",
+      "arrivalTime": "14:00",
+      "durationMinutes": 480,
+      "durationLabel": "8h 00m",
+      "distanceKm": 655,
+      "runningDays": [
+        "Mon",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "applicableQuotas": [
+        "GN",
+        "TQ",
+        "LD"
+      ],
+      "pantry": true,
+      "avgSpeedKmph": 82,
+      "hasBioVacuum": true,
+      "classes": [
+        {
+          "classCode": "CC",
+          "className": "AC Chair Car",
+          "fare": 1665,
+          "status": "AVAILABLE",
+          "count": 68,
+          "statusText": "AVL 68",
+          "coachPrefix": "C"
+        },
+        {
+          "classCode": "EC",
+          "className": "Executive Chair Car",
+          "fare": 3055,
+          "status": "AVAILABLE",
+          "count": 15,
+          "statusText": "AVL 15",
+          "coachPrefix": "E"
+        }
+      ],
+      "stops": [
+        {
+          "stationCode": "NDLS",
+          "stationName": "New Delhi",
+          "city": "Delhi",
+          "arrival": "Origin",
+          "departure": "06:00",
+          "haltMinutes": 0,
+          "distanceKm": 0,
+          "day": 1,
+          "platform": "16",
+          "lat": 28.6429,
+          "lng": 77.2191
+        },
+        {
+          "stationCode": "JAT",
+          "stationName": "Jammu Tawi",
+          "city": "Jammu",
+          "arrival": "12:35",
+          "departure": "12:37",
+          "haltMinutes": 2,
+          "distanceKm": 577,
+          "day": 1,
+          "platform": "1",
+          "lat": 32.7069,
+          "lng": 74.8794
+        },
+        {
+          "stationCode": "SVDK",
+          "stationName": "Shri Mata Vaishno Devi Katra",
+          "city": "Katra",
+          "arrival": "14:00",
+          "departure": "Destination",
+          "haltMinutes": 0,
+          "distanceKm": 655,
+          "day": 1,
+          "platform": "1",
+          "lat": 32.9862,
+          "lng": 74.9482
+        }
+      ]
+    },
+    {
+      "number": "20172",
+      "name": "Hazrat Nizamuddin - Rani Kamalapati Vande Bharat",
+      "category": "Vande Bharat",
+      "fromCode": "NZM",
+      "toCode": "RKMP",
+      "departureTime": "14:40",
+      "arrivalTime": "22:16",
+      "durationMinutes": 456,
+      "durationLabel": "7h 36m",
+      "distanceKm": 701,
+      "runningDays": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sun"
+      ],
+      "applicableQuotas": [
+        "GN",
+        "TQ",
+        "LD"
+      ],
+      "pantry": true,
+      "avgSpeedKmph": 92,
+      "hasBioVacuum": true,
+      "classes": [
+        {
+          "classCode": "CC",
+          "className": "AC Chair Car",
+          "fare": 1735,
+          "status": "AVAILABLE",
+          "count": 84,
+          "statusText": "AVL 84",
+          "coachPrefix": "C"
+        },
+        {
+          "classCode": "EC",
+          "className": "Executive Chair Car",
+          "fare": 3185,
+          "status": "AVAILABLE",
+          "count": 17,
+          "statusText": "AVL 17",
+          "coachPrefix": "E"
+        }
+      ],
+      "stops": [
+        {
+          "stationCode": "NZM",
+          "stationName": "Hazrat Nizamuddin",
+          "city": "Delhi",
+          "arrival": "Origin",
+          "departure": "14:40",
+          "haltMinutes": 0,
+          "distanceKm": 0,
+          "day": 1,
+          "platform": "3",
+          "lat": 28.5889,
+          "lng": 77.2535
+        },
+        {
+          "stationCode": "AGC",
+          "stationName": "Agra Cantt",
+          "city": "Agra",
+          "arrival": "16:23",
+          "departure": "16:25",
+          "haltMinutes": 2,
+          "distanceKm": 188,
+          "day": 1,
+          "platform": "1",
+          "lat": 27.1578,
+          "lng": 77.9896
+        },
+        {
+          "stationCode": "RKMP",
+          "stationName": "Rani Kamalapati",
+          "city": "Bhopal",
+          "arrival": "22:16",
+          "departure": "Destination",
+          "haltMinutes": 0,
+          "distanceKm": 701,
+          "day": 1,
+          "platform": "1",
+          "lat": 23.2295,
+          "lng": 77.4385
+        }
+      ]
+    },
+    {
+      "number": "12621",
+      "name": "Tamil Nadu Superfast Express",
+      "category": "Superfast",
+      "fromCode": "MAS",
+      "toCode": "NDLS",
+      "departureTime": "22:00",
+      "arrivalTime": "06:35",
+      "durationMinutes": 1955,
+      "durationLabel": "32h 35m",
+      "distanceKm": 2182,
+      "runningDays": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "applicableQuotas": [
+        "GN",
+        "TQ",
+        "PT",
+        "LD",
+        "SS"
+      ],
+      "pantry": true,
+      "avgSpeedKmph": 67,
+      "hasBioVacuum": true,
+      "classes": [
+        {
+          "classCode": "1A",
+          "className": "First AC",
+          "fare": 5280,
+          "status": "AVAILABLE",
+          "count": 4,
+          "statusText": "AVL 4",
+          "coachPrefix": "H"
+        },
+        {
+          "classCode": "2A",
+          "className": "Second AC",
+          "fare": 3095,
+          "status": "AVAILABLE",
+          "count": 18,
+          "statusText": "AVL 18",
+          "coachPrefix": "A"
+        },
+        {
+          "classCode": "3A",
+          "className": "Third AC",
+          "fare": 2135,
+          "status": "AVAILABLE",
+          "count": 45,
+          "statusText": "AVL 45",
+          "coachPrefix": "B"
+        },
+        {
+          "classCode": "SL",
+          "className": "Sleeper",
+          "fare": 825,
+          "status": "AVAILABLE",
+          "count": 92,
+          "statusText": "AVL 92",
+          "coachPrefix": "S"
+        }
+      ],
+      "stops": [
+        {
+          "stationCode": "MAS",
+          "stationName": "Puratchi Thalaivar Dr. MGR Chennai Central",
+          "city": "Chennai",
+          "arrival": "Origin",
+          "departure": "22:00",
+          "haltMinutes": 0,
+          "distanceKm": 0,
+          "day": 1,
+          "platform": "6",
+          "lat": 13.0827,
+          "lng": 80.275
+        },
+        {
+          "stationCode": "BZA",
+          "stationName": "Vijayawada Junction",
+          "city": "Vijayawada",
+          "arrival": "04:05",
+          "departure": "04:15",
+          "haltMinutes": 10,
+          "distanceKm": 431,
+          "day": 2,
+          "platform": "1",
+          "lat": 16.5186,
+          "lng": 80.6199
+        },
+        {
+          "stationCode": "NGP",
+          "stationName": "Nagpur Junction",
+          "city": "Nagpur",
+          "arrival": "14:05",
+          "departure": "14:15",
+          "haltMinutes": 10,
+          "distanceKm": 1094,
+          "day": 2,
+          "platform": "3",
+          "lat": 21.1518,
+          "lng": 79.0882
+        },
+        {
+          "stationCode": "BPL",
+          "stationName": "Bhopal Junction",
+          "city": "Bhopal",
+          "arrival": "19:45",
+          "departure": "19:55",
+          "haltMinutes": 10,
+          "distanceKm": 1483,
+          "day": 2,
+          "platform": "2",
+          "lat": 23.2683,
+          "lng": 77.4136
+        },
+        {
+          "stationCode": "AGC",
+          "stationName": "Agra Cantt",
+          "city": "Agra",
+          "arrival": "03:15",
+          "departure": "03:18",
+          "haltMinutes": 3,
+          "distanceKm": 1987,
+          "day": 3,
+          "platform": "1",
+          "lat": 27.1578,
+          "lng": 77.9896
+        },
+        {
+          "stationCode": "NDLS",
+          "stationName": "New Delhi",
+          "city": "Delhi",
+          "arrival": "06:35",
+          "departure": "Destination",
+          "haltMinutes": 0,
+          "distanceKm": 2182,
+          "day": 3,
+          "platform": "4",
+          "lat": 28.6429,
+          "lng": 77.2191
+        }
+      ]
+    },
+    {
+      "number": "12625",
+      "name": "Kerala Superfast Express",
+      "category": "Superfast",
+      "fromCode": "TVC",
+      "toCode": "NDLS",
+      "departureTime": "12:30",
+      "arrivalTime": "13:15",
+      "durationMinutes": 2925,
+      "durationLabel": "48h 45m",
+      "distanceKm": 3032,
+      "runningDays": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "applicableQuotas": [
+        "GN",
+        "TQ",
+        "PT",
+        "LD",
+        "SS"
+      ],
+      "pantry": true,
+      "avgSpeedKmph": 62,
+      "hasBioVacuum": true,
+      "classes": [
+        {
+          "classCode": "2A",
+          "className": "Second AC",
+          "fare": 3745,
+          "status": "AVAILABLE",
+          "count": 14,
+          "statusText": "AVL 14",
+          "coachPrefix": "A"
+        },
+        {
+          "classCode": "3A",
+          "className": "Third AC",
+          "fare": 2560,
+          "status": "AVAILABLE",
+          "count": 36,
+          "statusText": "AVL 36",
+          "coachPrefix": "B"
+        },
+        {
+          "classCode": "SL",
+          "className": "Sleeper",
+          "fare": 985,
+          "status": "AVAILABLE",
+          "count": 74,
+          "statusText": "AVL 74",
+          "coachPrefix": "S"
+        }
+      ],
+      "stops": [
+        {
+          "stationCode": "TVC",
+          "stationName": "Thiruvananthapuram Central",
+          "city": "Thiruvananthapuram",
+          "arrival": "Origin",
+          "departure": "12:30",
+          "haltMinutes": 0,
+          "distanceKm": 0,
+          "day": 1,
+          "platform": "2",
+          "lat": 8.4875,
+          "lng": 76.9525
+        },
+        {
+          "stationCode": "ERS",
+          "stationName": "Ernakulam Junction",
+          "city": "Kochi",
+          "arrival": "16:25",
+          "departure": "16:30",
+          "haltMinutes": 5,
+          "distanceKm": 220,
+          "day": 1,
+          "platform": "3",
+          "lat": 9.9691,
+          "lng": 76.2913
+        },
+        {
+          "stationCode": "CBE",
+          "stationName": "Coimbatore Junction",
+          "city": "Coimbatore",
+          "arrival": "20:15",
+          "departure": "20:20",
+          "haltMinutes": 5,
+          "distanceKm": 412,
+          "day": 1,
+          "platform": "1",
+          "lat": 10.9965,
+          "lng": 76.9667
+        },
+        {
+          "stationCode": "BZA",
+          "stationName": "Vijayawada Junction",
+          "city": "Vijayawada",
+          "arrival": "11:45",
+          "departure": "11:55",
+          "haltMinutes": 10,
+          "distanceKm": 1280,
+          "day": 2,
+          "platform": "2",
+          "lat": 16.5186,
+          "lng": 80.6199
+        },
+        {
+          "stationCode": "NGP",
+          "stationName": "Nagpur Junction",
+          "city": "Nagpur",
+          "arrival": "21:40",
+          "departure": "21:50",
+          "haltMinutes": 10,
+          "distanceKm": 1943,
+          "day": 2,
+          "platform": "1",
+          "lat": 21.1518,
+          "lng": 79.0882
+        },
+        {
+          "stationCode": "BPL",
+          "stationName": "Bhopal Junction",
+          "city": "Bhopal",
+          "arrival": "03:20",
+          "departure": "03:30",
+          "haltMinutes": 10,
+          "distanceKm": 2332,
+          "day": 3,
+          "platform": "2",
+          "lat": 23.2683,
+          "lng": 77.4136
+        },
+        {
+          "stationCode": "NDLS",
+          "stationName": "New Delhi",
+          "city": "Delhi",
+          "arrival": "13:15",
+          "departure": "Destination",
+          "haltMinutes": 0,
+          "distanceKm": 3032,
+          "day": 3,
+          "platform": "8",
+          "lat": 28.6429,
+          "lng": 77.2191
+        }
+      ]
+    },
+    {
+      "number": "12841",
+      "name": "Coromandel Superfast Express",
+      "category": "Superfast",
+      "fromCode": "HWH",
+      "toCode": "MAS",
+      "departureTime": "15:20",
+      "arrivalTime": "16:50",
+      "durationMinutes": 1530,
+      "durationLabel": "25h 30m",
+      "distanceKm": 1659,
+      "runningDays": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "applicableQuotas": [
+        "GN",
+        "TQ",
+        "PT",
+        "LD",
+        "SS"
+      ],
+      "pantry": true,
+      "avgSpeedKmph": 65,
+      "hasBioVacuum": true,
+      "classes": [
+        {
+          "classCode": "1A",
+          "className": "First AC",
+          "fare": 4380,
+          "status": "AVAILABLE",
+          "count": 5,
+          "statusText": "AVL 5",
+          "coachPrefix": "H"
+        },
+        {
+          "classCode": "2A",
+          "className": "Second AC",
+          "fare": 2570,
+          "status": "AVAILABLE",
+          "count": 21,
+          "statusText": "AVL 21",
+          "coachPrefix": "A"
+        },
+        {
+          "classCode": "3A",
+          "className": "Third AC",
+          "fare": 1785,
+          "status": "AVAILABLE",
+          "count": 53,
+          "statusText": "AVL 53",
+          "coachPrefix": "B"
+        },
+        {
+          "classCode": "SL",
+          "className": "Sleeper",
+          "fare": 685,
+          "status": "AVAILABLE",
+          "count": 108,
+          "statusText": "AVL 108",
+          "coachPrefix": "S"
+        }
+      ],
+      "stops": [
+        {
+          "stationCode": "HWH",
+          "stationName": "Howrah Junction",
+          "city": "Kolkata",
+          "arrival": "Origin",
+          "departure": "15:20",
+          "haltMinutes": 0,
+          "distanceKm": 0,
+          "day": 1,
+          "platform": "21",
+          "lat": 22.5839,
+          "lng": 88.3426
+        },
+        {
+          "stationCode": "BBS",
+          "stationName": "Bhubaneswar",
+          "city": "Bhubaneswar",
+          "arrival": "21:30",
+          "departure": "21:35",
+          "haltMinutes": 5,
+          "distanceKm": 437,
+          "day": 1,
+          "platform": "1",
+          "lat": 20.2666,
+          "lng": 85.8436
+        },
+        {
+          "stationCode": "VSKP",
+          "stationName": "Visakhapatnam Junction",
+          "city": "Visakhapatnam",
+          "arrival": "03:45",
+          "departure": "04:05",
+          "haltMinutes": 20,
+          "distanceKm": 880,
+          "day": 2,
+          "platform": "4",
+          "lat": 17.7219,
+          "lng": 83.2896
+        },
+        {
+          "stationCode": "BZA",
+          "stationName": "Vijayawada Junction",
+          "city": "Vijayawada",
+          "arrival": "09:45",
+          "departure": "09:55",
+          "haltMinutes": 10,
+          "distanceKm": 1229,
+          "day": 2,
+          "platform": "3",
+          "lat": 16.5186,
+          "lng": 80.6199
+        },
+        {
+          "stationCode": "MAS",
+          "stationName": "Puratchi Thalaivar Dr. MGR Chennai Central",
+          "city": "Chennai",
+          "arrival": "16:50",
+          "departure": "Destination",
+          "haltMinutes": 0,
+          "distanceKm": 1659,
+          "day": 2,
+          "platform": "7",
+          "lat": 13.0827,
+          "lng": 80.275
+        }
+      ]
+    },
+    {
+      "number": "22895",
+      "name": "Howrah - Puri Vande Bharat",
+      "category": "Vande Bharat",
+      "fromCode": "HWH",
+      "toCode": "PURI",
+      "departureTime": "06:10",
+      "arrivalTime": "12:35",
+      "durationMinutes": 385,
+      "durationLabel": "6h 25m",
+      "distanceKm": 500,
+      "runningDays": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "applicableQuotas": [
+        "GN",
+        "TQ",
+        "LD"
+      ],
+      "pantry": true,
+      "avgSpeedKmph": 78,
+      "hasBioVacuum": true,
+      "classes": [
+        {
+          "classCode": "CC",
+          "className": "AC Chair Car",
+          "fare": 1430,
+          "status": "AVAILABLE",
+          "count": 88,
+          "statusText": "AVL 88",
+          "coachPrefix": "C"
+        },
+        {
+          "classCode": "EC",
+          "className": "Executive Chair Car",
+          "fare": 2615,
+          "status": "AVAILABLE",
+          "count": 16,
+          "statusText": "AVL 16",
+          "coachPrefix": "E"
+        }
+      ],
+      "stops": [
+        {
+          "stationCode": "HWH",
+          "stationName": "Howrah Junction",
+          "city": "Kolkata",
+          "arrival": "Origin",
+          "departure": "06:10",
+          "haltMinutes": 0,
+          "distanceKm": 0,
+          "day": 1,
+          "platform": "20",
+          "lat": 22.5839,
+          "lng": 88.3426
+        },
+        {
+          "stationCode": "BBS",
+          "stationName": "Bhubaneswar",
+          "city": "Bhubaneswar",
+          "arrival": "11:12",
+          "departure": "11:14",
+          "haltMinutes": 2,
+          "distanceKm": 437,
+          "day": 1,
+          "platform": "2",
+          "lat": 20.2666,
+          "lng": 85.8436
+        },
+        {
+          "stationCode": "PURI",
+          "stationName": "Puri",
+          "city": "Puri",
+          "arrival": "12:35",
+          "departure": "Destination",
+          "haltMinutes": 0,
+          "distanceKm": 500,
+          "day": 1,
+          "platform": "4",
+          "lat": 19.8077,
+          "lng": 85.8396
+        }
+      ]
+    },
+    {
+      "number": "22228",
+      "name": "Guwahati - New Jalpaiguri Vande Bharat",
+      "category": "Vande Bharat",
+      "fromCode": "GHY",
+      "toCode": "NJP",
+      "departureTime": "16:30",
+      "arrivalTime": "22:00",
+      "durationMinutes": 330,
+      "durationLabel": "5h 30m",
+      "distanceKm": 411,
+      "runningDays": [
+        "Mon",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "applicableQuotas": [
+        "GN",
+        "TQ",
+        "LD"
+      ],
+      "pantry": true,
+      "avgSpeedKmph": 75,
+      "hasBioVacuum": true,
+      "classes": [
+        {
+          "classCode": "CC",
+          "className": "AC Chair Car",
+          "fare": 1075,
+          "status": "AVAILABLE",
+          "count": 72,
+          "statusText": "AVL 72",
+          "coachPrefix": "C"
+        },
+        {
+          "classCode": "EC",
+          "className": "Executive Chair Car",
+          "fare": 2025,
+          "status": "AVAILABLE",
+          "count": 14,
+          "statusText": "AVL 14",
+          "coachPrefix": "E"
+        }
+      ],
+      "stops": [
+        {
+          "stationCode": "GHY",
+          "stationName": "Guwahati",
+          "city": "Guwahati",
+          "arrival": "Origin",
+          "departure": "16:30",
+          "haltMinutes": 0,
+          "distanceKm": 0,
+          "day": 1,
+          "platform": "1",
+          "lat": 26.1822,
+          "lng": 91.7512
+        },
+        {
+          "stationCode": "NJP",
+          "stationName": "New Jalpaiguri",
+          "city": "Siliguri",
+          "arrival": "22:00",
+          "departure": "Destination",
+          "haltMinutes": 0,
+          "distanceKm": 411,
+          "day": 1,
+          "platform": "2",
+          "lat": 26.6828,
+          "lng": 88.4426
+        }
+      ]
+    },
+    {
+      "number": "12424",
+      "name": "New Delhi - Dibrugarh Town Rajdhani",
+      "category": "Rajdhani",
+      "fromCode": "NDLS",
+      "toCode": "DBRG",
+      "departureTime": "16:20",
+      "arrivalTime": "04:00",
+      "durationMinutes": 2140,
+      "durationLabel": "35h 40m",
+      "distanceKm": 2438,
+      "runningDays": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "applicableQuotas": [
+        "GN",
+        "TQ",
+        "PT",
+        "LD"
+      ],
+      "pantry": true,
+      "avgSpeedKmph": 68,
+      "hasBioVacuum": true,
+      "classes": [
+        {
+          "classCode": "1A",
+          "className": "First AC",
+          "fare": 7120,
+          "status": "AVAILABLE",
+          "count": 4,
+          "statusText": "AVL 4",
+          "coachPrefix": "H"
+        },
+        {
+          "classCode": "2A",
+          "className": "Second AC",
+          "fare": 4190,
+          "status": "AVAILABLE",
+          "count": 18,
+          "statusText": "AVL 18",
+          "coachPrefix": "A"
+        },
+        {
+          "classCode": "3A",
+          "className": "Third AC",
+          "fare": 2945,
+          "status": "AVAILABLE",
+          "count": 39,
+          "statusText": "AVL 39",
+          "coachPrefix": "B"
+        }
+      ],
+      "stops": [
+        {
+          "stationCode": "NDLS",
+          "stationName": "New Delhi",
+          "city": "Delhi",
+          "arrival": "Origin",
+          "departure": "16:20",
+          "haltMinutes": 0,
+          "distanceKm": 0,
+          "day": 1,
+          "platform": "14",
+          "lat": 28.6429,
+          "lng": 77.2191
+        },
+        {
+          "stationCode": "CNB",
+          "stationName": "Kanpur Central",
+          "city": "Kanpur",
+          "arrival": "21:02",
+          "departure": "21:07",
+          "haltMinutes": 5,
+          "distanceKm": 440,
+          "day": 1,
+          "platform": "2",
+          "lat": 26.4539,
+          "lng": 80.3511
+        },
+        {
+          "stationCode": "PRYJ",
+          "stationName": "Prayagraj Junction",
+          "city": "Prayagraj",
+          "arrival": "23:08",
+          "departure": "23:10",
+          "haltMinutes": 2,
+          "distanceKm": 634,
+          "day": 1,
+          "platform": "3",
+          "lat": 25.4448,
+          "lng": 81.8295
+        },
+        {
+          "stationCode": "NJP",
+          "stationName": "New Jalpaiguri",
+          "city": "Siliguri",
+          "arrival": "11:50",
+          "departure": "12:00",
+          "haltMinutes": 10,
+          "distanceKm": 1465,
+          "day": 2,
+          "platform": "1",
+          "lat": 26.6828,
+          "lng": 88.4426
+        },
+        {
+          "stationCode": "GHY",
+          "stationName": "Guwahati",
+          "city": "Guwahati",
+          "arrival": "18:35",
+          "departure": "18:50",
+          "haltMinutes": 15,
+          "distanceKm": 1876,
+          "day": 2,
+          "platform": "1",
+          "lat": 26.1822,
+          "lng": 91.7512
+        },
+        {
+          "stationCode": "DBRG",
+          "stationName": "Dibrugarh",
+          "city": "Dibrugarh",
+          "arrival": "04:00",
+          "departure": "Destination",
+          "haltMinutes": 0,
+          "distanceKm": 2438,
+          "day": 3,
+          "platform": "2",
+          "lat": 27.4728,
+          "lng": 94.912
+        }
+      ]
+    },
+    {
+      "number": "82502",
+      "name": "New Delhi - Lucknow IRCTC Tejas Express",
+      "category": "Shatabdi",
+      "fromCode": "NDLS",
+      "toCode": "LKO",
+      "departureTime": "15:35",
+      "arrivalTime": "22:05",
+      "durationMinutes": 390,
+      "durationLabel": "6h 30m",
+      "distanceKm": 511,
+      "runningDays": [
+        "Mon",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "applicableQuotas": [
+        "GN",
+        "TQ"
+      ],
+      "pantry": true,
+      "avgSpeedKmph": 79,
+      "hasBioVacuum": true,
+      "classes": [
+        {
+          "classCode": "CC",
+          "className": "AC Chair Car",
+          "fare": 1465,
+          "status": "AVAILABLE",
+          "count": 74,
+          "statusText": "AVL 74",
+          "coachPrefix": "C"
+        },
+        {
+          "classCode": "EC",
+          "className": "Executive Chair Car",
+          "fare": 2495,
+          "status": "AVAILABLE",
+          "count": 12,
+          "statusText": "AVL 12",
+          "coachPrefix": "E"
+        }
+      ],
+      "stops": [
+        {
+          "stationCode": "NDLS",
+          "stationName": "New Delhi",
+          "city": "Delhi",
+          "arrival": "Origin",
+          "departure": "15:35",
+          "haltMinutes": 0,
+          "distanceKm": 0,
+          "day": 1,
+          "platform": "9",
+          "lat": 28.6429,
+          "lng": 77.2191
+        },
+        {
+          "stationCode": "CNB",
+          "stationName": "Kanpur Central",
+          "city": "Kanpur",
+          "arrival": "20:35",
+          "departure": "20:40",
+          "haltMinutes": 5,
+          "distanceKm": 440,
+          "day": 1,
+          "platform": "1",
+          "lat": 26.4539,
+          "lng": 80.3511
+        },
+        {
+          "stationCode": "LKO",
+          "stationName": "Lucknow Charbagh NR",
+          "city": "Lucknow",
+          "arrival": "22:05",
+          "departure": "Destination",
+          "haltMinutes": 0,
+          "distanceKm": 511,
+          "day": 1,
+          "platform": "3",
+          "lat": 26.8317,
+          "lng": 80.9218
+        }
+      ]
+    },
+    {
+      "number": "12013",
+      "name": "New Delhi - Amritsar Swarna Shatabdi",
+      "category": "Shatabdi",
+      "fromCode": "NDLS",
+      "toCode": "ASR",
+      "departureTime": "16:30",
+      "arrivalTime": "22:35",
+      "durationMinutes": 365,
+      "durationLabel": "6h 05m",
+      "distanceKm": 448,
+      "runningDays": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "applicableQuotas": [
+        "GN",
+        "TQ",
+        "LD"
+      ],
+      "pantry": true,
+      "avgSpeedKmph": 74,
+      "hasBioVacuum": true,
+      "classes": [
+        {
+          "classCode": "CC",
+          "className": "AC Chair Car",
+          "fare": 1120,
+          "status": "AVAILABLE",
+          "count": 91,
+          "statusText": "AVL 91",
+          "coachPrefix": "C"
+        },
+        {
+          "classCode": "EC",
+          "className": "Executive Chair Car",
+          "fare": 2040,
+          "status": "AVAILABLE",
+          "count": 15,
+          "statusText": "AVL 15",
+          "coachPrefix": "E"
+        }
+      ],
+      "stops": [
+        {
+          "stationCode": "NDLS",
+          "stationName": "New Delhi",
+          "city": "Delhi",
+          "arrival": "Origin",
+          "departure": "16:30",
+          "haltMinutes": 0,
+          "distanceKm": 0,
+          "day": 1,
+          "platform": "1",
+          "lat": 28.6429,
+          "lng": 77.2191
+        },
+        {
+          "stationCode": "ASR",
+          "stationName": "Amritsar Junction",
+          "city": "Amritsar",
+          "arrival": "22:35",
+          "departure": "Destination",
+          "haltMinutes": 0,
+          "distanceKm": 448,
+          "day": 1,
+          "platform": "2",
+          "lat": 31.6331,
+          "lng": 74.8669
+        }
+      ]
+    },
+    {
+      "number": "12005",
+      "name": "New Delhi - Chandigarh Shatabdi Express",
+      "category": "Shatabdi",
+      "fromCode": "NDLS",
+      "toCode": "CDG",
+      "departureTime": "17:15",
+      "arrivalTime": "20:38",
+      "durationMinutes": 203,
+      "durationLabel": "3h 23m",
+      "distanceKm": 266,
+      "runningDays": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "applicableQuotas": [
+        "GN",
+        "TQ",
+        "LD"
+      ],
+      "pantry": true,
+      "avgSpeedKmph": 79,
+      "hasBioVacuum": true,
+      "classes": [
+        {
+          "classCode": "CC",
+          "className": "AC Chair Car",
+          "fare": 845,
+          "status": "AVAILABLE",
+          "count": 104,
+          "statusText": "AVL 104",
+          "coachPrefix": "C"
+        },
+        {
+          "classCode": "EC",
+          "className": "Executive Chair Car",
+          "fare": 1545,
+          "status": "AVAILABLE",
+          "count": 20,
+          "statusText": "AVL 20",
+          "coachPrefix": "E"
+        }
+      ],
+      "stops": [
+        {
+          "stationCode": "NDLS",
+          "stationName": "New Delhi",
+          "city": "Delhi",
+          "arrival": "Origin",
+          "departure": "17:15",
+          "haltMinutes": 0,
+          "distanceKm": 0,
+          "day": 1,
+          "platform": "1",
+          "lat": 28.6429,
+          "lng": 77.2191
+        },
+        {
+          "stationCode": "CDG",
+          "stationName": "Chandigarh Junction",
+          "city": "Chandigarh",
+          "arrival": "20:38",
+          "departure": "Destination",
+          "haltMinutes": 0,
+          "distanceKm": 266,
+          "day": 1,
+          "platform": "1",
+          "lat": 30.7016,
+          "lng": 76.8214
+        }
+      ]
+    },
+    {
+      "number": "20834",
+      "name": "Secunderabad - Visakhapatnam Vande Bharat",
+      "category": "Vande Bharat",
+      "fromCode": "SC",
+      "toCode": "VSKP",
+      "departureTime": "15:00",
+      "arrivalTime": "23:30",
+      "durationMinutes": 510,
+      "durationLabel": "8h 30m",
+      "distanceKm": 699,
+      "runningDays": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat"
+      ],
+      "applicableQuotas": [
+        "GN",
+        "TQ",
+        "LD"
+      ],
+      "pantry": true,
+      "avgSpeedKmph": 82,
+      "hasBioVacuum": true,
+      "classes": [
+        {
+          "classCode": "CC",
+          "className": "AC Chair Car",
+          "fare": 1665,
+          "status": "AVAILABLE",
+          "count": 71,
+          "statusText": "AVL 71",
+          "coachPrefix": "C"
+        },
+        {
+          "classCode": "EC",
+          "className": "Executive Chair Car",
+          "fare": 3120,
+          "status": "AVAILABLE",
+          "count": 14,
+          "statusText": "AVL 14",
+          "coachPrefix": "E"
+        }
+      ],
+      "stops": [
+        {
+          "stationCode": "SC",
+          "stationName": "Secunderabad Junction",
+          "city": "Hyderabad",
+          "arrival": "Origin",
+          "departure": "15:00",
+          "haltMinutes": 0,
+          "distanceKm": 0,
+          "day": 1,
+          "platform": "1",
+          "lat": 17.4344,
+          "lng": 78.5013
+        },
+        {
+          "stationCode": "BZA",
+          "stationName": "Vijayawada Junction",
+          "city": "Vijayawada",
+          "arrival": "19:00",
+          "departure": "19:05",
+          "haltMinutes": 5,
+          "distanceKm": 349,
+          "day": 1,
+          "platform": "1",
+          "lat": 16.5186,
+          "lng": 80.6199
+        },
+        {
+          "stationCode": "VSKP",
+          "stationName": "Visakhapatnam Junction",
+          "city": "Visakhapatnam",
+          "arrival": "23:30",
+          "departure": "Destination",
+          "haltMinutes": 0,
+          "distanceKm": 699,
+          "day": 1,
+          "platform": "2",
+          "lat": 17.7219,
+          "lng": 83.2896
+        }
+      ]
+    },
+    {
+      "number": "12123",
+      "name": "Deccan Queen Superfast Express",
+      "category": "Superfast",
+      "fromCode": "CSMT",
+      "toCode": "PUNE",
+      "departureTime": "17:10",
+      "arrivalTime": "20:25",
+      "durationMinutes": 195,
+      "durationLabel": "3h 15m",
+      "distanceKm": 192,
+      "runningDays": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "applicableQuotas": [
+        "GN",
+        "TQ",
+        "LD"
+      ],
+      "pantry": true,
+      "avgSpeedKmph": 59,
+      "hasBioVacuum": true,
+      "classes": [
+        {
+          "classCode": "CC",
+          "className": "AC Chair Car",
+          "fare": 440,
+          "status": "AVAILABLE",
+          "count": 120,
+          "statusText": "AVL 120",
+          "coachPrefix": "C"
+        },
+        {
+          "classCode": "2S",
+          "className": "Second Sitting",
+          "fare": 115,
+          "status": "AVAILABLE",
+          "count": 240,
+          "statusText": "AVL 240",
+          "coachPrefix": "D"
+        }
+      ],
+      "stops": [
+        {
+          "stationCode": "CSMT",
+          "stationName": "Chhatrapati Shivaji Maharaj Terminus",
+          "city": "Mumbai",
+          "arrival": "Origin",
+          "departure": "17:10",
+          "haltMinutes": 0,
+          "distanceKm": 0,
+          "day": 1,
+          "platform": "10",
+          "lat": 18.9398,
+          "lng": 72.8355
+        },
+        {
+          "stationCode": "PUNE",
+          "stationName": "Pune Junction",
+          "city": "Pune",
+          "arrival": "20:25",
+          "departure": "Destination",
+          "haltMinutes": 0,
+          "distanceKm": 192,
+          "day": 1,
+          "platform": "1",
+          "lat": 18.5289,
+          "lng": 73.8744
+        }
+      ]
+    },
+    {
+      "number": "22348",
+      "name": "Patna - Howrah Vande Bharat",
+      "category": "Vande Bharat",
+      "fromCode": "PNBE",
+      "toCode": "HWH",
+      "departureTime": "08:00",
+      "arrivalTime": "14:35",
+      "durationMinutes": 395,
+      "durationLabel": "6h 35m",
+      "distanceKm": 532,
+      "runningDays": [
+        "Mon",
+        "Tue",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "applicableQuotas": [
+        "GN",
+        "TQ",
+        "LD"
+      ],
+      "pantry": true,
+      "avgSpeedKmph": 81,
+      "hasBioVacuum": true,
+      "classes": [
+        {
+          "classCode": "CC",
+          "className": "AC Chair Car",
+          "fare": 1505,
+          "status": "AVAILABLE",
+          "count": 82,
+          "statusText": "AVL 82",
+          "coachPrefix": "C"
+        },
+        {
+          "classCode": "EC",
+          "className": "Executive Chair Car",
+          "fare": 2725,
+          "status": "AVAILABLE",
+          "count": 15,
+          "statusText": "AVL 15",
+          "coachPrefix": "E"
+        }
+      ],
+      "stops": [
+        {
+          "stationCode": "PNBE",
+          "stationName": "Patna Junction",
+          "city": "Patna",
+          "arrival": "Origin",
+          "departure": "08:00",
+          "haltMinutes": 0,
+          "distanceKm": 0,
+          "day": 1,
+          "platform": "1",
+          "lat": 25.6033,
+          "lng": 85.1376
+        },
+        {
+          "stationCode": "HWH",
+          "stationName": "Howrah Junction",
+          "city": "Kolkata",
+          "arrival": "14:35",
+          "departure": "Destination",
+          "haltMinutes": 0,
+          "distanceKm": 532,
+          "day": 1,
+          "platform": "12",
+          "lat": 22.5839,
+          "lng": 88.3426
+        }
+      ]
+    },
+    {
+      "number": "12860",
+      "name": "Gitanjali Superfast Express",
+      "category": "Superfast",
+      "fromCode": "HWH",
+      "toCode": "CSMT",
+      "departureTime": "14:05",
+      "arrivalTime": "21:20",
+      "durationMinutes": 1875,
+      "durationLabel": "31h 15m",
+      "distanceKm": 1968,
+      "runningDays": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "applicableQuotas": [
+        "GN",
+        "TQ",
+        "PT",
+        "LD",
+        "SS"
+      ],
+      "pantry": true,
+      "avgSpeedKmph": 63,
+      "hasBioVacuum": true,
+      "classes": [
+        {
+          "classCode": "2A",
+          "className": "Second AC",
+          "fare": 2880,
+          "status": "AVAILABLE",
+          "count": 16,
+          "statusText": "AVL 16",
+          "coachPrefix": "A"
+        },
+        {
+          "classCode": "3A",
+          "className": "Third AC",
+          "fare": 1985,
+          "status": "AVAILABLE",
+          "count": 44,
+          "statusText": "AVL 44",
+          "coachPrefix": "B"
+        },
+        {
+          "classCode": "SL",
+          "className": "Sleeper",
+          "fare": 765,
+          "status": "AVAILABLE",
+          "count": 86,
+          "statusText": "AVL 86",
+          "coachPrefix": "S"
+        }
+      ],
+      "stops": [
+        {
+          "stationCode": "HWH",
+          "stationName": "Howrah Junction",
+          "city": "Kolkata",
+          "arrival": "Origin",
+          "departure": "14:05",
+          "haltMinutes": 0,
+          "distanceKm": 0,
+          "day": 1,
+          "platform": "17",
+          "lat": 22.5839,
+          "lng": 88.3426
+        },
+        {
+          "stationCode": "TATA",
+          "stationName": "Tatanagar Junction",
+          "city": "Jamshedpur",
+          "arrival": "17:25",
+          "departure": "17:35",
+          "haltMinutes": 10,
+          "distanceKm": 250,
+          "day": 1,
+          "platform": "2",
+          "lat": 22.7689,
+          "lng": 86.2003
+        },
+        {
+          "stationCode": "R",
+          "stationName": "Raipur Junction",
+          "city": "Raipur",
+          "arrival": "02:40",
+          "departure": "02:50",
+          "haltMinutes": 10,
+          "distanceKm": 830,
+          "day": 2,
+          "platform": "1",
+          "lat": 21.2568,
+          "lng": 81.6296
+        },
+        {
+          "stationCode": "NGP",
+          "stationName": "Nagpur Junction",
+          "city": "Nagpur",
+          "arrival": "07:20",
+          "departure": "07:30",
+          "haltMinutes": 10,
+          "distanceKm": 1131,
+          "day": 2,
+          "platform": "2",
+          "lat": 21.1518,
+          "lng": 79.0882
+        },
+        {
+          "stationCode": "CSMT",
+          "stationName": "Chhatrapati Shivaji Maharaj Terminus",
+          "city": "Mumbai",
+          "arrival": "21:20",
+          "departure": "Destination",
+          "haltMinutes": 0,
+          "distanceKm": 1968,
+          "day": 2,
+          "platform": "18",
+          "lat": 18.9398,
+          "lng": 72.8355
+        }
+      ]
+    },
+    {
+      "number": "12310",
+      "name": "Rajendra Nagar Patna Tejas Rajdhani",
+      "category": "Rajdhani",
+      "fromCode": "NDLS",
+      "toCode": "PNBE",
+      "departureTime": "17:10",
+      "arrivalTime": "04:40",
+      "durationMinutes": 690,
+      "durationLabel": "11h 30m",
+      "distanceKm": 1000,
+      "runningDays": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "applicableQuotas": [
+        "GN",
+        "TQ",
+        "PT",
+        "LD"
+      ],
+      "pantry": true,
+      "avgSpeedKmph": 87,
+      "hasBioVacuum": true,
+      "classes": [
+        {
+          "classCode": "1A",
+          "className": "First AC",
+          "fare": 4110,
+          "status": "AVAILABLE",
+          "count": 6,
+          "statusText": "AVL 6",
+          "coachPrefix": "H"
+        },
+        {
+          "classCode": "2A",
+          "className": "Second AC",
+          "fare": 2435,
+          "status": "AVAILABLE",
+          "count": 24,
+          "statusText": "AVL 24",
+          "coachPrefix": "A"
+        },
+        {
+          "classCode": "3A",
+          "className": "Third AC",
+          "fare": 1755,
+          "status": "AVAILABLE",
+          "count": 52,
+          "statusText": "AVL 52",
+          "coachPrefix": "B"
+        }
+      ],
+      "stops": [
+        {
+          "stationCode": "NDLS",
+          "stationName": "New Delhi",
+          "city": "Delhi",
+          "arrival": "Origin",
+          "departure": "17:10",
+          "haltMinutes": 0,
+          "distanceKm": 0,
+          "day": 1,
+          "platform": "12",
+          "lat": 28.6429,
+          "lng": 77.2191
+        },
+        {
+          "stationCode": "CNB",
+          "stationName": "Kanpur Central",
+          "city": "Kanpur",
+          "arrival": "21:52",
+          "departure": "21:57",
+          "haltMinutes": 5,
+          "distanceKm": 440,
+          "day": 1,
+          "platform": "1",
+          "lat": 26.4539,
+          "lng": 80.3511
+        },
+        {
+          "stationCode": "PRYJ",
+          "stationName": "Prayagraj Junction",
+          "city": "Prayagraj",
+          "arrival": "23:53",
+          "departure": "23:55",
+          "haltMinutes": 2,
+          "distanceKm": 634,
+          "day": 1,
+          "platform": "2",
+          "lat": 25.4448,
+          "lng": 81.8295
+        },
+        {
+          "stationCode": "PNBE",
+          "stationName": "Patna Junction",
+          "city": "Patna",
+          "arrival": "04:40",
+          "departure": "Destination",
+          "haltMinutes": 0,
+          "distanceKm": 1000,
+          "day": 2,
+          "platform": "1",
+          "lat": 25.6033,
+          "lng": 85.1376
+        }
+      ]
+    },
+    {
+      "number": "12962",
+      "name": "Avantika Superfast Express",
+      "category": "Superfast",
+      "fromCode": "INDB",
+      "toCode": "MMCT",
+      "departureTime": "17:40",
+      "arrivalTime": "06:40",
+      "durationMinutes": 780,
+      "durationLabel": "13h 00m",
+      "distanceKm": 829,
+      "runningDays": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "applicableQuotas": [
+        "GN",
+        "TQ",
+        "PT",
+        "LD",
+        "SS"
+      ],
+      "pantry": false,
+      "avgSpeedKmph": 64,
+      "hasBioVacuum": true,
+      "classes": [
+        {
+          "classCode": "1A",
+          "className": "First AC",
+          "fare": 2840,
+          "status": "AVAILABLE",
+          "count": 4,
+          "statusText": "AVL 4",
+          "coachPrefix": "H"
+        },
+        {
+          "classCode": "2A",
+          "className": "Second AC",
+          "fare": 1690,
+          "status": "AVAILABLE",
+          "count": 19,
+          "statusText": "AVL 19",
+          "coachPrefix": "A"
+        },
+        {
+          "classCode": "3A",
+          "className": "Third AC",
+          "fare": 1185,
+          "status": "AVAILABLE",
+          "count": 46,
+          "statusText": "AVL 46",
+          "coachPrefix": "B"
+        },
+        {
+          "classCode": "SL",
+          "className": "Sleeper",
+          "fare": 455,
+          "status": "AVAILABLE",
+          "count": 94,
+          "statusText": "AVL 94",
+          "coachPrefix": "S"
+        }
+      ],
+      "stops": [
+        {
+          "stationCode": "INDB",
+          "stationName": "Indore Junction",
+          "city": "Indore",
+          "arrival": "Origin",
+          "departure": "17:40",
+          "haltMinutes": 0,
+          "distanceKm": 0,
+          "day": 1,
+          "platform": "1",
+          "lat": 22.7177,
+          "lng": 75.8685
+        },
+        {
+          "stationCode": "BRC",
+          "stationName": "Vadodara Junction",
+          "city": "Vadodara",
+          "arrival": "01:02",
+          "departure": "01:07",
+          "haltMinutes": 5,
+          "distanceKm": 437,
+          "day": 2,
+          "platform": "1",
+          "lat": 22.3106,
+          "lng": 73.1809
+        },
+        {
+          "stationCode": "ST",
+          "stationName": "Surat",
+          "city": "Surat",
+          "arrival": "02:48",
+          "departure": "02:53",
+          "haltMinutes": 5,
+          "distanceKm": 566,
+          "day": 2,
+          "platform": "1",
+          "lat": 21.2049,
+          "lng": 72.8411
+        },
+        {
+          "stationCode": "MMCT",
+          "stationName": "Mumbai Central",
+          "city": "Mumbai",
+          "arrival": "06:40",
+          "departure": "Destination",
+          "haltMinutes": 0,
+          "distanceKm": 829,
+          "day": 2,
+          "platform": "2",
+          "lat": 18.9696,
+          "lng": 72.8193
+        }
+      ]
     }
   ],
   "bookings": [
+    {
+      "id": "bkg_1795619858136",
+      "pnr": "9347544652",
+      "bookingReference": "RN-2026-4652",
+      "userId": "guest_demo",
+      "trainNumber": "12841",
+      "trainName": "Coromandel Superfast Express",
+      "category": "Superfast",
+      "fromCode": "HWH",
+      "fromName": "Howrah Junction",
+      "toCode": "MAS",
+      "toName": "Puratchi Thalaivar Dr. MGR Chennai Central",
+      "journeyDate": "2026-12-25",
+      "departureTime": "15:20",
+      "arrivalTime": "16:50",
+      "durationLabel": "25h 30m",
+      "classCode": "3A",
+      "className": "Third AC",
+      "quota": "GN",
+      "passengers": [
+        {
+          "id": "p1",
+          "fullName": "Ananya Roy",
+          "age": 27,
+          "gender": "Female",
+          "berthPreference": "LOWER",
+          "concession": "NONE",
+          "bookingStatus": "CNF",
+          "assignedCoach": "B2",
+          "assignedBerth": "12 (LB)"
+        }
+      ],
+      "contactEmail": "rt@railnova.demo",
+      "contactPhone": "+91 90000 00001",
+      "baseFare": 1785,
+      "taxes": 89,
+      "convenienceFee": 35,
+      "totalAmount": 1909,
+      "paymentId": "pay_demo_dce8532e",
+      "paymentMethod": "UPI",
+      "paymentStatus": "PAID",
+      "bookingStatus": "CONFIRMED",
+      "chartPrepared": false,
+      "isDemo": true,
+      "createdAt": "2026-11-25T15:17:38.135Z",
+      "updatedAt": "2026-11-25T15:17:38.135Z"
+    },
     {
       "id": "bkg_1795618655244",
       "pnr": "9758949064",
@@ -1883,6 +4375,15 @@
   ],
   "cancellations": [],
   "auditLogs": [
+    {
+      "id": "aud_1795619858136",
+      "actorId": "guest_demo",
+      "actorEmail": "rt@railnova.demo",
+      "action": "BOOKING_CREATED_DEMO",
+      "target": "9347544652",
+      "details": "12841 HWH->MAS (3A) INR 1909",
+      "timestamp": "2026-11-25T15:17:38.135Z"
+    },
     {
       "id": "aud_1795618655244",
       "actorId": "guest_demo",

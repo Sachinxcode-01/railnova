@@ -1,18 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getDb } from '@/lib/db';
+import { checkRateLimit } from '@/lib/rate-limit';
 
 const assistantSchema = z.object({
   message: z.string().min(1).max(600),
   language: z.enum(['en', 'hi', 'kn']).default('en'),
+  website: z.string().optional(),
 });
 
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get('x-forwarded-for') || 'local';
+  const rl = checkRateLimit(`assistant:${ip}`, 20, 60_000);
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { error: 'Too many assistant requests. Please wait a moment.' },
+      { status: 429 }
+    );
+  }
+
   try {
     const body = await req.json();
     const parsed = assistantSchema.safeParse(body);
     if (!parsed.success) {
       return NextResponse.json({ error: 'Please enter a message.' }, { status: 400 });
+    }
+    if (parsed.data.website && parsed.data.website.trim().length > 0) {
+      return NextResponse.json({ error: 'Spam check failed.' }, { status: 400 });
     }
 
     const query = parsed.data.message.toLowerCase();

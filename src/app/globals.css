@@ -9,7 +9,7 @@
   --accent-lavender: #B8A7FF;
   --ivory: #F5F2EA;
   --text-primary: #F8F9FC;
-  --text-secondary: #9296A3;
+  --text-secondary: #A3A8B8;
   --border-subtle: #2A2D35;
   --success: #34D399;
   --warning: #FBBF24;
@@ -28,12 +28,12 @@
   --bg-primary: #F5F2EA;
   --bg-surface: #FFFFFF;
   --bg-surface-elevated: #EFECE3;
-  --accent-primary: #527A00;
+  --accent-primary: #466800;
   --accent-on-primary: #FFFFFF;
   --accent-lavender: #E5DFFF;
   --ivory: #F5F2EA;
   --text-primary: #15171B;
-  --text-secondary: #626672;
+  --text-secondary: #4F5360;
   --border-subtle: #E4E1D9;
   --success: #059669;
   --warning: #D97706;
@@ -100,6 +100,15 @@ h1, h2, h3, h4, .font-display {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.pnr-input:focus {
+  border-color: var(--accent-primary);
+}
+.pnr-input::placeholder {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: normal;
 }
 
 /* Reduced motion compliance */

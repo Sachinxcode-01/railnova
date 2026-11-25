@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
+import { fetchLiveTrainsBetweenStations } from '@/lib/irctc-provider';
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -29,13 +30,20 @@ export async function GET(req: NextRequest) {
   }
 
   let results = db.trains;
+  let dataSource: 'live-api' | 'local-demo' = 'local-demo';
 
   if (from && to) {
-    results = results.filter((t) => {
-      const fromIdx = t.stops.findIndex((s) => s.stationCode === from);
-      const toIdx = t.stops.findIndex((s) => s.stationCode === to);
-      return (t.fromCode === from && t.toCode === to) || (fromIdx !== -1 && toIdx !== -1 && fromIdx < toIdx);
-    });
+    const liveTrains = await fetchLiveTrainsBetweenStations(from, to, searchParams.get('date') || undefined);
+    if (liveTrains && liveTrains.length > 0) {
+      results = liveTrains;
+      dataSource = 'live-api';
+    } else {
+      results = results.filter((t) => {
+        const fromIdx = t.stops.findIndex((s) => s.stationCode === from);
+        const toIdx = t.stops.findIndex((s) => s.stationCode === to);
+        return (t.fromCode === from && t.toCode === to) || (fromIdx !== -1 && toIdx !== -1 && fromIdx < toIdx);
+      });
+    }
   } else if (from) {
     results = results.filter((t) => t.fromCode === from || t.stops.some((s) => s.stationCode === from));
   } else if (to) {
@@ -52,7 +60,11 @@ export async function GET(req: NextRequest) {
 
   return NextResponse.json({
     trains: results,
-    isDemoData: true,
-    notice: 'Demonstration railway schedule & fare data. Not connected to live IRCTC reservation.',
+    dataSource,
+    isDemoData: dataSource === 'local-demo',
+    notice:
+      dataSource === 'live-api'
+        ? 'Live schedule feed active via configured railway provider.'
+        : 'Demonstration railway schedule & fare data. Configure RAILWAY_API_KEY in .env.local for live feeds.',
   });
 }

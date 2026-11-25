@@ -99,7 +99,7 @@ export function NovaAI() {
   };
 
   return (
-    <div className="fixed bottom-5 right-5 z-50 no-print">
+    <div className="fixed bottom-20 md:bottom-5 right-4 sm:right-5 z-50 no-print">
       <AnimatePresence>
         {open && (
           <motion.div

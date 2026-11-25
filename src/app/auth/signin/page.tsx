@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ArrowRight, KeyRound, Smartphone, Mail } from 'lucide-react';
 
@@ -12,20 +13,34 @@ export default function SignInPage() {
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('+91 90000 00001');
   const [otp, setOtp] = useState('');
+  const [honeypot, setHoneypot] = useState('');
   const [resetSent, setResetSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (mode === 'credentials') {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+        setError('Please enter a valid email address.');
+        return;
+      }
+      if (password.length < 6) {
+        setError('Password must be at least 6 characters.');
+        return;
+      }
+    } else if (!/^\d{6}$/.test(otp.trim())) {
+      setError('Please enter a valid 6-digit OTP.');
+      return;
+    }
     setLoading(true);
     setError(null);
 
     try {
       const payload =
         mode === 'credentials'
-          ? { mode: 'credentials', email, password }
-          : { mode: 'otp-demo', phone, otp };
+          ? { mode: 'credentials', email, password, website: honeypot }
+          : { mode: 'otp-demo', phone, otp, website: honeypot };
 
       const res = await fetch('/api/auth/login', {
         method: 'POST',
@@ -70,26 +85,25 @@ export default function SignInPage() {
       <div className="lg:col-span-6 flex items-center justify-center p-6 sm:p-12">
         <div className="w-full max-w-md space-y-6">
           <div className="space-y-2">
-            <span className="text-xs font-mono-tech uppercase tracking-widest text-[var(--accent-primary)]">
+            <span className="text-xs font-mono-tech uppercase tracking-widest text-(--accent-primary)">
               RailNova Access
             </span>
             <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight">
               Welcome back.
             </h1>
-            <p className="text-sm text-[var(--text-secondary)]">
+            <p className="text-sm text-(--text-secondary)">
               Sign in to manage bookings, saved passengers, and digital boarding passes.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-1">
+          <div className="grid grid-cols-2 gap-2 rounded-lg border border-(--border-subtle) bg-(--bg-surface) p-1">
             <button
               type="button"
               onClick={() => setMode('credentials')}
-              className={`flex items-center justify-center gap-2 rounded-md py-2 text-xs font-semibold cursor-pointer ${
-                mode === 'credentials'
-                  ? 'bg-[var(--accent-primary)] text-[var(--accent-on-primary)]'
-                  : 'text-[var(--text-secondary)]'
-              }`}
+              className={`flex items-center justify-center gap-2 rounded-md py-2 text-xs font-semibold cursor-pointer ${mode === 'credentials'
+                  ? 'bg-(--accent-primary) text-(--accent-on-primary)'
+                  : 'text-(--text-secondary)'
+                }`}
             >
               <Mail className="h-3.5 w-3.5" />
               <span>Email & Password</span>
@@ -97,11 +111,10 @@ export default function SignInPage() {
             <button
               type="button"
               onClick={() => setMode('otp-demo')}
-              className={`flex items-center justify-center gap-2 rounded-md py-2 text-xs font-semibold cursor-pointer ${
-                mode === 'otp-demo'
-                  ? 'bg-[var(--accent-primary)] text-[var(--accent-on-primary)]'
-                  : 'text-[var(--text-secondary)]'
-              }`}
+              className={`flex items-center justify-center gap-2 rounded-md py-2 text-xs font-semibold cursor-pointer ${mode === 'otp-demo'
+                  ? 'bg-(--accent-primary) text-(--accent-on-primary)'
+                  : 'text-(--text-secondary)'
+                }`}
             >
               <Smartphone className="h-3.5 w-3.5" />
               <span>Mobile OTP (Demo)</span>
@@ -109,22 +122,33 @@ export default function SignInPage() {
           </div>
 
           {error && (
-            <div role="alert" className="rounded-lg border border-[var(--error)]/40 bg-[var(--error)]/10 p-3 text-xs text-[var(--error)]">
+            <div role="alert" className="rounded-lg border border-(--error)/40 bg-(--error)/10 p-3 text-xs text-(--error)">
               {error}
             </div>
           )}
 
           {resetSent && (
-            <div className="rounded-lg border border-[var(--success)]/40 bg-[var(--success)]/10 p-3 text-xs text-[var(--success)]">
+            <div className="rounded-lg border border-(--success)/40 bg-(--success)/10 p-3 text-xs text-(--success)">
               Password reset link simulated for {email || 'your account'}.
             </div>
           )}
 
-          <form onSubmit={handleLogin} className="space-y-4">
+          <form onSubmit={handleLogin} noValidate className="space-y-4">
+            <div className="sr-only" aria-hidden="true">
+              <label htmlFor="signin-website">Website</label>
+              <input
+                id="signin-website"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+              />
+            </div>
             {mode === 'credentials' ? (
               <>
                 <div>
-                  <label htmlFor="signin-email" className="block text-xs text-[var(--text-secondary)] mb-1.5">
+                  <label htmlFor="signin-email" className="block text-xs text-(--text-secondary) mb-1.5">
                     Email Address
                   </label>
                   <input
@@ -132,20 +156,28 @@ export default function SignInPage() {
                     type="email"
                     required
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    aria-invalid={Boolean(error && mode === 'credentials' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()))}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (error) setError(null);
+                    }}
                     placeholder="traveler@railnova.demo"
-                    className="w-full h-11 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-3.5 text-sm"
+                    className={`w-full h-11 rounded-lg border bg-(--bg-surface) px-3.5 text-sm ${
+                      error && mode === 'credentials' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
+                        ? 'border-(--error)'
+                        : 'border-(--border-subtle)'
+                    }`}
                   />
                 </div>
                 <div>
                   <div className="flex justify-between mb-1.5">
-                    <label htmlFor="signin-password" className="text-xs text-[var(--text-secondary)]">
+                    <label htmlFor="signin-password" className="text-xs text-(--text-secondary)">
                       Password
                     </label>
                     <button
                       type="button"
                       onClick={() => setResetSent(true)}
-                      className="text-xs text-[var(--accent-primary)] cursor-pointer"
+                      className="text-xs text-(--accent-primary) cursor-pointer"
                     >
                       Forgot password?
                     </button>
@@ -155,16 +187,24 @@ export default function SignInPage() {
                     type="password"
                     required
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    aria-invalid={Boolean(error && mode === 'credentials' && password.length < 6)}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      if (error) setError(null);
+                    }}
                     placeholder="••••••••"
-                    className="w-full h-11 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-3.5 text-sm"
+                    className={`w-full h-11 rounded-lg border bg-(--bg-surface) px-3.5 text-sm ${
+                      error && mode === 'credentials' && password.length < 6
+                        ? 'border-(--error)'
+                        : 'border-(--border-subtle)'
+                    }`}
                   />
                 </div>
               </>
             ) : (
               <>
                 <div>
-                  <label htmlFor="signin-phone" className="block text-xs text-[var(--text-secondary)] mb-1.5">
+                  <label htmlFor="signin-phone" className="block text-xs text-(--text-secondary) mb-1.5">
                     Mobile Number
                   </label>
                   <input
@@ -173,11 +213,11 @@ export default function SignInPage() {
                     required
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full h-11 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-3.5 text-sm"
+                    className="w-full h-11 rounded-lg border border-(--border-subtle) bg-(--bg-surface) px-3.5 text-sm"
                   />
                 </div>
                 <div>
-                  <label htmlFor="signin-otp" className="block text-xs text-[var(--text-secondary)] mb-1.5">
+                  <label htmlFor="signin-otp" className="block text-xs text-(--text-secondary) mb-1.5">
                     6-Digit OTP (Use 123456 for demo)
                   </label>
                   <input
@@ -188,7 +228,7 @@ export default function SignInPage() {
                     value={otp}
                     onChange={(e) => setOtp(e.target.value)}
                     placeholder="123456"
-                    className="w-full h-11 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-3.5 font-mono-tech text-sm tracking-widest"
+                    className="w-full h-11 rounded-lg border border-(--border-subtle) bg-(--bg-surface) px-3.5 font-mono-tech text-sm tracking-widest"
                   />
                 </div>
               </>
@@ -197,7 +237,7 @@ export default function SignInPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full h-11 inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--accent-primary)] text-sm font-semibold text-[var(--accent-on-primary)] cursor-pointer disabled:opacity-60"
+              className="w-full h-11 inline-flex items-center justify-center gap-2 rounded-lg bg-(--accent-primary) text-sm font-semibold text-(--accent-on-primary) cursor-pointer disabled:opacity-60"
             >
               <span>{loading ? 'Signing in...' : 'Sign In'}</span>
               <ArrowRight className="h-4 w-4" />
@@ -208,15 +248,15 @@ export default function SignInPage() {
             type="button"
             onClick={handleGoogleDemo}
             disabled={loading}
-            className="w-full h-11 inline-flex items-center justify-center gap-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] text-sm font-medium hover:border-[var(--accent-primary)] cursor-pointer"
+            className="w-full h-11 inline-flex items-center justify-center gap-2 rounded-lg border border-(--border-subtle) bg-(--bg-surface) text-sm font-medium hover:border-(--accent-primary) cursor-pointer"
           >
-            <KeyRound className="h-4 w-4 text-[var(--accent-lavender)]" />
+            <KeyRound className="h-4 w-4 text-(--accent-lavender)" />
             <span>Continue with Google (Demo Account)</span>
           </button>
 
           {/* Quick Demo Fillers */}
-          <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-3.5 space-y-2 text-xs">
-            <div className="font-mono-tech text-[var(--text-secondary)] uppercase">Quick Demo Fill</div>
+          <div className="rounded-lg border border-(--border-subtle) bg-(--bg-surface) p-3.5 space-y-2 text-xs">
+            <div className="font-mono-tech text-(--text-secondary) uppercase">Quick Demo Fill</div>
             <div className="flex flex-wrap gap-2">
               <button
                 type="button"
@@ -225,7 +265,7 @@ export default function SignInPage() {
                   setEmail('traveler@railnova.demo');
                   setPassword('Travel@RailNova2026');
                 }}
-                className="rounded border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-2.5 py-1 hover:border-[var(--accent-primary)] cursor-pointer"
+                className="rounded border border-(--border-subtle) bg-(--bg-primary) px-2.5 py-1 hover:border-(--accent-primary) cursor-pointer"
               >
                 Fill Traveller
               </button>
@@ -236,16 +276,16 @@ export default function SignInPage() {
                   setEmail('admin@railnova.demo');
                   setPassword('Admin@RailNova2026');
                 }}
-                className="rounded border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-2.5 py-1 hover:border-[var(--accent-lavender)] cursor-pointer"
+                className="rounded border border-(--border-subtle) bg-(--bg-primary) px-2.5 py-1 hover:border-(--accent-lavender) cursor-pointer"
               >
                 Fill Admin
               </button>
             </div>
           </div>
 
-          <p className="text-xs text-center text-[var(--text-secondary)]">
+          <p className="text-xs text-center text-(--text-secondary)">
             New to RailNova?{' '}
-            <Link href="/auth/register" className="text-[var(--accent-primary)] font-semibold">
+            <Link href="/auth/register" className="text-(--accent-primary) font-semibold">
               Create an account
             </Link>
           </p>
@@ -254,10 +294,12 @@ export default function SignInPage() {
 
       {/* Right: Split-screen railway imagery */}
       <div className="hidden lg:block lg:col-span-6 relative overflow-hidden">
-        <img
-          src="https://images.unsplash.com/photo-1532105956626-9569c03602f6?auto=format&fit=crop&w=1400&q=80"
+        <Image
+          src="https://images.unsplash.com/photo-1532105956626-9569c03602f6?auto=format&fit=crop&w=1200&q=75"
           alt="Train travelling through misty green mountain landscape"
-          className="absolute inset-0 h-full w-full object-cover"
+          fill
+          sizes="50vw"
+          className="object-cover"
         />
         <div
           className="absolute inset-0"

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
 import { computeLiveTrainPosition } from '@/lib/railway-data';
+import { fetchLiveTrainStatus } from '@/lib/irctc-provider';
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -13,9 +14,12 @@ export async function GET(req: NextRequest) {
     if (!train) {
       return NextResponse.json({ error: 'Train not found.' }, { status: 404 });
     }
+    const liveFeed = await fetchLiveTrainStatus(trainNumber);
     return NextResponse.json({
       train,
       telemetry: computeLiveTrainPosition(train),
+      liveFeed,
+      dataSource: liveFeed ? 'live-api' : 'simulated-ist',
     });
   }
 

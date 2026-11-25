@@ -25,20 +25,28 @@ interface AdminPayload {
 export default function AdminPage() {
   const [data, setData] = useState<AdminPayload | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
   const [tab, setTab] = useState<'BOOKINGS' | 'TRAINS' | 'USERS' | 'AUDIT'>('BOOKINGS');
 
   const fetchAdmin = async () => {
     setError(null);
-    const res = await fetch('/api/admin');
-    if (res.status === 403 || res.status === 401) {
-      setError('Administrator sign-in required. Use admin@railnova.demo on the Sign In page.');
-      return;
+    setRefreshing(true);
+    try {
+      const res = await fetch('/api/admin');
+      if (res.status === 403 || res.status === 401) {
+        setError('Administrator sign-in required. Use admin@railnova.demo on the Sign In page.');
+        return;
+      }
+      if (!res.ok) {
+        setError('Failed to load admin console.');
+        return;
+      }
+      setData(await res.json());
+    } catch {
+      setError('Network error while loading admin console.');
+    } finally {
+      setRefreshing(false);
     }
-    if (!res.ok) {
-      setError('Failed to load admin console.');
-      return;
-    }
-    setData(await res.json());
   };
 
   useEffect(() => {
@@ -72,8 +80,18 @@ export default function AdminPage() {
 
   if (!data) {
     return (
-      <div className="pt-28 pb-20 mx-auto max-w-[1360px] px-4 text-sm font-mono-tech text-[var(--text-secondary)]">
-        Loading admin telemetry...
+      <div
+        role="status"
+        aria-label="Loading admin telemetry"
+        className="pt-28 pb-20 mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-8 space-y-6"
+      >
+        <div className="h-12 w-72 rounded-lg bg-[var(--bg-surface)] animate-pulse" />
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <div key={i} className="h-28 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] animate-pulse" />
+          ))}
+        </div>
+        <div className="h-72 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] animate-pulse" />
       </div>
     );
   }
@@ -91,11 +109,12 @@ export default function AdminPage() {
         </div>
         <button
           type="button"
+          disabled={refreshing}
           onClick={fetchAdmin}
-          className="inline-flex items-center gap-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-3.5 py-2 text-xs font-semibold cursor-pointer"
+          className="inline-flex items-center gap-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-3.5 py-2 text-xs font-semibold cursor-pointer disabled:opacity-60"
         >
-          <RefreshCw className="h-3.5 w-3.5" />
-          <span>Refresh</span>
+          <RefreshCw className={`h-3.5 w-3.5 ${refreshing ? 'animate-spin' : ''}`} />
+          <span>{refreshing ? 'Refreshing...' : 'Refresh'}</span>
         </button>
       </div>
 
@@ -126,11 +145,10 @@ export default function AdminPage() {
             key={t}
             type="button"
             onClick={() => setTab(t)}
-            className={`rounded-lg px-4 py-2 text-xs font-mono-tech font-semibold cursor-pointer ${
-              tab === t
+            className={`rounded-lg px-4 py-2 text-xs font-mono-tech font-semibold cursor-pointer ${tab === t
                 ? 'bg-[var(--accent-primary)] text-[var(--accent-on-primary)]'
                 : 'bg-[var(--bg-surface)] text-[var(--text-secondary)]'
-            }`}
+              }`}
           >
             {t}
           </button>

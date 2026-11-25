@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeftRight, Calendar, Users, Search, Sparkles } from 'lucide-react';
 import { STATIONS, TRAVEL_CLASS_LABELS, QUOTA_LABELS } from '@/lib/railway-data';
 import { BookingQuotaCode, Station, TravelClassCode } from '@/lib/types';
+import { trackAnalyticsEvent } from './Analytics';
 
 interface SmartBookingPanelProps {
   initialFrom?: string;
@@ -137,6 +138,7 @@ export function SmartBookingPanel({
 
     setError(null);
     setSubmitting(true);
+    trackAnalyticsEvent('train_search', { from: fromCode, to: toCode, classCode });
     const params = new URLSearchParams({
       from: fromCode,
       to: toCode,
@@ -192,7 +194,12 @@ export function SmartBookingPanel({
                 }}
                 onKeyDown={(e) => handleKeyDown(e, 'from', fromResults)}
                 placeholder="City or code (e.g. SBC)"
-                className="w-full h-12 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-3.5 text-sm font-medium text-[var(--text-primary)] placeholder:text-[var(--text-secondary)] focus:border-[var(--accent-primary)] focus:outline-none"
+                aria-invalid={Boolean(error && (!fromCode || fromCode === toCode))}
+                className={`w-full h-12 rounded-lg border bg-[var(--bg-primary)] px-3.5 text-sm font-medium text-[var(--text-primary)] placeholder:text-[var(--text-secondary)] focus:outline-none ${
+                  error && (!fromCode || fromCode === toCode)
+                    ? 'border-[var(--error)] focus:border-[var(--error)]'
+                    : 'border-[var(--border-subtle)] focus:border-[var(--accent-primary)]'
+                }`}
               />
               {activeDropdown === 'from' && (
                 <ul
@@ -265,7 +272,12 @@ export function SmartBookingPanel({
                 }}
                 onKeyDown={(e) => handleKeyDown(e, 'to', toResults)}
                 placeholder="City or code (e.g. MAO)"
-                className="w-full h-12 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-3.5 text-sm font-medium text-[var(--text-primary)] placeholder:text-[var(--text-secondary)] focus:border-[var(--accent-primary)] focus:outline-none"
+                aria-invalid={Boolean(error && (!toCode || fromCode === toCode))}
+                className={`w-full h-12 rounded-lg border bg-[var(--bg-primary)] px-3.5 text-sm font-medium text-[var(--text-primary)] placeholder:text-[var(--text-secondary)] focus:outline-none ${
+                  error && (!toCode || fromCode === toCode)
+                    ? 'border-[var(--error)] focus:border-[var(--error)]'
+                    : 'border-[var(--border-subtle)] focus:border-[var(--accent-primary)]'
+                }`}
               />
               {activeDropdown === 'to' && (
                 <ul

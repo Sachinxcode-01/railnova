@@ -5,10 +5,16 @@ import { getSessionCookieConfig, hashPassword, signSessionToken } from '@/lib/au
 import { checkRateLimit } from '@/lib/rate-limit';
 
 const registerSchema = z.object({
-  name: z.string().min(2).max(80),
-  email: z.string().email(),
-  phone: z.string().min(8).max(16).optional(),
-  password: z.string().min(8).max(100),
+  name: z.string().trim().min(2, 'Name must be at least 2 characters.').max(80),
+  email: z.string().trim().email('Please enter a valid email address.'),
+  phone: z
+    .string()
+    .trim()
+    .regex(/^[+\d\s()-]{8,16}$/, 'Please enter a valid phone number.')
+    .optional()
+    .or(z.literal('')),
+  password: z.string().min(8, 'Password must be at least 8 characters.').max(100),
+  website: z.string().optional(),
 });
 
 export async function POST(req: NextRequest) {
@@ -23,6 +29,9 @@ export async function POST(req: NextRequest) {
     const parsed = registerSchema.safeParse(body);
     if (!parsed.success) {
       return NextResponse.json({ error: 'Please check your registration details.', details: parsed.error.flatten() }, { status: 400 });
+    }
+    if (parsed.data.website && parsed.data.website.trim().length > 0) {
+      return NextResponse.json({ error: 'Registration blocked by spam filter.' }, { status: 400 });
     }
 
     const db = await getDb();

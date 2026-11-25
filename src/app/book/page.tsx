@@ -1,7 +1,7 @@
 'use client';
 
 import React, { Suspense, useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import {
   CheckCircle2,
@@ -23,6 +23,7 @@ import {
 } from '@/lib/types';
 import { CoachVisualisation } from '@/components/CoachVisualisation';
 import { DigitalTicket } from '@/components/DigitalTicket';
+import { trackAnalyticsEvent } from '@/components/Analytics';
 
 const STEPS = [
   'Train',
@@ -35,6 +36,7 @@ const STEPS = [
 ];
 
 function BookContent() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const initialTrainNo = searchParams.get('trainNumber') || TRAINS[0].number;
   const initialClass = (searchParams.get('classCode') || '3A') as TravelClassCode;
@@ -79,6 +81,7 @@ function BookContent() {
 
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [confirmedBooking, setConfirmedBooking] = useState<BookingRecord | null>(null);
 
   useEffect(() => {
@@ -138,26 +141,31 @@ function BookContent() {
   };
 
   const validateStep3 = () => {
+    const nextErrors: Record<string, string> = {};
+    let summaryError: string | null = null;
+
     for (let i = 0; i < passengers.length; i++) {
       if (passengers[i].fullName.trim().length < 2) {
-        setError(`Please enter a valid full name for Passenger ${i + 1}.`);
-        return false;
+        nextErrors[`pax_name_${i}`] = 'Enter full name (min 2 chars).';
+        summaryError ||= `Please enter a valid full name for Passenger ${i + 1}.`;
       }
-      if (passengers[i].age < 1 || passengers[i].age > 120) {
-        setError(`Please enter a valid age for Passenger ${i + 1}.`);
-        return false;
+      if (!Number.isFinite(passengers[i].age) || passengers[i].age < 1 || passengers[i].age > 120) {
+        nextErrors[`pax_age_${i}`] = 'Age must be 1–120.';
+        summaryError ||= `Please enter a valid age for Passenger ${i + 1}.`;
       }
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) {
-      setError('Please enter a valid contact email address.');
-      return false;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail.trim())) {
+      nextErrors.contactEmail = 'Enter a valid email address.';
+      summaryError ||= 'Please enter a valid contact email address.';
     }
-    if (contactPhone.trim().length < 8) {
-      setError('Please enter a valid contact phone number.');
-      return false;
+    if (!/^[+\d\s()-]{8,16}$/.test(contactPhone.trim())) {
+      nextErrors.contactPhone = 'Enter a valid mobile number (8–16 digits).';
+      summaryError ||= 'Please enter a valid contact phone number.';
     }
-    setError(null);
-    return true;
+
+    setFieldErrors(nextErrors);
+    setError(summaryError);
+    return Object.keys(nextErrors).length === 0;
   };
 
   const handleCompletePayment = async () => {
@@ -193,7 +201,11 @@ function BookContent() {
       }
 
       setConfirmedBooking(data.booking);
-      setStep(7);
+      trackAnalyticsEvent('booking_confirmed', {
+        pnr: data.booking.pnr,
+        trainNumber: train.number,
+      });
+      router.push(`/thank-you?pnr=${encodeURIComponent(data.booking.pnr)}`);
     } catch {
       setError('Network error while confirming booking.');
     } finally {
@@ -429,10 +441,21 @@ function BookContent() {
                     <input
                       type="text"
                       value={p.fullName}
-                      onChange={(e) => updatePassenger(idx, { fullName: e.target.value })}
+                      aria-invalid={Boolean(fieldErrors[`pax_name_${idx}`])}
+                      onChange={(e) => {
+                        updatePassenger(idx, { fullName: e.target.value });
+                        if (fieldErrors[`pax_name_${idx}`]) {
+                          setFieldErrors((prev) => ({ ...prev, [`pax_name_${idx}`]: '' }));
+                        }
+                      }}
                       placeholder="As on government ID"
-                      className="w-full h-11 rounded-lg border border-(--border-subtle) bg-(--bg-surface) px-3 text-sm"
+                      className={`w-full h-11 rounded-lg border bg-(--bg-surface) px-3 text-sm ${
+                        fieldErrors[`pax_name_${idx}`] ? 'border-(--error)' : 'border-(--border-subtle)'
+                      }`}
                     />
+                    {fieldErrors[`pax_name_${idx}`] && (
+                      <p className="mt-1 text-[11px] text-(--error)">{fieldErrors[`pax_name_${idx}`]}</p>
+                    )}
                   </div>
                   <div className="sm:col-span-2">
                     <label className="block text-xs text-(--text-secondary) mb-1">Age</label>
@@ -441,9 +464,20 @@ function BookContent() {
                       min={1}
                       max={120}
                       value={p.age}
-                      onChange={(e) => updatePassenger(idx, { age: Number(e.target.value) })}
-                      className="w-full h-11 rounded-lg border border-(--border-subtle) bg-(--bg-surface) px-3 text-sm"
+                      aria-invalid={Boolean(fieldErrors[`pax_age_${idx}`])}
+                      onChange={(e) => {
+                        updatePassenger(idx, { age: Number(e.target.value) });
+                        if (fieldErrors[`pax_age_${idx}`]) {
+                          setFieldErrors((prev) => ({ ...prev, [`pax_age_${idx}`]: '' }));
+                        }
+                      }}
+                      className={`w-full h-11 rounded-lg border bg-(--bg-surface) px-3 text-sm ${
+                        fieldErrors[`pax_age_${idx}`] ? 'border-(--error)' : 'border-(--border-subtle)'
+                      }`}
                     />
+                    {fieldErrors[`pax_age_${idx}`] && (
+                      <p className="mt-1 text-[11px] text-(--error)">{fieldErrors[`pax_age_${idx}`]}</p>
+                    )}
                   </div>
                   <div className="sm:col-span-2">
                     <label className="block text-xs text-(--text-secondary) mb-1">Gender</label>
@@ -494,20 +528,38 @@ function BookContent() {
               <input
                 type="email"
                 value={contactEmail}
-                onChange={(e) => setContactEmail(e.target.value)}
+                aria-invalid={Boolean(fieldErrors.contactEmail)}
+                onChange={(e) => {
+                  setContactEmail(e.target.value);
+                  if (fieldErrors.contactEmail) setFieldErrors((prev) => ({ ...prev, contactEmail: '' }));
+                }}
                 placeholder="you@domain.com"
-                className="w-full h-11 rounded-lg border border-(--border-subtle) bg-(--bg-primary) px-3 text-sm"
+                className={`w-full h-11 rounded-lg border bg-(--bg-primary) px-3 text-sm ${
+                  fieldErrors.contactEmail ? 'border-(--error)' : 'border-(--border-subtle)'
+                }`}
               />
+              {fieldErrors.contactEmail && (
+                <p className="mt-1 text-[11px] text-(--error)">{fieldErrors.contactEmail}</p>
+              )}
             </div>
             <div>
               <label className="block text-xs text-(--text-secondary) mb-1">Mobile Number</label>
               <input
                 type="tel"
                 value={contactPhone}
-                onChange={(e) => setContactPhone(e.target.value)}
+                aria-invalid={Boolean(fieldErrors.contactPhone)}
+                onChange={(e) => {
+                  setContactPhone(e.target.value);
+                  if (fieldErrors.contactPhone) setFieldErrors((prev) => ({ ...prev, contactPhone: '' }));
+                }}
                 placeholder="+91 98765 43210"
-                className="w-full h-11 rounded-lg border border-(--border-subtle) bg-(--bg-primary) px-3 text-sm"
+                className={`w-full h-11 rounded-lg border bg-(--bg-primary) px-3 text-sm ${
+                  fieldErrors.contactPhone ? 'border-(--error)' : 'border-(--border-subtle)'
+                }`}
               />
+              {fieldErrors.contactPhone && (
+                <p className="mt-1 text-[11px] text-(--error)">{fieldErrors.contactPhone}</p>
+              )}
             </div>
           </div>
 

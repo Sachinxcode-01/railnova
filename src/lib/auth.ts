@@ -4,12 +4,21 @@ import { cookies } from 'next/headers';
 const SESSION_COOKIE_NAME = 'railnova_session';
 const SESSION_TTL_SECONDS = 60 * 60 * 24 * 7; // 7 days
 
+const globalForAuth = globalThis as unknown as { __railnovaDevSecret?: string };
+
 function getSessionSecret(): string {
-  // Never hardcode a production secret; fallback is strictly ephemeral/dev-only
-  return (
-    process.env.RAILNOVA_SESSION_SECRET ||
-    'railnova-dev-ephemeral-secret-change-in-production-env'
-  );
+  const envSecret = process.env.RAILNOVA_SESSION_SECRET;
+  if (envSecret && envSecret.length >= 16) {
+    return envSecret;
+  }
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('RAILNOVA_SESSION_SECRET must be configured in production.');
+  }
+  // Ephemeral per-process random secret for local development only
+  if (!globalForAuth.__railnovaDevSecret) {
+    globalForAuth.__railnovaDevSecret = crypto.randomBytes(32).toString('hex');
+  }
+  return globalForAuth.__railnovaDevSecret;
 }
 
 export function hashPassword(password: string): string {

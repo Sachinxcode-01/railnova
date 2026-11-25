@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
+import { fetchLivePnrStatus } from '@/lib/irctc-provider';
 
 export async function GET(
   _req: NextRequest,
@@ -19,6 +20,15 @@ export async function GET(
   const booking = db.bookings.find((b) => b.pnr === cleaned);
 
   if (!booking) {
+    const livePnr = await fetchLivePnrStatus(cleaned);
+    if (livePnr) {
+      return NextResponse.json({
+        livePnr,
+        dataSource: 'live-api',
+        lastUpdated: new Date().toISOString(),
+        notice: 'Live PNR status retrieved via configured railway provider.',
+      });
+    }
     return NextResponse.json(
       {
         error:

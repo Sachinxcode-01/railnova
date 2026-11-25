@@ -13,15 +13,18 @@ const loginSchema = z.discriminatedUnion('mode', [
     mode: z.literal('credentials'),
     email: z.string().email(),
     password: z.string().min(6),
+    website: z.string().optional(),
   }),
   z.object({
     mode: z.literal('otp-demo'),
     phone: z.string().min(8).max(16),
     otp: z.string().length(6),
+    website: z.string().optional(),
   }),
   z.object({
     mode: z.literal('google-demo'),
     email: z.string().email().optional(),
+    website: z.string().optional(),
   }),
 ]);
 
@@ -37,6 +40,9 @@ export async function POST(req: NextRequest) {
     const parsed = loginSchema.safeParse(body);
     if (!parsed.success) {
       return NextResponse.json({ error: 'Invalid credentials format.', details: parsed.error.flatten() }, { status: 400 });
+    }
+    if (parsed.data.website && parsed.data.website.trim().length > 0) {
+      return NextResponse.json({ error: 'Request blocked by spam filter.' }, { status: 400 });
     }
 
     const db = await getDb();

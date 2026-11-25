@@ -39,7 +39,10 @@ export default function DashboardPage() {
 
   const [newPaxName, setNewPaxName] = useState('');
   const [newPaxAge, setNewPaxAge] = useState(28);
+  const [paxError, setPaxError] = useState<string | null>(null);
+  const [addingPax, setAddingPax] = useState(false);
   const [statusMsg, setStatusMsg] = useState<string | null>(null);
+  const [actionError, setActionError] = useState<string | null>(null);
 
   const loadData = async () => {
     setLoading(true);
@@ -74,37 +77,63 @@ export default function DashboardPage() {
   };
 
   const handleCancelBooking = async (bookingId: string) => {
-    const res = await fetch('/api/cancellations', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ bookingId, reason: 'User requested cancellation' }),
-    });
-    if (res.ok) {
+    setActionError(null);
+    try {
+      const res = await fetch('/api/cancellations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ bookingId, reason: 'User requested cancellation' }),
+      });
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        setActionError(d.error || 'Could not cancel booking right now.');
+        return;
+      }
       setStatusMsg('Booking cancelled and demo refund processed.');
       loadData();
+    } catch {
+      setActionError('Network error while cancelling booking.');
     }
   };
 
   const handleAddPassenger = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (newPaxName.trim().length < 2) return;
-    const res = await fetch('/api/auth/me', {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        addPassenger: {
-          id: `pax_${Date.now()}`,
-          fullName: newPaxName.trim(),
-          age: newPaxAge,
-          gender: 'Male',
-          berthPreference: 'LOWER',
-          concession: 'NONE',
-        },
-      }),
-    });
-    if (res.ok) {
+    setPaxError(null);
+    if (newPaxName.trim().length < 2) {
+      setPaxError('Enter a passenger name (at least 2 characters).');
+      return;
+    }
+    if (!Number.isFinite(newPaxAge) || newPaxAge < 1 || newPaxAge > 120) {
+      setPaxError('Enter a valid age between 1 and 120.');
+      return;
+    }
+    setAddingPax(true);
+    try {
+      const res = await fetch('/api/auth/me', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          addPassenger: {
+            id: `pax_${Date.now()}`,
+            fullName: newPaxName.trim(),
+            age: newPaxAge,
+            gender: 'Male',
+            berthPreference: 'LOWER',
+            concession: 'NONE',
+          },
+        }),
+      });
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        setPaxError(d.error || 'Failed to save passenger.');
+        return;
+      }
       setNewPaxName('');
       loadData();
+    } catch {
+      setPaxError('Network error while saving passenger.');
+    } finally {
+      setAddingPax(false);
     }
   };
 
@@ -117,8 +146,20 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="pt-28 pb-20 mx-auto max-w-[1360px] px-4 text-sm font-mono-tech text-[var(--text-secondary)]">
-        Loading your journeys...
+      <div
+        role="status"
+        aria-label="Loading your journeys"
+        className="pt-28 pb-20 mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-8 space-y-6"
+      >
+        <div className="h-12 w-64 rounded-lg bg-[var(--bg-surface)] animate-pulse" />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div className="lg:col-span-8 space-y-4">
+            {[1, 2].map((i) => (
+              <div key={i} className="h-36 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] animate-pulse" />
+            ))}
+          </div>
+          <div className="lg:col-span-4 h-64 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] animate-pulse" />
+        </div>
       </div>
     );
   }
@@ -161,8 +202,14 @@ export default function DashboardPage() {
       </div>
 
       {statusMsg && (
-        <div className="rounded-xl border border-[var(--success)]/40 bg-[var(--success)]/10 p-4 text-sm text-[var(--success)]">
+        <div role="status" className="rounded-xl border border-[var(--success)]/40 bg-[var(--success)]/10 p-4 text-sm text-[var(--success)]">
           {statusMsg}
+        </div>
+      )}
+
+      {actionError && (
+        <div role="alert" className="rounded-xl border border-[var(--error)]/40 bg-[var(--error)]/10 p-4 text-sm text-[var(--error)]">
+          {actionError}
         </div>
       )}
 
@@ -283,29 +330,48 @@ export default function DashboardPage() {
                 </div>
               ))}
             </div>
-            <form onSubmit={handleAddPassenger} className="flex gap-2">
-              <input
-                type="text"
-                value={newPaxName}
-                onChange={(e) => setNewPaxName(e.target.value)}
-                placeholder="Add passenger name"
-                className="flex-1 h-9 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-2.5 text-xs"
-              />
-              <input
-                type="number"
-                min={1}
-                max={120}
-                value={newPaxAge}
-                onChange={(e) => setNewPaxAge(Number(e.target.value))}
-                className="w-14 h-9 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-2 text-xs"
-              />
-              <button
-                type="submit"
-                aria-label="Add saved passenger"
-                className="h-9 px-2.5 rounded-lg bg-[var(--accent-primary)] text-[var(--accent-on-primary)] cursor-pointer"
-              >
-                <Plus className="h-4 w-4" />
-              </button>
+            <form onSubmit={handleAddPassenger} noValidate className="space-y-2">
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={newPaxName}
+                  aria-label="New passenger full name"
+                  aria-invalid={Boolean(paxError)}
+                  onChange={(e) => {
+                    setNewPaxName(e.target.value);
+                    if (paxError) setPaxError(null);
+                  }}
+                  placeholder="Add passenger name"
+                  className={`flex-1 h-9 rounded-lg border bg-[var(--bg-primary)] px-2.5 text-xs ${
+                    paxError ? 'border-[var(--error)]' : 'border-[var(--border-subtle)]'
+                  }`}
+                />
+                <input
+                  type="number"
+                  min={1}
+                  max={120}
+                  aria-label="New passenger age"
+                  value={newPaxAge}
+                  onChange={(e) => {
+                    setNewPaxAge(Number(e.target.value));
+                    if (paxError) setPaxError(null);
+                  }}
+                  className="w-14 h-9 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-2 text-xs"
+                />
+                <button
+                  type="submit"
+                  disabled={addingPax}
+                  aria-label="Add saved passenger"
+                  className="h-9 px-2.5 rounded-lg bg-[var(--accent-primary)] text-[var(--accent-on-primary)] cursor-pointer disabled:opacity-50"
+                >
+                  <Plus className="h-4 w-4" />
+                </button>
+              </div>
+              {paxError && (
+                <p role="alert" className="text-[11px] text-[var(--error)]">
+                  {paxError}
+                </p>
+              )}
             </form>
           </div>
 

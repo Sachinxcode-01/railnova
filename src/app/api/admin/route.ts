@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSessionFromCookies } from '@/lib/auth';
 import { getDb, persistDb } from '@/lib/db';
+import { createDatabaseBackup, listDatabaseBackups } from '@/lib/backup';
 
 export async function GET() {
   const session = await getSessionFromCookies();
@@ -12,6 +13,8 @@ export async function GET() {
   const totalRevenue = db.bookings
     .filter((b) => b.paymentStatus === 'PAID')
     .reduce((sum, b) => sum + b.totalAmount, 0);
+
+  const backups = await listDatabaseBackups();
 
   return NextResponse.json({
     metrics: {
@@ -35,6 +38,7 @@ export async function GET() {
     bookings: db.bookings,
     cancellations: db.cancellations,
     auditLogs: db.auditLogs.slice(0, 50),
+    backups,
   });
 }
 
@@ -64,6 +68,21 @@ export async function POST(req: NextRequest) {
       await persistDb(db);
       return NextResponse.json({ ok: true, booking });
     }
+  }
+
+  if (body.action === 'CREATE_BACKUP') {
+    const backup = await createDatabaseBackup();
+    db.auditLogs.unshift({
+      id: `aud_${Date.now()}`,
+      actorId: session.userId,
+      actorEmail: session.email,
+      action: 'ADMIN_CREATE_BACKUP',
+      target: backup.fileName,
+      details: `Database snapshot created (${backup.sizeBytes} bytes)`,
+      timestamp: new Date().toISOString(),
+    });
+    await persistDb(db);
+    return NextResponse.json({ ok: true, backup });
   }
 
   return NextResponse.json({ error: 'Unsupported admin action.' }, { status: 400 });

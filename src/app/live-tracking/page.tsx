@@ -20,6 +20,8 @@ interface LiveTelemetry {
 export default function LiveTrackingPage() {
   const [selectedTrainNo, setSelectedTrainNo] = useState(TRAINS[3].number); // 12779 Goa Express
   const [telemetry, setTelemetry] = useState<LiveTelemetry | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [timelineExpanded, setTimelineExpanded] = useState(true);
 
   const train = useMemo(
@@ -29,16 +31,24 @@ export default function LiveTrackingPage() {
 
   useEffect(() => {
     let active = true;
+    setLoading(true);
+    setError(null);
     const fetchLive = async () => {
       try {
         const res = await fetch(`/api/live?trainNumber=${selectedTrainNo}`);
-        if (!res.ok) return;
+        if (!res.ok) {
+          if (active) setError('Unable to sync live corridor telemetry.');
+          return;
+        }
         const data = await res.json();
         if (active && data.telemetry) {
           setTelemetry(data.telemetry);
+          setError(null);
         }
       } catch {
-        // ignore transient errors
+        if (active) setError('Network issue syncing telemetry. Retrying automatically...');
+      } finally {
+        if (active) setLoading(false);
       }
     };
 
@@ -100,9 +110,15 @@ export default function LiveTrackingPage() {
                 <Gauge className="h-3.5 w-3.5 text-[#D4FF3F]" />
                 {telemetry?.currentSpeedKmph ?? train.avgSpeedKmph} km/h
               </span>
-              <span>{telemetry?.istTime || 'Syncing IST...'}</span>
+              <span>{loading ? 'Loading feed...' : telemetry?.istTime || 'Syncing IST...'}</span>
             </div>
           </div>
+
+          {error && (
+            <div role="alert" className="rounded-lg border border-[var(--error)]/40 bg-[var(--error)]/10 px-3 py-2 text-xs text-[var(--error)]">
+              {error}
+            </div>
+          )}
 
           {/* Interactive SVG Railway Map */}
           <div className="relative rounded-xl border border-[#2A2D35] bg-[#17191F] p-6 min-h-[300px] flex flex-col justify-between">

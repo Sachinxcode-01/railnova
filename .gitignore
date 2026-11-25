@@ -1,5 +1,6 @@
 # dependencies
 /node_modules
+/node_modules_bak_*/
 /.pnp
 .pnp.*
 .yarn/*
@@ -31,6 +32,9 @@ yarn-error.log*
 # env files
 .env
 .env*.local
+
+# database backups
+/data/backups/
 
 # vercel
 .vercel
